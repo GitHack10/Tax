@@ -6,4 +6,22 @@
 
     <color name="blueGradientLight">#3381F5</color>
     <color name="blueGradientDark">#0D5BCF</color>
+
+    <color name="colorButtonDisabled">#F5F7FC</color>
+    <color name="colorButtonEnabledPressed">#80E66400</color>
+
+    <color name="colorTextPrimary">#969FA2</color>
+    <color name="colorTextButton">#FFFFFF</color>
+    <color name="colorTextBody">#58606F</color>
+    <color name="colorTextHint">#ADB8CC</color>
+    <color name="colorTextRed">#F21616</color>
+    <color name="colorTextGreen">#00B730</color>
+
+    <color name="homeLine">#EFF1F6</color>
+    <color name="line">#E4E6EA</color>
+    <color name="radioLine">#CED2D9</color>
+
+    <color name="backgroundHome">#F9FAFB</color>
+    <color name="colorLightGradient">#4A52C3</color>
+    <color name="colorDarkGradient">#343A90</color>
 </resources>
