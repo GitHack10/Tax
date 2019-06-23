@@ -1,10 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
+             android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
              tools:context=".presentation.screens.profile.ui.ProfileFragment">
 
-    <include layout="@layout/toolbar_profile"/>
+    <include
+        android:id="@+id/Toolbar_profileFragment"
+        layout="@layout/toolbar_profile" />
 
-</FrameLayout>
+    <ScrollView
+            android:id="@+id/ScrollView_profileFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Toolbar_profileFragment">
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ru.diitcenter.orion.presentation.global.util.CustomErrorEditText
+                    android:id="@+id/EditText_profileFragment_firstName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/edittext_horizontal_margin"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="@dimen/edittext_horizontal_margin"
+                    android:fontFamily="@font/sf_pro_display_regular"
+                    app:CustomErrorHint="@string/first_name"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/colorTextHint"
+                    android:textSize="@dimen/text_mid"
+                    android:theme="@style/CustomEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <ru.diitcenter.orion.presentation.global.util.CustomErrorEditText
+                    android:id="@+id/EditText_profileFragment_lastName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/edittext_horizontal_margin"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="@dimen/edittext_horizontal_margin"
+                    android:fontFamily="@font/sf_pro_display_regular"
+                    app:CustomErrorHint="@string/last_name"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/colorTextHint"
+                    android:textSize="@dimen/text_mid"
+                    android:theme="@style/CustomEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/EditText_profileFragment_firstName" />
+
+            <EditText
+                    android:id="@+id/EditText_profileFragment_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/edittext_horizontal_margin"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="@dimen/edittext_horizontal_margin"
+                    android:clickable="false"
+                    android:drawableEnd="@drawable/ic_lock"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="@string/phone"
+                    android:textColor="@color/colorTextHint"
+                    android:textColorHint="@color/colorTextHint"
+                    android:textSize="@dimen/text_mid"
+                    android:theme="@style/CustomEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/EditText_profileFragment_lastName" />
+
+            <EditText
+                    android:id="@+id/EditText_profileFragment_birthDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/edittext_horizontal_margin"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="@dimen/edittext_horizontal_margin"
+                    android:clickable="false"
+                    android:drawableEnd="@drawable/ic_lock"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="@string/birth_date"
+                    android:textColor="@color/colorTextHint"
+                    android:textColorHint="@color/colorTextHint"
+                    android:textSize="@dimen/text_mid"
+                    android:theme="@style/CustomEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/EditText_profileFragment_phone" />
+
+            <TextView
+                    android:id="@+id/TextView_profileFragment_genderTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:text="@string/gender"
+                    android:textColor="@color/colorTextHint"
+                    android:textSize="@dimen/text_mid"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/EditText_profileFragment_birthDate" />
+
+            <TextView
+                    android:id="@+id/TextView_profileFragment_gender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_mid"
+                    tools:text="Мужской"
+                    android:drawableEnd="@drawable/ic_lock"
+                    app:layout_constraintTop_toBottomOf="@+id/TextView_profileFragment_genderTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            <FrameLayout
+                    android:id="@+id/FrameLayout_profileFragment_saveChanges"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/button_horizontal_margin"
+                    android:layout_marginEnd="@dimen/button_horizontal_margin"
+                    android:paddingTop="24dp"
+                    android:layout_marginBottom="40dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                <Button
+                        android:id="@+id/Button_profileFragment_saveChanges"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="@string/profile_save"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorTextHint"
+                        android:textSize="@dimen/text_premid"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:background="@drawable/ripple_button_enabled" />
+            </FrameLayout>
+
+            <ProgressBar
+                    android:id="@+id/ProgressBar_profileFragment_saveChanges"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="@dimen/progressbar_padding_end"
+                    android:theme="@style/CustomProgressBar"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@id/FrameLayout_profileFragment_saveChanges"
+                    app:layout_constraintEnd_toEndOf="@id/FrameLayout_profileFragment_saveChanges"
+                    app:layout_constraintTop_toTopOf="@id/FrameLayout_profileFragment_saveChanges"
+                    tools:visibility="visible" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

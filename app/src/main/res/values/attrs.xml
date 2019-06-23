@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomErrorEditText">
+        <attr name="PaddingEnd" format="dimension" />
+        <attr name="PaddingStart" format="dimension" />
+        <attr name="PaddingTop" format="dimension" />
+        <attr name="PaddingBottom" format="dimension" />
+        <attr name="CustomErrorDigits" format="string" />
+        <attr name="CustomErrorHint" format="string" />
+        <attr name="ClickableDrawableEndVisibility" format="flags">
+            <flag name="visible" value="1" />
+            <flag name="gone" value="2" />
+        </attr>
+        <attr name="ClickableDrawableEndSrc" format="reference" />
+        <attr name="ClickableDrawableEndAlpha" format="float" />
+        <!--значения отсюда должны совпадать со значениями констант класса InputType, иначе этот атрибут бесполезен-->
+        <attr name="CustomErrorInputType" format="flags">
+            <flag name="textNoSuggestions" value="524288" />
+            <flag name="textPassword" value="128" />
+            <flag name="classText" value="1" />
+            <flag name="phone" value="3" />
+        </attr>
+        <attr name="CustomErrorDrawableNormal" format="reference" />
+        <attr name="CustomErrorDrawableError" format="reference" />
+        <attr name="CustomErrorText" format="string" />
+    </declare-styleable>
+</resources>
