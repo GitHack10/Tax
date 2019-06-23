@@ -9,6 +9,6 @@
 
     <!-- Лого приложения - векторная версия иконки приложения -->
     <item
-        android:drawable="@drawable/ic_splash"
+        android:drawable="@drawable/ic_appname"
         android:gravity="center"/>
 </layer-list>

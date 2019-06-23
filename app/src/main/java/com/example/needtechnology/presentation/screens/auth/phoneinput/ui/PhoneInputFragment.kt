@@ -7,24 +7,29 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
-import com.example.needtechnology.presentation.screens.auth.phoneinput.mvp.PhoneInputView
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
+import com.example.needtechnology.di.global.nameds.PHONE_INPUT_FLOW
+import com.example.needtechnology.di.global.nameds.PHONE_INPUT_FLOW_NAVIGATOR_HOLDER
 import com.example.needtechnology.presentation.global.base.FlowFragment
 import com.example.needtechnology.presentation.global.utils.setWhiteStyleWindow
 import com.example.needtechnology.presentation.screens.auth.phoneinput.mvp.PhoneInputPresenter
+import com.example.needtechnology.presentation.screens.auth.phoneinput.mvp.PhoneInputView
+import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.HasSupportFragmentInjector
 import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
+import javax.inject.Named
 
 class PhoneInputFragment : FlowFragment(), PhoneInputView, HasSupportFragmentInjector {
     override val container = R.id.phone_input_container
     override val layoutRes = R.layout.fragment_phone_input
 
-    override fun supportFragmentInjector() = fragmentInjector
-
     @Inject
+    @field:Named(PHONE_INPUT_FLOW)
     override lateinit var navigatorHolder: NavigatorHolder
+
+    lateinit var navigator: SupportAppNavigator
 
     @Inject
     lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
@@ -39,6 +44,7 @@ class PhoneInputFragment : FlowFragment(), PhoneInputView, HasSupportFragmentInj
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
+        navigator = SupportAppNavigator(activity, childFragmentManager, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,4 +56,8 @@ class PhoneInputFragment : FlowFragment(), PhoneInputView, HasSupportFragmentInj
     private fun initViews() {
 
     }
+
+    override fun supportFragmentInjector() = fragmentInjector
+
+    override fun onBackPressed() = presenter.onBackPressed()
 }

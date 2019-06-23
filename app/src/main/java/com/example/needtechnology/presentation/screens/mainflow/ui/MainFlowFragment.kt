@@ -8,6 +8,7 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
+import com.example.needtechnology.di.global.nameds.MAIN_FLOW
 import com.example.needtechnology.presentation.global.base.FlowFragment
 import com.example.needtechnology.presentation.global.utils.setWhiteStyleWindow
 import com.example.needtechnology.presentation.screens.mainflow.mvp.MainFlowPresenter
@@ -17,16 +18,19 @@ import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.fragment_main_flow.*
 import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
+import javax.inject.Named
 
 class MainFlowFragment : FlowFragment(), MainFlowView, HasSupportFragmentInjector {
     override val container = R.id.main_flow_container
     override val layoutRes = R.layout.fragment_main_flow
 
-    override fun supportFragmentInjector() = fragmentInjector
-
     @Inject
+    @field:Named(MAIN_FLOW)
     override lateinit var navigatorHolder: NavigatorHolder
+
+    lateinit var navigator: SupportAppNavigator
 
     @Inject
     lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
@@ -35,8 +39,7 @@ class MainFlowFragment : FlowFragment(), MainFlowView, HasSupportFragmentInjecto
     @InjectPresenter
     lateinit var presenter: MainFlowPresenter
 
-    @ProvidePresenter
-    fun providePresenter() = presenter
+    @ProvidePresenter fun providePresenter() = presenter
 
     // ui
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -47,6 +50,7 @@ class MainFlowFragment : FlowFragment(), MainFlowView, HasSupportFragmentInjecto
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
+        navigator = SupportAppNavigator(activity, childFragmentManager, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,26 +69,30 @@ class MainFlowFragment : FlowFragment(), MainFlowView, HasSupportFragmentInjecto
             when (item.itemId) {
                 R.id.action_home -> {
                     selectedScreen = 1
-                    presenter.homeTabClicked(selectedScreen)
+                    presenter.homeTabClicked()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.action_checklist -> {
                     selectedScreen = 2
-                    presenter.checklistTabClicked(selectedScreen)
+                    presenter.checklistTabClicked()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.action_news -> {
                     selectedScreen = 3
-                    presenter.newsTabClicked(selectedScreen)
+                    presenter.newsTabClicked()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.action_profile -> {
                     selectedScreen = 4
-                    presenter.profileTabClicked(selectedScreen)
+                    presenter.profileTabClicked()
                     return@setOnNavigationItemSelectedListener true
                 }
             }
             false
         }
     }
+
+    override fun supportFragmentInjector() = fragmentInjector
+
+    override fun onBackPressed() = currentFragment?.onBackPressed() ?: presenter.onBackPressed()
 }

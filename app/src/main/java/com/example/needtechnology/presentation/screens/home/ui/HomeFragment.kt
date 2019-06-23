@@ -1,4 +1,4 @@
-package com.example.needtechnology.presentation.screens.home
+package com.example.needtechnology.presentation.screens.home.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
 import com.example.needtechnology.presentation.global.base.BaseFragment
+import com.example.needtechnology.presentation.screens.home.mvp.HomePresenter
+import com.example.needtechnology.presentation.screens.home.mvp.HomeView
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
@@ -40,5 +42,9 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector {
 
     private fun initViews() {
 
+    }
+
+    override fun onBackPressed() {
+        presenter.onBackPressed()
     }
 }

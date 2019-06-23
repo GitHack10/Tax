@@ -44,4 +44,8 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
     private fun initViews() {
 
     }
+
+    override fun onBackPressed() {
+        presenter.onBackPressed()
+    }
 }

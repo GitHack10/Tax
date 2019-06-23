@@ -1,5 +1,6 @@
 package com.example.needtechnology.presentation.global.base
 
+import com.example.needtechnology.presentation.global.navigation.SupportHelperNavigator
 import ru.terrakok.cicerone.NavigatorHolder
 
 /** Абстрактный клас для фрагментов, содержащие дочерние фрагменты */
@@ -13,4 +14,20 @@ abstract class FlowFragment : BaseFragment() {
         get() = childFragmentManager.findFragmentById(container) as? BaseFragment
 
     protected abstract val navigatorHolder: NavigatorHolder
+
+    override fun onResume() {
+        super.onResume()
+        navigatorHolder.setNavigator(
+            SupportHelperNavigator(
+                this.activity,
+                childFragmentManager,
+                container
+            )
+        )
+    }
+
+    override fun onPause() {
+        navigatorHolder.removeNavigator()
+        super.onPause()
+    }
 }

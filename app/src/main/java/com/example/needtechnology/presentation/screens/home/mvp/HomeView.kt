@@ -1,4 +1,4 @@
-package com.example.needtechnology.presentation.screens.home
+package com.example.needtechnology.presentation.screens.home.mvp
 
 import com.arellomobile.mvp.MvpView
 

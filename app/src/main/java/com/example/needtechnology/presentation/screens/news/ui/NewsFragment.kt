@@ -43,4 +43,8 @@ class NewsFragment : BaseFragment(), NewsView, HasSupportFragmentInjector {
     private fun initViews() {
 
     }
+
+    override fun onBackPressed() {
+        presenter.onBackPressed()
+    }
 }
