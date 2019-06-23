@@ -9,6 +9,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
 import com.example.needtechnology.presentation.global.base.FlowFragment
+import com.example.needtechnology.presentation.global.utils.setWhiteStyleWindow
 import com.example.needtechnology.presentation.screens.mainflow.mvp.MainFlowPresenter
 import com.example.needtechnology.presentation.screens.mainflow.mvp.MainFlowView
 import dagger.android.DispatchingAndroidInjector
@@ -50,6 +51,7 @@ class MainFlowFragment : FlowFragment(), MainFlowView, HasSupportFragmentInjecto
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setWhiteStyleWindow(view, activity!!)
         initBottomView()
     }
 

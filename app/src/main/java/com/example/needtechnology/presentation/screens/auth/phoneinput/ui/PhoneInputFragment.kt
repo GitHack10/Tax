@@ -11,6 +11,7 @@ import com.example.needtechnology.presentation.screens.auth.phoneinput.mvp.Phone
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import com.example.needtechnology.presentation.global.base.FlowFragment
+import com.example.needtechnology.presentation.global.utils.setWhiteStyleWindow
 import com.example.needtechnology.presentation.screens.auth.phoneinput.mvp.PhoneInputPresenter
 import dagger.android.support.AndroidSupportInjection
 import ru.terrakok.cicerone.NavigatorHolder
@@ -42,6 +43,7 @@ class PhoneInputFragment : FlowFragment(), PhoneInputView, HasSupportFragmentInj
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setWhiteStyleWindow(view, activity!!)
         initViews()
     }
 
