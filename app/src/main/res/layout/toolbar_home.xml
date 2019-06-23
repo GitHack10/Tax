@@ -4,7 +4,7 @@
     android:id="@+id/Toolbar_home"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:background="@drawable/background_app">
+    tools:background="@android:color/transparent">
 
     <RelativeLayout
         android:layout_width="match_parent"

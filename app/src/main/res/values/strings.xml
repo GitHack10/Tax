@@ -13,7 +13,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="auth_title">Авторизация</string>
     <string name="auth_subtitle">Войдите или зарегистрируйтесь \nпо номеру телефона</string>
-    <string name="phone">9001234567</string>
+    <string name="phone">Номер телефона</string>
     <string name="auth_next">Далее</string>
     <string name="sign_up_complete">Завершить</string>
 
@@ -27,6 +27,7 @@
     <string name="registration_subtitle">Заполните поля для регистрации\nбонусной карты</string>
     <string name="first_name">Имя</string>
     <string name="last_name">Фамилия</string>
+    <string name="middle_name">Отчество</string>
     <string name="birth_date">Дата рождения</string>
     <string name="gender">Пол</string>
     <string name="male">Мужской</string>
@@ -100,4 +101,5 @@
     <string name="cardinfo_item2_subtitle">Используйте баллы для получения скидки\nдо 50% от суммы заказа.</string>
     <string name="cardinfo_item3_title">1 балл = 1 рубль</string>
     <string name="cardinfo_item3_subtitle">Например, если на вашей карте собралось 200\nбаллов, и вы не знаете сколько это, то ответ\nочевиден — 200 рублей.</string>
+    <string name="edit_profile">Редактировать профиль</string>
 </resources>
