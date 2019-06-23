@@ -23,21 +23,14 @@
     <string name="send_code">Отправить код</string>
     <string name="password">3434</string>
 
-    <string name="registration_title">Регистрация карты</string>
-    <string name="registration_subtitle">Заполните поля для регистрации\nбонусной карты</string>
-    <string name="first_name">Имя</string>
     <string name="last_name">Фамилия</string>
+    <string name="first_name">Имя</string>
     <string name="middle_name">Отчество</string>
     <string name="birth_date">Дата рождения</string>
     <string name="gender">Пол</string>
     <string name="male">Мужской</string>
     <string name="female">Женский</string>
     <string name="done">Готово</string>
-
-    <string name="home_title">№ 600 000</string>
-    <string name="pay_with_points">Оплатить баллами</string>
-    <string name="short_points">%s</string>
-    <string name="points">баллов</string>
 
     <string name="profile_title">Личный кабинет</string>
     <string name="upload_photo">Загрузите\nфото</string>
@@ -54,28 +47,15 @@
     <string name="errorLoadingData">Ошибка соедения с сервером</string>
     <string name="cancel">Отмена</string>
 
-    <string name="show_the_qrcode">Покажите QR-код официанту</string>
-    <string name="history_transactions">История платежей</string>
+    <string name="history_transactions">История покупок</string>
     <string name="today">Сегодня</string>
     <string name="yesterday">Вчера</string>
     <string name="last_transactions">Последние платежи</string>
-    <string name="restaurants_title">Заведения</string>
-    <string name="call_restaurant">Позвонить</string>
-
-    <string name="cardinfo_title">Бонусная система</string>
-
-    <string name="notifications_title">Уведомления</string>
 
     <plurals name="number_of_seconds">
         <item quantity="one">%d секунда</item>
         <item quantity="few">%d секунды</item>
         <item quantity="other">%d секунд</item>
-    </plurals>
-
-    <plurals name="number_of_points">
-        <item quantity="one">балл</item>
-        <item quantity="few">балла</item>
-        <item quantity="other">баллов</item>
     </plurals>
 
     <string-array name="array_months">
@@ -93,13 +73,5 @@
         <item>Декабря</item>
     </string-array>
 
-    <string name="cardinfo_item1_title">Копите баллы</string>
-    <string name="cardinfo_item1_subtitle1">10% от счета в заведениях «‎Orion group»</string>
-    <string name="cardinfo_item1_subtitle2">20% от счета в день рождения и две недели после</string>
-    <string name="cardinfo_item1_subtitle3">15% от счета за заказы с собой</string>
-    <string name="cardinfo_item2_title">Оплачивайте баллами</string>
-    <string name="cardinfo_item2_subtitle">Используйте баллы для получения скидки\nдо 50% от суммы заказа.</string>
-    <string name="cardinfo_item3_title">1 балл = 1 рубль</string>
-    <string name="cardinfo_item3_subtitle">Например, если на вашей карте собралось 200\nбаллов, и вы не знаете сколько это, то ответ\nочевиден — 200 рублей.</string>
     <string name="edit_profile">Редактировать профиль</string>
 </resources>
