@@ -17,4 +17,16 @@ class ProfileInteractor @Inject constructor(
         prefs.birth,
         prefs.gender
     )
+
+    fun clearUserData() {
+        prefs.username = ""
+        prefs.phone = ""
+        prefs.email = ""
+        prefs.birth = ""
+        prefs.gender = ""
+    }
+
+    fun setIsLogin(isLogout: Boolean) {
+        prefs.isLogin = isLogout
+    }
 }

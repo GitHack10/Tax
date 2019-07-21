@@ -3,6 +3,7 @@ package com.example.needtechnology.presentation.screens.profile.mvp
 import com.arellomobile.mvp.InjectViewState
 import com.example.needtechnology.domain.global.UserInfo
 import com.example.needtechnology.domain.profile.ProfileInteractor
+import com.example.needtechnology.presentation.global.Screens
 import com.example.needtechnology.presentation.global.base.BasePresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -17,5 +18,11 @@ class ProfilePresenter @Inject constructor(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.showUserInfo(interactor.getUserInfo())
+    }
+
+    fun onLogoutClicked() {
+        interactor.clearUserData()
+        interactor.setIsLogin(false)
+        appRouter.newRootScreen(Screens.SignIn())
     }
 }

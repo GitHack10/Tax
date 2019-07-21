@@ -15,9 +15,6 @@ class AuthInteractor @Inject constructor(
         .signInRequest(authData)
         .observeOn(ui)
 
-    fun savePhoneInMemory(phone: String) {
-        prefs.phone = phone
-    }
 
     fun saveUserInfo(userInfo: UserInfo) {
         prefs.username = userInfo.name ?: ""
@@ -25,5 +22,9 @@ class AuthInteractor @Inject constructor(
         prefs.phone = userInfo.phone ?: ""
         prefs.birth = userInfo.birth ?: ""
         prefs.gender= userInfo.gender ?: ""
+    }
+
+    fun setIsLogin(isLogin: Boolean) {
+        prefs.isLogin = isLogin
     }
 }

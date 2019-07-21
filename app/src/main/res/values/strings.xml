@@ -76,4 +76,5 @@
     <string name="edit_profile">Редактировать профиль</string>
     <string name="incorrect_auth_data">Неверный E-mail или Пароль</string>
     <string name="sign_up_subtitle">Заполните поля\nдля регистрации аккаунта</string>
+    <string name="profile_logout">Выход</string>
 </resources>

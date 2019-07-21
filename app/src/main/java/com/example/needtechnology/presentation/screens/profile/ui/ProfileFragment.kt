@@ -10,12 +10,14 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
 import com.example.needtechnology.domain.global.UserInfo
 import com.example.needtechnology.presentation.global.base.BaseFragment
+import com.example.needtechnology.presentation.global.dialogscreens.TwoActionAlertDialog
 import com.example.needtechnology.presentation.screens.profile.mvp.ProfilePresenter
 import com.example.needtechnology.presentation.screens.profile.mvp.ProfileView
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector {
@@ -51,6 +53,38 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
 
     private fun init() {
         setupToolbar(getString(R.string.menu_profile))
+        setupToolbarMenu()
+    }
+
+    private fun setupToolbarMenu() {
+        menuIconPlaceholder.visibility = View.GONE
+        toolbar.run {
+            // Не добавляет меню, если уже имеется
+            if (menu.size() <= 0) {
+                inflateMenu(R.menu.logout_profle)
+                setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.menu_profile_logout -> {
+                            showLogoutAlert()
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showLogoutAlert() {
+        TwoActionAlertDialog(
+            texLeftButton = getString(R.string.btn_cancel),
+            textRightButton = getString(R.string.btn_yes),
+            titleText = getString(R.string.exit_dialog_text),
+            buttonRightDialogClickListener = {
+                presenter.onLogoutClicked()
+            }
+        ).show(fragmentManager, "TwoActionAlertDialog")
     }
 
     override fun onBackPressed() {

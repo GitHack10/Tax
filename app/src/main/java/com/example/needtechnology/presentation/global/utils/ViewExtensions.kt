@@ -17,7 +17,7 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false):
  * иначе (если вызвать до) не будет работать, потому что `setOnClickListener` изменяет значение `isClickable`.
  */
 fun View.accessible(access: Boolean) {
-    val background = if (access) R.drawable.button_enabled else R.color.button_disabled
+    val background = if (access) R.drawable.button_enabled else R.drawable.button_disabled
     setBackgroundResource(background)
     isClickable = access
 }

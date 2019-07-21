@@ -21,7 +21,7 @@ class AppPresenter @Inject constructor(
     private fun login() {
         if (interactor.getPhone().isNotEmpty() && interactor.isLogin()) {
             appRouter.replaceScreen(Screens.MainFlow())
-        } else appRouter.replaceScreen(Screens.Auth())
+        } else appRouter.replaceScreen(Screens.SignIn())
     }
 
     override fun onBackPressed() = appRouter.exit()

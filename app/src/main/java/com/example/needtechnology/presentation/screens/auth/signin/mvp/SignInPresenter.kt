@@ -28,6 +28,7 @@ class SignInPresenter @Inject constructor(
                 gender = "Мужской"
             )
             interactor.saveUserInfo(userInfo)
+            interactor.setIsLogin(true)
 
             navigateToHomeScreen()
         } else {
@@ -42,6 +43,6 @@ class SignInPresenter @Inject constructor(
     override fun onBackPressed() = flowRouter.exitFlow()
 
     fun registrationClicked() {
-        flowRouter.navigateToFlow(Screens.Registration())
+        flowRouter.navigateToFlow(Screens.SignUp())
     }
 }

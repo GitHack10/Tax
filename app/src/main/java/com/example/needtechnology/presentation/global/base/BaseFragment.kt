@@ -25,8 +25,9 @@ abstract class BaseFragment : MvpAppCompatFragment() {
         val toolbar: Toolbar? = findOptional(R.id.toolbar)
         toolbar?.run {
             if (showNavIcon) {
+                setNavigationIcon(R.drawable.ic_back)
                 setNavigationOnClickListener { onBackPressed() }
-                navIconPlaceholder.visibility = View.INVISIBLE
+                navIconPlaceholder.visibility = View.GONE
             }
             titleText.text = title
         }

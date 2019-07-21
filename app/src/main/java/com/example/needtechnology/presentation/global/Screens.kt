@@ -13,15 +13,11 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object Screens {
 
-    class Auth : SupportAppScreen() {
+    class SignIn : SupportAppScreen() {
         override fun getFragment() = SignInFragment()
     }
 
-//    class PasswordInput(private val phone: String) : SupportAppScreen() {
-//        override fun getFragment() = PasswordInputFragmentBuilder(phone).build()
-//    }
-
-    class Registration : SupportAppScreen() {
+    class SignUp : SupportAppScreen() {
         override fun getFragment() = SignUpFragment()
     }
 
