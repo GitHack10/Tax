@@ -13,5 +13,9 @@
     <color name="hintTitle">#ADB8CC</color>
     <color name="textDescription">#58606F</color>
 
+    <color name="button_disabled">#DADADA</color>
+
     <color name="divider_item">#C2C2C2</color>
+    <color name="buttonEnabledPressed">#255FB7</color>
+    <color name="error">#F21616</color>
 </resources>
