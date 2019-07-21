@@ -1,6 +1,7 @@
 package com.example.needtechnology.presentation.global
 
-import com.example.needtechnology.presentation.screens.auth.phoneinput.ui.PhoneInputFragment
+import com.example.needtechnology.presentation.screens.auth.signin.ui.SignInFragment
+import com.example.needtechnology.presentation.screens.auth.signup.ui.SignUpFragment
 import com.example.needtechnology.presentation.screens.checklist.ui.ChecklistFragment
 import com.example.needtechnology.presentation.screens.home.ui.HomeFragment
 import com.example.needtechnology.presentation.screens.mainflow.ui.MainFlowFragment
@@ -12,17 +13,17 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object Screens {
 
-    class PhoneInput : SupportAppScreen() {
-        override fun getFragment() = PhoneInputFragment()
+    class Auth : SupportAppScreen() {
+        override fun getFragment() = SignInFragment()
     }
 
 //    class PasswordInput(private val phone: String) : SupportAppScreen() {
 //        override fun getFragment() = PasswordInputFragmentBuilder(phone).build()
 //    }
 
-//    class Registration : SupportAppScreen() {
-//        override fun getFragment() = RegistrationFragment()
-//    }
+    class Registration : SupportAppScreen() {
+        override fun getFragment() = SignUpFragment()
+    }
 
     class MainFlow : SupportAppScreen() {
         override fun getFragment() = MainFlowFragment()

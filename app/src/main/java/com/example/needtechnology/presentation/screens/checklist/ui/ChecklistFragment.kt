@@ -38,11 +38,11 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
+        init()
     }
 
-    private fun initViews() {
-
+    private fun init() {
+        setupToolbar(getString(R.string.menu_checklist))
     }
 
     override fun onBackPressed() {

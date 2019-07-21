@@ -37,11 +37,11 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
+        init()
     }
 
-    private fun initViews() {
-
+    private fun init() {
+        setupToolbar(getString(R.string.menu_home))
     }
 
     override fun onBackPressed() {

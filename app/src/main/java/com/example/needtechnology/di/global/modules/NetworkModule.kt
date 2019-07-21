@@ -1,16 +1,16 @@
 package com.example.needtechnology.di.global.modules
 
-import com.example.needtechnology.data.global.NEEDTECHNOLOGY_BASE_URL
-import com.example.needtechnology.data.global.netwotk.ApiNeedTechnology
+import android.content.Context
+import com.example.needtechnology.data.global.BASE_URL
+import com.example.needtechnology.data.global.netwotk.ApiBusinessDag
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import javax.inject.Singleton
 
 /** Created by Kamil Abdulatipov on 22.06.2019. */
@@ -18,13 +18,20 @@ import javax.inject.Singleton
 @Module
 object NetworkModule {
 
-    private val gson: GsonConverterFactory = GsonConverterFactory.create()
+    @Provides
+    @Singleton
+    @JvmStatic
+    fun provideOkHttpCache(context: Context) = Cache(
+        context.cacheDir,
+        10 * 1024 * 1024 // 10 MiB
+    )
 
     @Provides
     @Singleton
     @JvmStatic
-    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient = OkHttpClient.Builder()
+    fun provideOkHttpClient(cache: Cache, interceptor: HttpLoggingInterceptor): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(interceptor)
+        .cache(cache)
         .build()
 
     @Provides
@@ -41,10 +48,9 @@ object NetworkModule {
         okHttpClient: OkHttpClient,
         rxJava2CallAdapterFactory: RxJava2CallAdapterFactory
     ): Retrofit = Retrofit.Builder()
-        .baseUrl(NEEDTECHNOLOGY_BASE_URL)
+        .baseUrl(BASE_URL)
         .client(okHttpClient)
-        .addConverterFactory(ScalarsConverterFactory.create())
-        .addConverterFactory(SimpleXmlConverterFactory.createNonStrict())
+        .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(rxJava2CallAdapterFactory)
         .build()
 
@@ -58,5 +64,5 @@ object NetworkModule {
     @Provides
     @Singleton
     @JvmStatic
-    fun provideNeedTechnologyApi(retrofit: Retrofit) = retrofit.create(ApiNeedTechnology::class.java)
+    fun provideTaxApi(retrofit: Retrofit) = retrofit.create(ApiBusinessDag::class.java)
 }

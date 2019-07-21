@@ -5,6 +5,8 @@
              android:layout_height="match_parent"
              tools:context=".presentation.screens.checklist.ui.ChecklistFragment">
 
-    <include layout="@layout/toolbar_checklist"/>
+    <include
+        android:id="@+id/checklistToolbar"
+        layout="@layout/toolbar"/>
 
 </FrameLayout>

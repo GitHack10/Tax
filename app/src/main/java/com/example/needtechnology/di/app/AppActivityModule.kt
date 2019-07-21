@@ -2,16 +2,16 @@ package com.example.needtechnology.di.app
 
 import com.example.needtechnology.di.global.scopes.FlowFragmentScope
 import com.example.needtechnology.di.global.scopes.FragmentScope
-import com.example.needtechnology.di.screens.auth.passwordinput.PasswordInputNavigationModule
-import com.example.needtechnology.di.screens.auth.phoneinput.PhoneInputNavigationModule
+import com.example.needtechnology.di.screens.auth.signin.SignInNavigationModule
+import com.example.needtechnology.di.screens.auth.signup.SignUpNavigationModule
 import com.example.needtechnology.di.screens.checklist.ChecklistModule
 import com.example.needtechnology.di.screens.home.HomeModule
 import com.example.needtechnology.di.screens.mainflow.MainFlowModule
 import com.example.needtechnology.di.screens.mainflow.MainFlowNavigationModule
 import com.example.needtechnology.di.screens.news.NewsModule
 import com.example.needtechnology.di.screens.profile.ProfileModule
-import com.example.needtechnology.presentation.screens.auth.passwordinput.ui.PasswordInputFragment
-import com.example.needtechnology.presentation.screens.auth.phoneinput.ui.PhoneInputFragment
+import com.example.needtechnology.presentation.screens.auth.signin.ui.SignInFragment
+import com.example.needtechnology.presentation.screens.auth.signup.ui.SignUpFragment
 import com.example.needtechnology.presentation.screens.checklist.ui.ChecklistFragment
 import com.example.needtechnology.presentation.screens.home.ui.HomeFragment
 import com.example.needtechnology.presentation.screens.mainflow.ui.MainFlowFragment
@@ -26,12 +26,12 @@ import dagger.android.ContributesAndroidInjector
 interface AppActivityModule {
 
     @FlowFragmentScope
-    @ContributesAndroidInjector(modules = [PhoneInputNavigationModule::class])
-    fun contributePhoneInputFragment(): PhoneInputFragment
+    @ContributesAndroidInjector(modules = [SignInNavigationModule::class])
+    fun contributeSignInFragment(): SignInFragment
 
     @FlowFragmentScope
-    @ContributesAndroidInjector(modules = [PasswordInputNavigationModule::class])
-    fun contributePasswordInputFragment(): PasswordInputFragment
+    @ContributesAndroidInjector(modules = [SignUpNavigationModule::class])
+    fun contributeSignUpFragment(): SignUpFragment
 
     @FlowFragmentScope
     @ContributesAndroidInjector(modules = [MainFlowModule::class, MainFlowNavigationModule::class])

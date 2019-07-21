@@ -8,12 +8,14 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
+import com.example.needtechnology.domain.global.UserInfo
 import com.example.needtechnology.presentation.global.base.BaseFragment
 import com.example.needtechnology.presentation.screens.profile.mvp.ProfilePresenter
 import com.example.needtechnology.presentation.screens.profile.mvp.ProfileView
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
+import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector {
@@ -38,11 +40,17 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
+        init()
     }
 
-    private fun initViews() {
+    override fun showUserInfo(userInfo: UserInfo) {
+        text_profile_userName.text = userInfo.name
+        text_profile_email.text = userInfo.email
+        text_profile_phone.text = userInfo.phone
+    }
 
+    private fun init() {
+        setupToolbar(getString(R.string.menu_profile))
     }
 
     override fun onBackPressed() {
