@@ -5,10 +5,10 @@
     android:opacity="opaque">
 
     <!-- Цвет фона, предпочтительно как в главной теме -->
-    <item android:drawable="@drawable/background_splash" />
+    <item android:drawable="@android:color/white" />
 
     <!-- Лого приложения - векторная версия иконки приложения -->
     <item
-        android:drawable="@drawable/ic_app"
-        android:gravity="center"/>
+            android:drawable="@drawable/ic_app"
+            android:gravity="center"/>
 </layer-list>
