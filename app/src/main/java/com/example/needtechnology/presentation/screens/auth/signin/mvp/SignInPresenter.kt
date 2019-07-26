@@ -17,17 +17,8 @@ class SignInPresenter @Inject constructor(
     private var userInfo: UserInfo
 ) : BasePresenter<SignInView>(flowRouter) {
 
-
     fun signInClicked(email: String, password: String) {
         if (password == "111222") {
-            val userInfo = UserInfo(
-                name = "Магомедов Магомед",
-                phone = "9001234567",
-                email = email,
-                birth = "1 января 1989",
-                gender = "Мужской"
-            )
-            interactor.saveUserInfo(userInfo)
             interactor.setIsLogin(true)
 
             navigateToHomeScreen()
