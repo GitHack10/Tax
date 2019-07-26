@@ -11,11 +11,11 @@
         layout="@layout/toolbar" />
 
     <ScrollView
-        android:id="@+id/ScrollView_profileFragment"
+        android:id="@+id/profileScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
         android:fillViewport="true"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,10 +23,11 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp">
 
             <TextView
-                android:id="@+id/text_profile_userNameHint"
+                android:id="@+id/usernameTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -39,124 +40,211 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/text_profile_userName"
+            <EditText
+                android:id="@+id/usernameEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:background="@null"
+                android:singleLine="true"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/text_mid"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_profile_userNameHint"
+                app:layout_constraintTop_toBottomOf="@+id/usernameTextView"
                 tools:text="Магомедов Магомед Магомедович" />
 
             <View
-                android:id="@+id/view_home_dividerUserName"
+                android:id="@+id/dividerUserName"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/divider_item"
-                app:layout_constraintTop_toBottomOf="@+id/text_profile_userName" />
+                app:layout_constraintTop_toBottomOf="@+id/usernameEdit" />
 
             <TextView
-                android:id="@+id/text_profile_emailHint"
+                android:id="@+id/emailTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/email_hint"
+                android:text="@string/email"
                 android:textColor="@color/hintTitle"
                 android:textSize="@dimen/text_premid"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_home_dividerUserName" />
+                app:layout_constraintTop_toBottomOf="@+id/dividerUserName" />
 
-            <TextView
-                android:id="@+id/text_profile_email"
+            <EditText
+                android:id="@+id/emailEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:background="@null"
+                android:singleLine="true"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/text_mid"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_profile_emailHint"
+                app:layout_constraintTop_toBottomOf="@+id/emailTextView"
                 tools:text="magomedov_m@gmail.com" />
 
             <View
-                android:id="@+id/view_home_dividerEmail"
+                android:id="@+id/dividerEmail"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/divider_item"
-                app:layout_constraintTop_toBottomOf="@+id/text_profile_email" />
+                app:layout_constraintTop_toBottomOf="@+id/emailEdit" />
 
             <TextView
-                android:id="@+id/text_profile_phoneHint"
+                android:id="@+id/phoneTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/phone_hint"
+                android:text="@string/phone"
                 android:textColor="@color/hintTitle"
                 android:textSize="@dimen/text_premid"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_home_dividerEmail" />
+                app:layout_constraintTop_toBottomOf="@+id/dividerEmail" />
 
-            <TextView
-                android:id="@+id/text_profile_phone"
+            <EditText
+                android:id="@+id/phoneEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:background="@null"
+                android:drawableEnd="@drawable/ic_lock"
+                android:focusable="false"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/text_mid"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_profile_phoneHint"
+                app:layout_constraintTop_toBottomOf="@+id/phoneTextView"
                 tools:text="+ 7(900)-123-45-67" />
 
             <View
-                android:id="@+id/view_home_dividerPhone"
+                android:id="@+id/dividerPhone"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/divider_item"
-                app:layout_constraintTop_toBottomOf="@+id/text_profile_phone" />
+                app:layout_constraintTop_toBottomOf="@+id/phoneEdit" />
 
-            <!--<FrameLayout-->
-                <!--android:id="@+id/FrameLayout_profileFragment_saveChanges"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginStart="16dp"-->
-                <!--android:layout_marginEnd="16dp"-->
-                <!--android:layout_marginBottom="40dp"-->
-                <!--android:paddingTop="24dp"-->
-                <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--app:layout_constraintEnd_toEndOf="parent"-->
-                <!--app:layout_constraintStart_toStartOf="parent">-->
+            <TextView
+                android:id="@+id/birthTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="Дата рождения"
+                android:textColor="@color/hintTitle"
+                android:textSize="@dimen/text_premid"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerPhone" />
 
-                <!--<Button-->
-                    <!--android:id="@+id/Button_profileFragment_saveChanges"-->
-                    <!--style="?android:attr/borderlessButtonStyle"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:background="@drawable/background_button"-->
-                    <!--android:text="@string/edit_profile"-->
-                    <!--android:textAllCaps="false"-->
-                    <!--android:textColor="@android:color/white"-->
-                    <!--android:textSize="@dimen/text_premid" />-->
-            <!--</FrameLayout>-->
+            <EditText
+                android:id="@+id/birthEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@null"
+                android:drawableEnd="@drawable/ic_lock"
+                android:focusable="false"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_mid"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birthTextView"
+                tools:text="1 января 1989" />
+
+            <View
+                android:id="@+id/dividerBirth"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/divider_item"
+                app:layout_constraintTop_toBottomOf="@+id/birthEdit" />
+
+            <TextView
+                android:id="@+id/genderTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="Пол"
+                android:textColor="@color/hintTitle"
+                android:textSize="@dimen/text_premid"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerBirth" />
+
+            <EditText
+                android:id="@+id/genderEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@null"
+                android:drawableEnd="@drawable/ic_lock"
+                android:focusable="false"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_mid"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/genderTextView"
+                tools:text="Мужской" />
+
+            <View
+                android:id="@+id/dividerGender"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/divider_item"
+                app:layout_constraintTop_toBottomOf="@+id/genderEdit" />
+
+            <FrameLayout
+                android:id="@+id/saveChangesFrame"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginEnd="52dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerGender">
+
+                <Button
+                    android:id="@+id/saveChangesButton"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_disabled"
+                    android:text="@string/profile_save"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_premid" />
+
+            </FrameLayout>
+
         </android.support.constraint.ConstraintLayout>
+
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

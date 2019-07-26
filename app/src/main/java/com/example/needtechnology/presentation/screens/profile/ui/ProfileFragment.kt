@@ -5,17 +5,23 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
+import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
 import com.example.needtechnology.domain.global.UserInfo
 import com.example.needtechnology.presentation.global.base.BaseFragment
 import com.example.needtechnology.presentation.global.dialogscreens.TwoActionAlertDialog
+import com.example.needtechnology.presentation.global.utils.accessible
 import com.example.needtechnology.presentation.screens.profile.mvp.ProfilePresenter
 import com.example.needtechnology.presentation.screens.profile.mvp.ProfileView
+import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
+import io.reactivex.rxkotlin.Observables
+import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
@@ -35,6 +41,8 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
     @ProvidePresenter
     fun providePresenter() = presenter
 
+    private var userInfo: UserInfo? = null
+
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -46,14 +54,31 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
     }
 
     override fun showUserInfo(userInfo: UserInfo) {
-        text_profile_userName.text = userInfo.name
-        text_profile_email.text = userInfo.email
-        text_profile_phone.text = userInfo.phone
+        this.userInfo = userInfo.copy()
+        usernameEdit.setText(userInfo.name)
+        emailEdit.setText(userInfo.email)
+        phoneEdit.setText(userInfo.phone)
+        birthEdit.setText(userInfo.birth)
+        genderEdit.setText(userInfo.gender)
     }
 
     private fun init() {
         setupToolbar(getString(R.string.menu_profile))
         setupToolbarMenu()
+
+        saveChangesButton.setOnClickListener{
+            presenter.onSaveChangesClicked(usernameEdit.text.toString(), emailEdit.text.toString())
+            Toast.makeText(context, "Данные сохранены", Toast.LENGTH_SHORT).show()
+        }
+
+        subscriptions += Observables.combineLatest(
+            RxTextView.textChanges(usernameEdit),
+            RxTextView.textChanges(emailEdit)
+        ) { username, email ->
+            username.isNotBlank() && email.isNotBlank() && username.toString() != userInfo?.name
+                || username.isNotBlank() && email.isNotBlank() && email.toString() != userInfo?.email
+        }
+            .subscribeBy { saveChangesButton.accessible(it) }
     }
 
     private fun setupToolbarMenu() {

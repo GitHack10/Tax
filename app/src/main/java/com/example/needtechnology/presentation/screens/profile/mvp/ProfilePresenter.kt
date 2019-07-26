@@ -13,7 +13,7 @@ class ProfilePresenter @Inject constructor(
     private val appRouter: Router,
     private val interactor: ProfileInteractor,
     private val userInfo: UserInfo
-): BasePresenter<ProfileView>(appRouter) {
+) : BasePresenter<ProfileView>(appRouter) {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -24,5 +24,9 @@ class ProfilePresenter @Inject constructor(
         interactor.clearUserData()
         interactor.setIsLogin(false)
         appRouter.newRootScreen(Screens.SignIn())
+    }
+
+    fun onSaveChangesClicked(username: String, email: String) {
+        interactor.saveUserInfo(username, email)
     }
 }

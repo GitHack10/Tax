@@ -18,6 +18,11 @@ class ProfileInteractor @Inject constructor(
         prefs.gender
     )
 
+    fun saveUserInfo(username: String, email: String) {
+        prefs.username = username
+        prefs.email = email
+    }
+
     fun clearUserData() {
         prefs.username = ""
         prefs.phone = ""
