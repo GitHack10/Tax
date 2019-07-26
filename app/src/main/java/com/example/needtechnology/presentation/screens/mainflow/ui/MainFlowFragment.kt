@@ -68,23 +68,23 @@ class MainFlowFragment : FlowFragment(), MainFlowView, HasSupportFragmentInjecto
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_home -> {
+                    presenter.homeTabClicked(selectedScreen)
                     selectedScreen = 1
-                    presenter.homeTabClicked()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.action_checklist -> {
+                    presenter.checklistTabClicked(selectedScreen)
                     selectedScreen = 2
-                    presenter.checklistTabClicked()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.action_news -> {
+                    presenter.newsTabClicked(selectedScreen)
                     selectedScreen = 3
-                    presenter.newsTabClicked()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.action_profile -> {
+                    presenter.profileTabClicked(selectedScreen)
                     selectedScreen = 4
-                    presenter.profileTabClicked()
                     return@setOnNavigationItemSelectedListener true
                 }
             }

@@ -17,38 +17,38 @@ class MainFlowPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        homeTabClicked()
+        homeTabClicked(selectedScreen)
     }
 
-    fun homeTabClicked() {
+    fun homeTabClicked(selectedScreen: Int) {
         if (selectedScreen != 1) {
             viewState.highlightTab(HOME_TAB_POSITION)
             flowRouter.replaceScreen(Screens.Home())
-            selectedScreen = selectedScreen
+            this.selectedScreen = selectedScreen
         }
     }
 
-    fun checklistTabClicked() {
+    fun checklistTabClicked(selectedScreen: Int) {
         if (selectedScreen != 2) {
             viewState.highlightTab(CHECKLIST_TAB_POSITION)
             flowRouter.replaceScreen(Screens.Checklist())
-            selectedScreen = selectedScreen
+            this.selectedScreen = selectedScreen
         }
     }
 
-    fun newsTabClicked() {
+    fun newsTabClicked(selectedScreen: Int) {
         if (selectedScreen != 3) {
             viewState.highlightTab(NEWS_TAB_POSITION)
             flowRouter.replaceScreen(Screens.News())
-            selectedScreen = selectedScreen
+            this.selectedScreen = selectedScreen
         }
     }
 
-    fun profileTabClicked() {
+    fun profileTabClicked(selectedScreen: Int) {
         if (selectedScreen != 4) {
             viewState.highlightTab(PROFILE_TAB_POSITION)
             flowRouter.replaceScreen(Screens.Profile())
-            selectedScreen = selectedScreen
+            this.selectedScreen = selectedScreen
         }
     }
 
