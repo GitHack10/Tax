@@ -97,14 +97,19 @@ dependencies {
     implementation 'ru.egslava:MaskedEditText:1.0.5'
     // ui - PinView
     implementation 'com.chaos.view:pinview:1.4.2'
-    // ui - QRGen
-    implementation 'com.github.kenglxn.QRGen:android:2.5.0'
+
     // ui - LongShadows
     implementation 'com.sdsmdg.harjot:longshadows:1.0.1'
 
     // util - fragmentargs
     implementation 'com.hannesdorfmann.fragmentargs:annotation:4.0.0-RC1'
     kapt 'com.hannesdorfmann.fragmentargs:processor:4.0.0-RC1'
+
+    // util - barcode scanner
+    implementation 'me.dm7.barcodescanner:zxing:1.9.13'
+
+    // permissions - RxPermissions
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

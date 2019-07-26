@@ -1,9 +1,11 @@
 package com.example.needtechnology.presentation.global
 
+import android.support.v4.app.Fragment
 import com.example.needtechnology.presentation.screens.auth.signin.ui.SignInFragment
 import com.example.needtechnology.presentation.screens.auth.signup.ui.SignUpFragment
 import com.example.needtechnology.presentation.screens.checklist.ui.ChecklistFragment
 import com.example.needtechnology.presentation.screens.home.ui.HomeFragment
+import com.example.needtechnology.presentation.screens.home.ui.SimpleScannerFragment
 import com.example.needtechnology.presentation.screens.mainflow.ui.MainFlowFragment
 import com.example.needtechnology.presentation.screens.news.ui.NewsFragment
 import com.example.needtechnology.presentation.screens.profile.ui.ProfileFragment
@@ -39,5 +41,9 @@ object Screens {
 
     class Profile : SupportAppScreen() {
         override fun getFragment() = ProfileFragment()
+    }
+
+    class QrScreen : SupportAppScreen() {
+        override fun getFragment() = SimpleScannerFragment()
     }
 }

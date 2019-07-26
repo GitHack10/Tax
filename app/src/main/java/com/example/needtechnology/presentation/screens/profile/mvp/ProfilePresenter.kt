@@ -21,7 +21,7 @@ class ProfilePresenter @Inject constructor(
     }
 
     fun onLogoutClicked() {
-        interactor.clearUserData()
+//        interactor.clearUserData()
         interactor.setIsLogin(false)
         appRouter.newRootScreen(Screens.SignIn())
     }

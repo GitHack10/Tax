@@ -21,10 +21,18 @@ class AuthInteractor @Inject constructor(
         prefs.email = userInfo.email ?: ""
         prefs.phone = userInfo.phone ?: ""
         prefs.birth = userInfo.birth ?: ""
-        prefs.gender= userInfo.gender ?: ""
+        prefs.gender = userInfo.gender ?: ""
     }
 
     fun setIsLogin(isLogin: Boolean) {
         prefs.isLogin = isLogin
     }
+
+    fun getUserInfo() = UserInfo(
+        name = prefs.username,
+        email = prefs.email,
+        phone = prefs.phone,
+        birth = prefs.birth,
+        gender = prefs.gender
+    )
 }
