@@ -11,8 +11,9 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
 import com.example.needtechnology.di.global.nameds.SIGN_UP_FLOW
-import com.example.needtechnology.domain.global.UserInfo
+import com.example.needtechnology.domain.global.models.UserInfo
 import com.example.needtechnology.presentation.global.base.FlowFragment
+import com.example.needtechnology.presentation.global.dialogscreens.TwoActionAlertDialog
 import com.example.needtechnology.presentation.global.utils.accessible
 import com.example.needtechnology.presentation.global.utils.hideKeyboard
 import com.example.needtechnology.presentation.global.utils.setWhiteStyleWindow
@@ -73,22 +74,36 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.doneButton -> collectUserData()
+            R.id.doneButton -> presenter.onDoneClicked(collectUserData())
             R.id.birthEdit -> showDatePicker()
         }
     }
 
-    private fun collectUserData() {
-        val userInfo = UserInfo(
-            name = usernameEdit.text.toString(),
-            email = emailEdit.text.toString(),
-            phone = phoneEdit.text.toString(),
-            birth = birthEdit.text.toString(),
-            gender = if (maleRadioButton.isChecked) "Мужской" else "Женский"
-        )
-        presenter.onDoneClicked(userInfo)
+    override fun showProgress(show: Boolean) {
+        doneButtonProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
 
+    override fun showError(message: String) {
+        TwoActionAlertDialog(
+            titleText = message,
+            textRightButton = "Повторить попытку",
+            textLeftButton = "Отменить",
+            buttonRightDialogClickListener = {
+                presenter.onDoneClicked(collectUserData())
+            }
+        ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
+    }
+
+    private fun collectUserData() = UserInfo(
+        name = usernameEdit.text.toString(),
+        email = emailEdit.text.toString(),
+        phone = phoneEdit.text.toString(),
+        password = passwordEdit.text.toString(),
+        birth = birthEdit.text.toString(),
+        gender = if (maleRadioButton.isChecked) 1 else 0
+    )
+
+    @SuppressLint("SimpleDateFormat")
     private fun showDatePicker() {
         val editDateFormat = SimpleDateFormat("dd MM yyyy")
         val calendar = Calendar.getInstance()
@@ -138,10 +153,11 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
         subscriptions += Observables.combineLatest(
             RxTextView.textChanges(usernameEdit),
             RxTextView.textChanges(emailEdit),
+            RxTextView.textChanges(passwordEdit),
             RxTextView.textChanges(phoneEdit),
             RxTextView.textChanges(birthEdit)
-        ) { username, email, phone, birth ->
-            username.isNotBlank() && email.isNotBlank()
+        ) { username, email, password, phone, birth ->
+            username.isNotBlank() && email.isNotBlank() && password.isNotBlank() && password.length > 4
                 && phone.isNotBlank() && birth.isNotBlank() && phoneEdit.rawText.length > 9
         }
             .subscribeBy { doneButton.accessible(it) }

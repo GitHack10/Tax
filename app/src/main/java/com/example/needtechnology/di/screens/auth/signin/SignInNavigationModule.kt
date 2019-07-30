@@ -1,6 +1,6 @@
 package com.example.needtechnology.di.screens.auth.signin
 
-import com.example.needtechnology.di.global.nameds.*
+import com.example.needtechnology.di.global.nameds.SIGN_IN_FLOW
 import com.example.needtechnology.di.global.scopes.FlowFragmentScope
 import com.example.needtechnology.presentation.global.navigation.FlowRouter
 import dagger.Module

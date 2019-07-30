@@ -1,9 +1,18 @@
 package com.example.needtechnology.domain.global.repositories
 
-import com.example.needtechnology.domain.global.LoginResponse
+import com.example.needtechnology.domain.global.models.AuthResponse
+import com.example.needtechnology.domain.global.models.LoginResponse
+import com.example.needtechnology.domain.global.models.UserReg
+import io.reactivex.Completable
 import io.reactivex.Single
 
 interface AuthRepository {
 
-    fun signInRequest(authData: String): Single<LoginResponse>
+//    fun getSmsCode(phone: String): Completable
+//    fun signInRequest(phone: String, password: String): Single<LoginResponse>
+//    fun registerUser(userReg: UserReg): Completable
+
+    fun signInRequest(email: String, password: String): Single<AuthResponse>
+
+    fun registerUser(userReg: UserReg): Completable
 }

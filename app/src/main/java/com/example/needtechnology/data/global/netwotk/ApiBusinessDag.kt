@@ -1,13 +1,11 @@
 package com.example.needtechnology.data.global.netwotk
 
-import com.example.needtechnology.domain.global.LoginResponse
-import com.squareup.okhttp.RequestBody
+import com.example.needtechnology.domain.global.models.CheckInfoEntity
+import com.example.needtechnology.domain.global.models.LoginResponse
+import com.example.needtechnology.domain.global.models.UserReg
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiBusinessDag {
 
@@ -17,7 +15,18 @@ interface ApiBusinessDag {
     ): Single<LoginResponse>
 
     @POST("/v1/mobile/users/signup")
-    fun registrationRequest(@Body requestBody: RequestBody): Completable
+    fun registerUser(@Body userReg: UserReg): Completable
 
+    @POST("/v1/mobile/users/restore")
+    fun getSmsCode(@Body phone: HashMap<String, String>): Completable
 
+    @GET("/v1/inns/*/kkts/*/fss/{fss}/tickets/{tickets}?sendToEmail=no")
+    fun prepareCheck(
+        @Header("Authorization") authData: String,
+        @Header("Device-Id") deviceId: String,
+        @Header("Device-OS") deviceOS: String = "android",
+        @Path("fss") fss: String,
+        @Path("tickets") tickets: String,
+        @Query("fiscalSign") fiscalSign: String
+    ): Single<CheckInfoEntity>
 }

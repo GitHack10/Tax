@@ -1,5 +1,6 @@
 package com.example.needtechnology.presentation.screens.app.mvp
 
+import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.example.needtechnology.domain.app.AppInteractor
 import com.example.needtechnology.presentation.global.Screens
@@ -19,10 +20,14 @@ class AppPresenter @Inject constructor(
     }
 
     private fun login() {
-        if (interactor.getPhone().isNotEmpty() && interactor.isLogin()) {
+        if (interactor.isLogin()) {
             appRouter.replaceScreen(Screens.MainFlow())
-        } else appRouter.replaceScreen(Screens.SignIn())
+        } else appRouter.replaceScreen(Screens.EnterPhone())
     }
 
     override fun onBackPressed() = appRouter.exit()
+    fun saveDeviceId(deviceId: String) {
+        interactor.saveDeviceId(deviceId)
+        Log.d("DEVICE-ID: ", deviceId)
+    }
 }

@@ -2,5 +2,6 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">proverkacheka.nalog.ru</domain>
+        <domain includeSubdomains="true">dagdelo.ru</domain>
     </domain-config>
 </network-security-config>

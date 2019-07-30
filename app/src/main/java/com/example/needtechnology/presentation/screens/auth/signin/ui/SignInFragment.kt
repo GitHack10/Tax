@@ -7,8 +7,9 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
-import com.example.needtechnology.di.global.nameds.SIGN_IN_FLOW
+import com.example.needtechnology.di.global.nameds.ENTER_PHONE_FLOW
 import com.example.needtechnology.presentation.global.base.FlowFragment
+import com.example.needtechnology.presentation.global.dialogscreens.TwoActionAlertDialog
 import com.example.needtechnology.presentation.global.utils.accessible
 import com.example.needtechnology.presentation.global.utils.setWhiteStyleWindow
 import com.example.needtechnology.presentation.screens.auth.signin.mvp.SignInPresenter
@@ -20,18 +21,20 @@ import dagger.android.support.HasSupportFragmentInjector
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
+import kotlinx.android.synthetic.main.fragment_enter_phone.*
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
 import javax.inject.Named
 
-class SignInFragment : FlowFragment(), SignInView, HasSupportFragmentInjector, View.OnClickListener {
+class SignInFragment : FlowFragment(),
+    SignInView, HasSupportFragmentInjector, View.OnClickListener {
     override val container = R.id.auth_container
     override val layoutRes = R.layout.fragment_sign_in
 
     @Inject
-    @field:Named(SIGN_IN_FLOW)
+    @field:Named(ENTER_PHONE_FLOW)
     override lateinit var navigatorHolder: NavigatorHolder
 
     lateinit var navigator: SupportAppNavigator
@@ -60,29 +63,47 @@ class SignInFragment : FlowFragment(), SignInView, HasSupportFragmentInjector, V
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            Button_authFragment_signIn.id -> presenter.signInClicked(
-                email = EditText_authFragment_email.text.toString(),
-                password = EditText_authFragment_password.text.toString()
+            signInButton.id -> presenter.signInClicked(
+                email = emailEdit.text.toString(),
+                password = passwordEdit.text.toString()
             )
-            TextView_authFragment_registration.id -> presenter.registrationClicked()
+            registrationText.id -> presenter.onRegistrationClicked()
         }
     }
 
-    override fun showErrorData(show: Boolean) {
-        TextView_authFragment_error.visibility = if (show) View.VISIBLE else View.INVISIBLE
+    override fun showProgress(show: Boolean) {
+        signInProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
+    }
+
+    override fun showAuthError(message: String) {
+        errorText.text = message
+        errorText.visibility = View.VISIBLE
+    }
+
+    override fun showError(message: String) {
+        TwoActionAlertDialog(
+            titleText = message,
+            textRightButton = "Повторить попытку",
+            textLeftButton = "Отменить",
+            buttonRightDialogClickListener = {
+                presenter.signInClicked(phoneEdit.rawText, phoneEdit.text.toString())
+            }
+        ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }
 
     private fun init() {
         setupToolbar(getString(R.string.menu_sign_in))
-
-        Button_authFragment_signIn.setOnClickListener(this)
-        TextView_authFragment_registration.setOnClickListener(this)
+        signInButton.setOnClickListener(this)
+        registrationText.setOnClickListener(this)
 
         subscriptions += Observables.combineLatest(
-            RxTextView.textChanges(EditText_authFragment_email),
-            RxTextView.textChanges(EditText_authFragment_password)
-        ) { email, password -> !email.isBlank() && !password.isBlank() }
-            .subscribeBy { Button_authFragment_signIn.accessible(it) }
+            RxTextView.textChanges(emailEdit),
+            RxTextView.textChanges(passwordEdit)
+        ) { email, password -> email.isNotBlank() && password.isNotBlank() }
+            .subscribeBy {
+                errorText.visibility = View.GONE
+                signInButton.accessible(it)
+            }
     }
 
     override fun supportFragmentInjector() = fragmentInjector

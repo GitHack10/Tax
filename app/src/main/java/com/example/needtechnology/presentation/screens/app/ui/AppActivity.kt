@@ -1,6 +1,7 @@
 package com.example.needtechnology.presentation.screens.app.ui
 
 import android.os.Bundle
+import android.provider.Settings
 import android.support.v4.app.Fragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -47,6 +48,7 @@ class AppActivity : BaseActivity(), AppView, HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setGradientStyleWindow(this)
+        presenter.saveDeviceId(Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID))
     }
 
     override fun onBackPressed() = currentFragment?.onBackPressed() ?: super.onBackPressed()

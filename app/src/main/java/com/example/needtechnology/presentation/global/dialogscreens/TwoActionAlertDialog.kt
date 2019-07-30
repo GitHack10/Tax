@@ -19,7 +19,7 @@ import com.example.needtechnology.R
 @SuppressLint("ValidFragment")
 class TwoActionAlertDialog(
     var titleText: String = "Title",
-    var texLeftButton: String = "Action left",
+    var textLeftButton: String = "Action left",
     var textRightButton: String = "Action right",
     var buttonLeftDialogClickListener: (() -> Unit)? = null,
     var buttonRightDialogClickListener: (() -> Unit)? = null,
@@ -38,7 +38,7 @@ class TwoActionAlertDialog(
 
     private fun init(view: View) {
         val actionLeftButton: Button = view.findViewById(R.id.Button_TwoActionAlertDialog_actionLeft)
-        actionLeftButton.text = texLeftButton
+        actionLeftButton.text = textLeftButton
         actionLeftButton.setOnClickListener {
             buttonLeftDialogClickListener?.invoke()
             if (autoCloseLeftButton) dialog.cancel()

@@ -12,4 +12,7 @@ class AppInteractor @Inject constructor(
     fun getPhone() = prefs.phone
 
     fun isLogin() = prefs.isLogin
+    fun saveDeviceId(deviceId: String) {
+        prefs.deviceId = deviceId
+    }
 }
