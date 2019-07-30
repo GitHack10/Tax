@@ -34,6 +34,7 @@
     <string name="middle_name">Отчество</string>
     <string name="phone">Номер телефона</string>
     <string name="email">E-mail</string>
+    <string name="sign_up_password">Пароль</string>
     <string name="birth_date">Дата рождения</string>
     <string name="gender">Пол</string>
     <string name="male">Мужской</string>
