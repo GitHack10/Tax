@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/password_input_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.screens.auth.signin.entercode.ui.EnterCodeFragment">
+
+    <include
+        android:id="@+id/enterCodeToolbar"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/phoneTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:layout_marginBottom="64dp"
+        android:text="+7 (989)-123-33-22"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterCodeToolbar" />
+
+    <TextView
+        android:id="@+id/enterCodeSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textSize="14sp"
+        android:text="Введите смс-код из сообщения"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneTextView" />
+
+    <com.chaos.view.PinView
+        android:id="@+id/codePinView"
+        style="@style/PinWidget.PinView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:cursorVisible="false"
+        android:inputType="number"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        app:hideLineWhenFilled="true"
+        app:itemCount="6"
+        app:itemSpacing="16dp"
+        app:itemWidth="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterCodeSubtitle"
+        app:viewType="line"
+        tools:text="123456" />
+
+    <FrameLayout
+        android:id="@+id/sendSmsFrame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="98dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codePinView">
+
+        <Button
+            android:id="@+id/sendSmsButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_disabled"
+            android:enabled="true"
+            android:focusable="true"
+            android:text="Далее"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/sendSmsProgress"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="20dp"
+        android:theme="@style/WhiteProgressBar"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/sendSmsFrame"
+        app:layout_constraintEnd_toEndOf="@id/sendSmsFrame"
+        app:layout_constraintTop_toTopOf="@id/sendSmsFrame"
+        tools:visibility="visible" />
+</android.support.constraint.ConstraintLayout>

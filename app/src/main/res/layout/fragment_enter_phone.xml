@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/phone_input_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/enterPhoneToolbar"
+        layout="@layout/toolbar"/>
+
+    <TextView
+        android:id="@+id/enterPhoneSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginEnd="54dp"
+        android:gravity="center"
+        android:text="Введите номер телефона. Вам придет смс-код с подтверждением"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/enterPhoneToolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <br.com.sapereaude.maskedEditText.MaskedEditText
+        android:id="@+id/phoneEdit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="64dp"
+        android:hint="@string/phone_hint"
+        android:inputType="phone"
+        android:textColor="@android:color/black"
+        app:allowed_chars="0123456789"
+        app:keep_hint="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterPhoneSubtitle"
+        app:mask="+7 (###) ###-##-##" />
+
+    <FrameLayout
+        android:id="@+id/sendPhoneFrame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="98dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneEdit">
+
+        <Button
+            android:id="@+id/sendPhoneButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_disabled"
+            android:enabled="true"
+            android:focusable="true"
+            android:text="Далее"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/sendPhoneProgress"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="20dp"
+        android:theme="@style/WhiteProgressBar"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/sendPhoneFrame"
+        app:layout_constraintEnd_toEndOf="@id/sendPhoneFrame"
+        app:layout_constraintTop_toTopOf="@id/sendPhoneFrame"
+        tools:visibility="visible" />
+
+</android.support.constraint.ConstraintLayout>
