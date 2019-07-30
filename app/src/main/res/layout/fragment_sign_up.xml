@@ -50,7 +50,7 @@
                 android:layout_marginTop="54dp"
                 android:layout_marginEnd="@dimen/edittext_horizontal_margin"
                 android:hint="@string/first_name"
-                android:inputType="textPersonName"
+                android:inputType="textCapSentences"
                 android:singleLine="true"
                 android:textColor="@android:color/black"
                 android:textColorHint="@color/hintTitle"

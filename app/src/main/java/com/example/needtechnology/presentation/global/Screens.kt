@@ -1,6 +1,5 @@
 package com.example.needtechnology.presentation.global
 
-import com.example.needtechnology.presentation.screens.auth.signin.entercode.ui.EnterCodeFragment
 import com.example.needtechnology.presentation.screens.auth.signin.ui.SignInFragment
 import com.example.needtechnology.presentation.screens.auth.signup.ui.SignUpFragment
 import com.example.needtechnology.presentation.screens.checklist.ui.ChecklistFragment
@@ -15,13 +14,8 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object Screens {
 
-    class EnterPhone : SupportAppScreen() {
-        override fun getFragment() =
-            SignInFragment()
-    }
-
-    class EnterCode : SupportAppScreen() {
-        override fun getFragment() = EnterCodeFragment()
+    class SignIn : SupportAppScreen() {
+        override fun getFragment() = SignInFragment()
     }
 
     class SignUp : SupportAppScreen() {

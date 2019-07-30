@@ -22,7 +22,7 @@ class AppPresenter @Inject constructor(
     private fun login() {
         if (interactor.isLogin()) {
             appRouter.replaceScreen(Screens.MainFlow())
-        } else appRouter.replaceScreen(Screens.EnterPhone())
+        } else appRouter.replaceScreen(Screens.SignIn())
     }
 
     override fun onBackPressed() = appRouter.exit()

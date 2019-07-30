@@ -72,7 +72,7 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
         TwoActionAlertDialog(
             textLeftButton = getString(R.string.btn_cancel),
             textRightButton = getString(R.string.tryAgain),
-            titleText = getString(R.string.isNoNetwork),
+            titleText = message,
             buttonRightDialogClickListener = {
                 presenter.getUserInfo()
             }

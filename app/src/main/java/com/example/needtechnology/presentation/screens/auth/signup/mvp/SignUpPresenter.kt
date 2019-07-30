@@ -34,14 +34,11 @@ class SignUpPresenter@Inject constructor(
         )
         subscription += interactor.registerUser(userReg)
             .subscribeBy(
-                onComplete = {
-                    interactor.setIsLogin(true)
-//                    interactor.saveUserInfo(userInfo.copy(
-//                        name = userReg.name,
-//                        email = userReg.email,
-//                        phone = userReg.phone
-//                    ))
-                    flowRouter.newRootFlow(Screens.MainFlow())
+                onSuccess = {
+                    if (it.isSuccessful) {
+                        interactor.setIsLogin(true)
+                        flowRouter.newRootFlow(Screens.MainFlow())
+                    }
                     viewState.showProgress(false)
                 },
                 onError = {

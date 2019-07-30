@@ -9,6 +9,8 @@ import com.example.needtechnology.domain.global.models.UserReg
 import com.example.needtechnology.domain.global.repositories.AuthRepository
 import io.reactivex.Completable
 import io.reactivex.Single
+import okhttp3.ResponseBody
+import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -20,7 +22,7 @@ class AuthRepositoryImpl @Inject constructor(
         apiDagDelo.signInUser(createBasicAuthHeader(email, password))
             .subscribeOn(io)
 
-    override fun registerUser(userReg: UserReg): Completable =
+    override fun registerUser(userReg: UserReg): Single<Response<ResponseBody>> =
         apiDagDelo.signUpUser(
             fullName = userReg.name,
             email = userReg.email,
@@ -29,18 +31,4 @@ class AuthRepositoryImpl @Inject constructor(
             birth = userReg.birth,
             gender = userReg.gender
         ).subscribeOn(io)
-
-//    override fun getSmsCode(phone: String): Completable =
-//        apiBusinessDag.getSmsCode(hashMapOf("phone" to phone))
-//            .subscribeOn(io)
-//
-//    override fun signInRequest(phone: String, password: String) =
-//        apiBusinessDag.loginRequest(createBasicAuthHeader(phone, password))
-//            .subscribeOn(io)
-//
-//    override fun registerUser(userReg: UserReg): Completable =
-//        apiBusinessDag.registerUser(userReg)
-//            .subscribeOn(io)
-
-
 }

@@ -5,6 +5,8 @@ import com.example.needtechnology.domain.global.models.CheckInfoEntity
 import com.example.needtechnology.domain.global.models.User
 import io.reactivex.Completable
 import io.reactivex.Single
+import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiDagDelo {
@@ -18,7 +20,7 @@ interface ApiDagDelo {
         @Part("phone") phone: String,
         @Part("gender") gender: Int,
         @Part("birthday") birth: String
-    ): Completable
+    ): Single<Response<ResponseBody>>
 
     @GET("/api/v1/user/auth")
     fun signInUser(

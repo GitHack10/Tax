@@ -7,7 +7,7 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
-import com.example.needtechnology.di.global.nameds.ENTER_PHONE_FLOW
+import com.example.needtechnology.di.global.nameds.SIGN_IN_FLOW
 import com.example.needtechnology.presentation.global.base.FlowFragment
 import com.example.needtechnology.presentation.global.dialogscreens.TwoActionAlertDialog
 import com.example.needtechnology.presentation.global.utils.accessible
@@ -34,7 +34,7 @@ class SignInFragment : FlowFragment(),
     override val layoutRes = R.layout.fragment_sign_in
 
     @Inject
-    @field:Named(ENTER_PHONE_FLOW)
+    @field:Named(SIGN_IN_FLOW)
     override lateinit var navigatorHolder: NavigatorHolder
 
     lateinit var navigator: SupportAppNavigator

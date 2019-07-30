@@ -5,6 +5,8 @@ import com.example.needtechnology.domain.global.models.LoginResponse
 import com.example.needtechnology.domain.global.models.UserReg
 import io.reactivex.Completable
 import io.reactivex.Single
+import okhttp3.ResponseBody
+import retrofit2.Response
 
 interface AuthRepository {
 
@@ -14,5 +16,5 @@ interface AuthRepository {
 
     fun signInRequest(email: String, password: String): Single<AuthResponse>
 
-    fun registerUser(userReg: UserReg): Completable
+    fun registerUser(userReg: UserReg): Single<Response<ResponseBody>>
 }

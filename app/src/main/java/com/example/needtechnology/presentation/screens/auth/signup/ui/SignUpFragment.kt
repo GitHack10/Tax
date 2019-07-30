@@ -97,7 +97,7 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
     private fun collectUserData() = UserInfo(
         name = usernameEdit.text.toString(),
         email = emailEdit.text.toString(),
-        phone = phoneEdit.text.toString(),
+        phone = "7${phoneEdit.rawText}",
         password = passwordEdit.text.toString(),
         birth = birthEdit.text.toString(),
         gender = if (maleRadioButton.isChecked) 1 else 0

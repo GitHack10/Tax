@@ -35,8 +35,6 @@ class HomePresenter @Inject constructor(
     fun prepareCheck(fpd: String, fd: String, fn: String) {
         viewState.showProgress(true)
 
-        val phone = "+7${interactor.getPhone()}"
-        val password = interactor.getPassword()
         check = Check(fd, fpd, fn)
         subscription += interactor.prepareCheck(check!!)
             .subscribeBy(

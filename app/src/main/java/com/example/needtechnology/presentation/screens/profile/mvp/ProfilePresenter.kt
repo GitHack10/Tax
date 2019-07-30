@@ -40,7 +40,8 @@ class ProfilePresenter @Inject constructor(
     fun onLogoutClicked() {
         interactor.clearUserData()
         interactor.setIsLogin(false)
-        appRouter.newRootScreen(Screens.EnterPhone())
+        interactor.cleanToken()
+        appRouter.newRootScreen(Screens.SignIn())
     }
 
     fun onSaveChangesClicked(username: String, email: String) {

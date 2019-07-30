@@ -44,4 +44,8 @@ class ProfileInteractor @Inject constructor(
     fun setIsLogin(isLogout: Boolean) {
         prefs.isLogin = isLogout
     }
+
+    fun cleanToken() {
+        prefs.token = ""
+    }
 }

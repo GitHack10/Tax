@@ -6,6 +6,9 @@ import com.example.needtechnology.domain.global.common.ui
 import com.example.needtechnology.domain.global.models.UserInfo
 import com.example.needtechnology.domain.global.models.UserReg
 import io.reactivex.Completable
+import io.reactivex.Single
+import okhttp3.ResponseBody
+import retrofit2.Response
 import javax.inject.Inject
 
 class AuthInteractor @Inject constructor(
@@ -44,7 +47,7 @@ class AuthInteractor @Inject constructor(
         gender = prefs.gender.toInt()
     )
 
-    fun registerUser(userReg: UserReg): Completable =
+    fun registerUser(userReg: UserReg): Single<Response<ResponseBody>> =
         authRepositoryImpl.registerUser(userReg)
             .observeOn(ui)
 
