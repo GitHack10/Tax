@@ -9,7 +9,8 @@ import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
-import com.example.needtechnology.domain.global.UserInfo
+import com.example.needtechnology.domain.global.models.User
+import com.example.needtechnology.domain.global.models.UserInfo
 import com.example.needtechnology.presentation.global.base.BaseFragment
 import com.example.needtechnology.presentation.global.dialogscreens.TwoActionAlertDialog
 import com.example.needtechnology.presentation.global.utils.accessible
@@ -41,7 +42,7 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
     @ProvidePresenter
     fun providePresenter() = presenter
 
-    private var userInfo: UserInfo? = null
+    private var userInfo: User? = null
 
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
@@ -53,11 +54,36 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
         init()
     }
 
-    override fun showUserInfo(userInfo: UserInfo) {
+    override fun showLoadProgress(show: Boolean) {
+        if (show) {
+            profileScrollView.visibility = View.INVISIBLE
+            loadProgress.visibility = View.VISIBLE
+        } else {
+            profileScrollView.visibility = View.VISIBLE
+            loadProgress.visibility = View.INVISIBLE
+        }
+    }
+
+    override fun showSaveProgress(show: Boolean) {
+        saveChangesProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
+    }
+
+    override fun showError(message: String) {
+        TwoActionAlertDialog(
+            textLeftButton = getString(R.string.btn_cancel),
+            textRightButton = getString(R.string.tryAgain),
+            titleText = getString(R.string.isNoNetwork),
+            buttonRightDialogClickListener = {
+                presenter.getUserInfo()
+            }
+        ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
+    }
+
+    override fun showUserInfo(userInfo: User) {
         this.userInfo = userInfo.copy()
-        usernameEdit.setText(userInfo.name)
+        usernameEdit.setText(userInfo.fullName)
         emailEdit.setText(userInfo.email)
-        phoneEdit.setText(userInfo.phone)
+        phoneEdit.setText(userInfo.phone.removeRange(0, 1))
         birthEdit.setText(userInfo.birth)
         genderEdit.setText(userInfo.gender)
     }
@@ -75,7 +101,7 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
             RxTextView.textChanges(usernameEdit),
             RxTextView.textChanges(emailEdit)
         ) { username, email ->
-            username.isNotBlank() && email.isNotBlank() && username.toString() != userInfo?.name
+            username.isNotBlank() && email.isNotBlank() && username.toString() != userInfo?.fullName
                 || username.isNotBlank() && email.isNotBlank() && email.toString() != userInfo?.email
         }
             .subscribeBy { saveChangesButton.accessible(it) }
@@ -103,13 +129,13 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
 
     private fun showLogoutAlert() {
         TwoActionAlertDialog(
-            texLeftButton = getString(R.string.btn_cancel),
+            textLeftButton = getString(R.string.btn_cancel),
             textRightButton = getString(R.string.btn_yes),
             titleText = getString(R.string.exit_dialog_text),
             buttonRightDialogClickListener = {
                 presenter.onLogoutClicked()
             }
-        ).show(fragmentManager, "TwoActionAlertDialog")
+        ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }
 
     override fun onBackPressed() {
