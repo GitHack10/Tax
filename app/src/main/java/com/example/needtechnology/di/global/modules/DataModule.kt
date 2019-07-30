@@ -1,7 +1,6 @@
 package com.example.needtechnology.di.global.modules
 
-import com.example.needtechnology.data.database.AppDatabase
-import com.example.needtechnology.domain.global.UserInfo
+import com.example.needtechnology.domain.global.models.UserInfo
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -10,10 +9,6 @@ import javax.inject.Singleton
 
 @Module
 class DataModule {
-
-    @Provides
-    @Singleton
-    fun provideDatabase(appDatabase: AppDatabase) = appDatabase
 
     @Provides
     @Singleton

@@ -65,6 +65,7 @@
                 android:hint="Номер ФД"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/qrScannerTextView" />
@@ -77,6 +78,7 @@
                 android:hint="Номер ФПД или ФП"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputFD" />
@@ -89,39 +91,46 @@
                 android:hint="Номер ФН"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputFP" />
 
-            <EditText
-                android:id="@+id/inputDate"
+            <FrameLayout
+                android:id="@+id/prepareCheckFrame"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:hint="Дата и время на чеке"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inputFN" />
-
-            <Button
-                android:id="@+id/sendCheck"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="65dp"
+                android:layout_marginStart="64dp"
                 android:layout_marginTop="54dp"
-                android:layout_marginEnd="65dp"
-                android:background="@drawable/button_disabled"
-                android:text="@string/home_send"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/text_normal"
+                android:layout_marginEnd="64dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inputDate" />
+                app:layout_constraintTop_toBottomOf="@+id/inputFN">
 
+                <Button
+                    android:id="@+id/sendCheckButton"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_disabled"
+                    android:text="@string/home_send"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_normal" />
+
+            </FrameLayout>
+
+            <ProgressBar
+                android:id="@+id/prepareCheckProgress"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="20dp"
+                android:theme="@style/WhiteProgressBar"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/prepareCheckFrame"
+                app:layout_constraintEnd_toEndOf="@id/prepareCheckFrame"
+                app:layout_constraintTop_toTopOf="@id/prepareCheckFrame"
+                tools:visibility="visible" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

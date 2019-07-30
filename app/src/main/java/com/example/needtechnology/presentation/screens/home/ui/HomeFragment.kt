@@ -24,7 +24,6 @@ import io.reactivex.rxkotlin.Observables
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.OnClickListener {
@@ -42,6 +41,8 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
     @ProvidePresenter
     fun providePresenter() = presenter
 
+    private lateinit var prefs: SharedPreferences
+
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -49,13 +50,12 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val prefs: SharedPreferences =
-            context!!.getSharedPreferences(
-                SharedPreferenceStorage.PREF_PROFILE,
-                Context.MODE_PRIVATE
-            )
+        prefs = context!!.getSharedPreferences(
+            SharedPreferenceStorage.PREF_PROFILE,
+            Context.MODE_PRIVATE
+        )
         val qrScannedString = prefs.getString("QR_STRING", "") ?: ""
-        collectQrData(qrScannedString)
+        if (qrScannedString.isNotEmpty()) presenter.getScannedString(qrScannedString)
         init()
     }
 
@@ -70,47 +70,71 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
                         onError = { }
                     )
             }
-            R.id.sendCheck -> collectCheck()
+            R.id.sendCheckButton -> presenter.prepareCheck(
+                fpd = inputFP.text.toString(),
+                fd = inputFD.text.toString(),
+                fn = inputFN.text.toString()
+            )
         }
     }
 
-    private fun collectCheck() {
-        Toast.makeText(context, "Чек зарегистрирован!", Toast.LENGTH_SHORT).show()
+    override fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showProgress(show: Boolean) {
+        prepareCheckProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
+    }
+
+    override fun showError(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showScanError(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showSuccess(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         inputFP.text.clear()
         inputFD.text.clear()
         inputFN.text.clear()
-        inputDate.text.clear()
-        val prefs: SharedPreferences =
-            context!!.getSharedPreferences(SharedPreferenceStorage.PREF_PROFILE, Context.MODE_PRIVATE)
+
         prefs.edit().putString("QR_STRING", "").apply()
     }
 
-    private fun collectQrData(qrScannedString: String) {
-        inputFP.post { inputFP.append(qrScannedString) }
-        inputFD.post { inputFD.append(qrScannedString) }
-        inputFN.post { inputFN.append(qrScannedString) }
-        inputDate.post { inputDate.append(qrScannedString) }
+    override fun showScannedData(
+        fd: String,
+        fpd: String,
+        fn: String
+    ) {
+        inputFP.setText(fpd)
+        inputFD.setText(fd)
+        inputFN.setText(fn)
     }
 
     private fun init() {
         setupToolbar(getString(R.string.menu_home))
 
         qrScannerTextView.setOnClickListener(this)
-        sendCheck.setOnClickListener(this)
+        sendCheckButton.setOnClickListener(this)
 
         subscriptions += Observables.combineLatest(
             RxTextView.textChanges(inputFP),
             RxTextView.textChanges(inputFD),
-            RxTextView.textChanges(inputFN),
-            RxTextView.textChanges(inputDate)
-        ) { fd, fp, fn, date ->
-            fd.isNotBlank() && fp.isNotBlank()
-                && fn.isNotBlank() && date.isNotBlank()
+            RxTextView.textChanges(inputFN)
+        ) { fd, fp, fn ->
+            fd.isNotBlank() && fp.isNotBlank() && fn.isNotBlank()
         }
-            .subscribeBy { sendCheck.accessible(it) }
+            .subscribeBy { sendCheckButton.accessible(it) }
     }
 
     override fun onBackPressed() {
         presenter.onBackPressed()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        prefs.edit().putString("QR_STRING", "").apply()
     }
 }
