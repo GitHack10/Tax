@@ -5,21 +5,24 @@ import com.example.needtechnology.di.global.nameds.SIGN_UP_FLOW
 import com.example.needtechnology.domain.auth.AuthInteractor
 import com.example.needtechnology.domain.global.models.UserInfo
 import com.example.needtechnology.domain.global.models.UserReg
+import com.example.needtechnology.presentation.global.AndroidResourceManager
 import com.example.needtechnology.presentation.global.Screens
 import com.example.needtechnology.presentation.global.base.BasePresenter
 import com.example.needtechnology.presentation.global.navigation.FlowRouter
+import com.example.needtechnology.presentation.global.utils.ErrorHandler
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
-import kotlinx.android.synthetic.main.fragment_sign_up.*
 import javax.inject.Inject
 import javax.inject.Named
 
 @InjectViewState
-class SignUpPresenter@Inject constructor(
+class SignUpPresenter @Inject constructor(
     @Named(SIGN_UP_FLOW) private val flowRouter: FlowRouter,
     private val interactor: AuthInteractor,
-    private var userInfo: UserInfo
-): BasePresenter<SignUpView>(flowRouter) {
+    private var userInfo: UserInfo,
+    private val resourceManager: AndroidResourceManager,
+    private val errorHandler: ErrorHandler
+) : BasePresenter<SignUpView>(flowRouter) {
 
     fun onDoneClicked(userInfo: UserInfo) {
 
@@ -47,7 +50,9 @@ class SignUpPresenter@Inject constructor(
                     viewState.showProgress(false)
                 },
                 onError = {
-                    viewState.showError("Проверьте ваше подключение к интернету")
+                    errorHandler.proceed(it) {
+                            msg -> viewState.showError(msg)
+                    }
                     viewState.showProgress(false)
                 }
             )

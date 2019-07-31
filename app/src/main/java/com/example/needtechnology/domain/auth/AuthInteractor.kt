@@ -6,20 +6,13 @@ import com.example.needtechnology.domain.global.common.ui
 import com.example.needtechnology.domain.global.models.UserInfo
 import com.example.needtechnology.domain.global.models.UserReg
 import com.example.needtechnology.domain.global.models.UserRegResponse
-import io.reactivex.Completable
 import io.reactivex.Single
-import okhttp3.ResponseBody
-import retrofit2.Response
 import javax.inject.Inject
 
 class AuthInteractor @Inject constructor(
     private val authRepositoryImpl: AuthRepositoryImpl,
     private val prefs: PreferenceStorage
 ) {
-
-//    fun getSmsCode(phone: String): Completable =
-//        authRepositoryImpl.getSmsCode(phone)
-//            .observeOn(ui)
 
     fun signInRequest(email: String, password: String) = authRepositoryImpl
         .signInRequest(email, password)
@@ -59,9 +52,12 @@ class AuthInteractor @Inject constructor(
         prefs.maskedPhone = maskedPhone
     }
 
-    fun getMaskedPhone() = prefs.maskedPhone
-
     fun saveToken(token: String) {
         prefs.token = token
+    }
+
+    fun signOut() {
+        prefs.token = ""
+        prefs.isLogin = false
     }
 }

@@ -86,4 +86,10 @@
     <string name="incorrect_auth_data">Неверный E-mail или Пароль</string>
     <string name="sign_up_subtitle">Заполните поля\nдля регистрации аккаунта</string>
     <string name="profile_logout">Выход</string>
+
+    <string name="error_unknown">Неизвестная ошибка</string>
+    <string name="error_network">Ошибка сети</string>
+    <string name="error_network_get_response">Не удалось получить ответ ошибки</string>
+    <string name="error_network_convert_response">Не удалось сконвертировать ответ ошибки</string>
+
 </resources>

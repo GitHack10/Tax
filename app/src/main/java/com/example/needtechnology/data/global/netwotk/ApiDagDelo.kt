@@ -7,16 +7,8 @@ import retrofit2.http.*
 
 interface ApiDagDelo {
 
-    @Multipart
     @POST("/api/v1/user/sign-up")
-    fun signUpUser(
-        @Part("full_name") fullName: String,
-        @Part("email") email: String,
-        @Part("phone") phone: String,
-        @Part("gender") gender: Int,
-        @Part("birthday") birth: String,
-        @Part("password") password: String
-    ): Single<UserRegResponse>
+    fun signUpUser(@Body userReg: UserReg): Single<UserRegResponse>
 
     @GET("/api/v1/user/auth")
     fun signInUser(
