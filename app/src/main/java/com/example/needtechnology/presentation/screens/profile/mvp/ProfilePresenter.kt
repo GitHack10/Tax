@@ -44,9 +44,9 @@ class ProfilePresenter @Inject constructor(
         appRouter.newRootScreen(Screens.SignIn())
     }
 
-    fun onSaveChangesClicked(username: String, email: String) {
+    fun onSaveChangesClicked(username: String) {
 //        viewState.showSaveProgress(true)
-        interactor.saveUserInfo(username, email)
+        interactor.saveUserInfo(username)
 //        viewState.showSaveProgress(false)
     }
 }

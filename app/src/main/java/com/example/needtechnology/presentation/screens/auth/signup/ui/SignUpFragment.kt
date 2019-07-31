@@ -17,6 +17,7 @@ import com.example.needtechnology.presentation.global.dialogscreens.TwoActionAle
 import com.example.needtechnology.presentation.global.utils.accessible
 import com.example.needtechnology.presentation.global.utils.hideKeyboard
 import com.example.needtechnology.presentation.global.utils.setWhiteStyleWindow
+import com.example.needtechnology.presentation.global.utils.showKeyboard
 import com.example.needtechnology.presentation.screens.auth.signup.mvp.SignUpPresenter
 import com.example.needtechnology.presentation.screens.auth.signup.mvp.SignUpView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -59,6 +60,7 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
     private val dateSendFormat = SimpleDateFormat("yyyy-MM-dd")
     @SuppressLint("SimpleDateFormat")
     private val dateFormat = SimpleDateFormat("dd MMMM yyyy")
+    private var birth = ""
 
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
@@ -83,6 +85,18 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
         doneButtonProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
 
+    override fun showDataError(message: String) {
+        TwoActionAlertDialog(
+            titleText = message,
+            textRightButton = "Повторить попытку",
+            textLeftButton = "Отменить",
+            buttonRightDialogClickListener = {
+                emailEdit.requestFocus()
+                showKeyboard()
+            }
+        ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
+    }
+
     override fun showError(message: String) {
         TwoActionAlertDialog(
             titleText = message,
@@ -99,7 +113,7 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
         email = emailEdit.text.toString(),
         phone = "7${phoneEdit.rawText}",
         password = passwordEdit.text.toString(),
-        birth = birthEdit.text.toString(),
+        birth = birth,
         gender = if (maleRadioButton.isChecked) 1 else 0
     )
 
@@ -128,6 +142,7 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
             DatePickerDialog.OnDateSetListener { _, yearUser, monthOfYear, dayOfMonth ->
                 calendar.set(yearUser, monthOfYear, dayOfMonth)
                 birthEdit.setText(dateFormat.format(calendar.timeInMillis))
+                birth = dateSendFormat.format(calendar.timeInMillis)
             }, year, month, day
         )
 

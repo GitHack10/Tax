@@ -1,12 +1,8 @@
 package com.example.needtechnology.data.global.netwotk
 
-import com.example.needtechnology.domain.global.models.AuthResponse
-import com.example.needtechnology.domain.global.models.CheckInfoEntity
-import com.example.needtechnology.domain.global.models.User
+import com.example.needtechnology.domain.global.models.*
 import io.reactivex.Completable
 import io.reactivex.Single
-import okhttp3.ResponseBody
-import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiDagDelo {
@@ -16,11 +12,11 @@ interface ApiDagDelo {
     fun signUpUser(
         @Part("full_name") fullName: String,
         @Part("email") email: String,
-        @Part("password") password: String,
         @Part("phone") phone: String,
         @Part("gender") gender: Int,
-        @Part("birthday") birth: String
-    ): Single<Response<ResponseBody>>
+        @Part("birthday") birth: String,
+        @Part("password") password: String
+    ): Single<UserRegResponse>
 
     @GET("/api/v1/user/auth")
     fun signInUser(
@@ -38,5 +34,5 @@ interface ApiDagDelo {
     fun getUserInfo(): Single<User>
 
     @GET("/api/v1/check/my-checks")
-    fun getCheckList(): Single<List<CheckInfoEntity>>
+    fun getCheckList(): Single<List<CheckInfo>>
 }

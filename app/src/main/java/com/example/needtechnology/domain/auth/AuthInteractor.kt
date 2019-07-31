@@ -5,6 +5,7 @@ import com.example.needtechnology.data.global.local.PreferenceStorage
 import com.example.needtechnology.domain.global.common.ui
 import com.example.needtechnology.domain.global.models.UserInfo
 import com.example.needtechnology.domain.global.models.UserReg
+import com.example.needtechnology.domain.global.models.UserRegResponse
 import io.reactivex.Completable
 import io.reactivex.Single
 import okhttp3.ResponseBody
@@ -47,7 +48,7 @@ class AuthInteractor @Inject constructor(
         gender = prefs.gender.toInt()
     )
 
-    fun registerUser(userReg: UserReg): Single<Response<ResponseBody>> =
+    fun registerUser(userReg: UserReg): Single<UserRegResponse> =
         authRepositoryImpl.registerUser(userReg)
             .observeOn(ui)
 

@@ -88,6 +88,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@null"
+                android:drawableEnd="@drawable/ic_lock"
+                android:focusable="false"
                 android:singleLine="true"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/text_mid"

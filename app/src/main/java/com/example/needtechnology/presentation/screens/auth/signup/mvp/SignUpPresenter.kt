@@ -35,9 +35,14 @@ class SignUpPresenter@Inject constructor(
         subscription += interactor.registerUser(userReg)
             .subscribeBy(
                 onSuccess = {
-                    if (it.isSuccessful) {
+                    if (it.status) {
                         interactor.setIsLogin(true)
+                        interactor.saveToken(it.token)
                         flowRouter.newRootFlow(Screens.MainFlow())
+                    } else {
+                        viewState.showDataError(
+                            "Пользователь с таким E-mail или Номером телефона уже существует"
+                        )
                     }
                     viewState.showProgress(false)
                 },

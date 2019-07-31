@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.needtechnology.R
+import com.example.needtechnology.domain.global.models.CheckInfo
 import com.example.needtechnology.domain.global.models.CheckInfoEntity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_check.*
 
 class CheckAdapter(
-    private val checkList: List<CheckInfoEntity>
+    private val checkList: List<CheckInfo>
 ): RecyclerView.Adapter<CheckAdapter.Holder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = Holder(
@@ -24,14 +25,14 @@ class CheckAdapter(
     override fun getItemCount() = checkList.size
 
     override fun onBindViewHolder(holder: CheckAdapter.Holder, position: Int) {
-        holder.setData(checkList[position].document.receipt)
+        holder.setData(checkList[position])
     }
 
     class Holder(override val containerView: View): RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        fun setData(check: CheckInfoEntity.Document.Receipt) {
-            checkTitleText.text = "Чек на ${check.totalSum} \u20BD"
-            checkDateText.text = check.dateTime
+        fun setData(check: CheckInfo) {
+            checkTitleText.text = "${check.totalSum} \u20BD"
+            checkDateText.text = check.date
         }
     }
 }

@@ -17,4 +17,13 @@ fun Context.hideKeyboard(view: View) {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
+fun Fragment.showKeyboard() = activity?.showKeyboard()
+
+fun Activity.showKeyboard() = showKeyboard(if (currentFocus == null) View(this) else currentFocus)
+
+fun Context.showKeyboard(view: View) {
+    val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0)
+}
+
 fun Context.color(@ColorRes resId: Int) = ContextCompat.getColor(this, resId)

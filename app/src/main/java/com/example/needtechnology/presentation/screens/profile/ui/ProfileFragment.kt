@@ -93,7 +93,7 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
         setupToolbarMenu()
 
         saveChangesButton.setOnClickListener{
-            presenter.onSaveChangesClicked(usernameEdit.text.toString(), emailEdit.text.toString())
+            presenter.onSaveChangesClicked(usernameEdit.text.toString())
             Toast.makeText(context, "Данные сохранены", Toast.LENGTH_SHORT).show()
         }
 

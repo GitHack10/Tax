@@ -3,6 +3,7 @@ package com.example.needtechnology.domain.checklist
 import com.example.needtechnology.data.checklist.CheckListRepositoryImpl
 import com.example.needtechnology.data.global.local.PreferenceStorage
 import com.example.needtechnology.domain.global.common.ui
+import com.example.needtechnology.domain.global.models.CheckInfo
 import com.example.needtechnology.domain.global.models.CheckInfoEntity
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -13,7 +14,7 @@ class CheckListInteractor @Inject constructor(
     private val prefs: PreferenceStorage
 ) {
 
-    fun getCheckList(): Single<List<CheckInfoEntity>> =
+    fun getCheckList(): Single<List<CheckInfo>> =
         checkListRepositoryImpl.getCheckList()
             .observeOn(ui)
 

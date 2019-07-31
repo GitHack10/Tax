@@ -6,11 +6,9 @@ import com.example.needtechnology.di.global.nameds.DAGDELO_API
 import com.example.needtechnology.domain.global.common.io
 import com.example.needtechnology.domain.global.models.AuthResponse
 import com.example.needtechnology.domain.global.models.UserReg
+import com.example.needtechnology.domain.global.models.UserRegResponse
 import com.example.needtechnology.domain.global.repositories.AuthRepository
-import io.reactivex.Completable
 import io.reactivex.Single
-import okhttp3.ResponseBody
-import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -22,7 +20,7 @@ class AuthRepositoryImpl @Inject constructor(
         apiDagDelo.signInUser(createBasicAuthHeader(email, password))
             .subscribeOn(io)
 
-    override fun registerUser(userReg: UserReg): Single<Response<ResponseBody>> =
+    override fun registerUser(userReg: UserReg): Single<UserRegResponse> =
         apiDagDelo.signUpUser(
             fullName = userReg.name,
             email = userReg.email,

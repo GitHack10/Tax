@@ -10,7 +10,7 @@ import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
-import com.example.needtechnology.domain.global.models.CheckInfoEntity
+import com.example.needtechnology.domain.global.models.CheckInfo
 import com.example.needtechnology.presentation.global.base.BaseFragment
 import com.example.needtechnology.presentation.global.dialogscreens.TwoActionAlertDialog
 import com.example.needtechnology.presentation.screens.checklist.mvp.ChecklistPresenter
@@ -67,7 +67,7 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
         checklistRecycler.visibility = View.GONE
     }
 
-    override fun showCheckList(checkList: List<CheckInfoEntity>) {
+    override fun showCheckList(checkList: List<CheckInfo>) {
         listEmptyText.visibility = View.INVISIBLE
         checklistRecycler.apply {
             visibility = View.VISIBLE

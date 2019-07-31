@@ -4,6 +4,7 @@ import com.example.needtechnology.data.database.AppDatabase
 import com.example.needtechnology.data.global.netwotk.ApiDagDelo
 import com.example.needtechnology.di.global.nameds.DAGDELO_API
 import com.example.needtechnology.domain.global.common.io
+import com.example.needtechnology.domain.global.models.CheckInfo
 import com.example.needtechnology.domain.global.models.CheckInfoEntity
 import com.example.needtechnology.domain.global.repositories.CheckListRepository
 import io.reactivex.Flowable
@@ -16,7 +17,7 @@ class CheckListRepositoryImpl @Inject constructor(
     private val appDatabase: AppDatabase
 ): CheckListRepository {
 
-    override fun getCheckList(): Single<List<CheckInfoEntity>> =
+    override fun getCheckList(): Single<List<CheckInfo>> =
         apiDagDelo.getCheckList()
             .subscribeOn(io)
 
