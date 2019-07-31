@@ -12,6 +12,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.needtechnology.R
 import com.example.needtechnology.data.global.local.SharedPreferenceStorage
 import com.example.needtechnology.presentation.global.base.BaseFragment
+import com.example.needtechnology.presentation.global.dialogscreens.TwoActionAlertDialog
 import com.example.needtechnology.presentation.global.utils.accessible
 import com.example.needtechnology.presentation.screens.home.mvp.HomePresenter
 import com.example.needtechnology.presentation.screens.home.mvp.HomeView
@@ -87,7 +88,18 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
     }
 
     override fun showError(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        TwoActionAlertDialog(
+            titleText = message,
+            textRightButton = "Повторить попытку",
+            textLeftButton = "Отменить",
+            buttonRightDialogClickListener = {
+                presenter.prepareCheck(
+                    fpd = inputFP.text.toString(),
+                    fd = inputFD.text.toString(),
+                    fn = inputFN.text.toString()
+                )
+            }
+        ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }
 
     override fun showScanError(message: String) {

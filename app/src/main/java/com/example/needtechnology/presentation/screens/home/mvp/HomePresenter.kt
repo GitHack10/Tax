@@ -9,6 +9,7 @@ import com.example.needtechnology.domain.global.models.CheckInfoEntity
 import com.example.needtechnology.domain.home.HomeInteractor
 import com.example.needtechnology.presentation.global.Screens
 import com.example.needtechnology.presentation.global.base.BasePresenter
+import com.example.needtechnology.presentation.global.utils.ErrorHandler
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import ru.terrakok.cicerone.Router
@@ -19,7 +20,8 @@ import javax.inject.Inject
 @InjectViewState
 class HomePresenter @Inject constructor(
     private val appRouter: Router,
-    private val interactor: HomeInteractor
+    private val interactor: HomeInteractor,
+    private val errorHandler: ErrorHandler
 ) : BasePresenter<HomeView>(appRouter) {
 
     private var check: Check? = null
@@ -39,13 +41,11 @@ class HomePresenter @Inject constructor(
         subscription += interactor.prepareCheck(check!!)
             .subscribeBy(
                 onComplete = {
-                    // insertCheckInDb(checkInfo)
                     viewState.showSuccess("Чек зарегистрирован!")
                     viewState.showProgress(false)
                 },
                 onError = {
-                    viewState.showError("Не удалось зарегистрировать чек!")
-//                    viewState.showError("Ошибка сети")
+                    errorHandler.proceed(it) { msg -> viewState.showError(msg) }
                     viewState.showProgress(false)
                 }
             )
