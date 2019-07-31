@@ -65,7 +65,11 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
     }
 
     override fun showSaveProgress(show: Boolean) {
-        saveChangesProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
+        if (show) saveChangesProgress.visibility = View.VISIBLE
+        else {
+            saveChangesProgress.visibility = View.INVISIBLE
+            saveChangesButton.accessible(show)
+        }
     }
 
     override fun showError(message: String) {
@@ -75,6 +79,17 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
             titleText = message,
             buttonRightDialogClickListener = {
                 presenter.getUserInfo()
+            }
+        ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
+    }
+
+    override fun showSaveError(message: String) {
+        TwoActionAlertDialog(
+            textLeftButton = getString(R.string.btn_cancel),
+            textRightButton = getString(R.string.tryAgain),
+            titleText = message,
+            buttonRightDialogClickListener = {
+                presenter.onSaveChangesClicked(usernameEdit.text.toString())
             }
         ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }
@@ -94,15 +109,13 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
 
         saveChangesButton.setOnClickListener{
             presenter.onSaveChangesClicked(usernameEdit.text.toString())
-            Toast.makeText(context, "Данные сохранены", Toast.LENGTH_SHORT).show()
         }
 
         subscriptions += Observables.combineLatest(
             RxTextView.textChanges(usernameEdit),
             RxTextView.textChanges(emailEdit)
         ) { username, email ->
-            username.isNotBlank() && email.isNotBlank() && username.toString() != userInfo?.fullName
-                || username.isNotBlank() && email.isNotBlank() && email.toString() != userInfo?.email
+            username.isNotBlank() && username.toString() != userInfo?.fullName
         }
             .subscribeBy { saveChangesButton.accessible(it) }
     }

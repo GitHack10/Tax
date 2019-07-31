@@ -4,6 +4,7 @@ import com.example.needtechnology.data.global.netwotk.ApiDagDelo
 import com.example.needtechnology.domain.global.common.io
 import com.example.needtechnology.domain.global.models.User
 import com.example.needtechnology.domain.global.repositories.ProfileRepository
+import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -13,5 +14,9 @@ class ProfileRepositoryImpl @Inject constructor(
 
     override fun getUserInfo(): Single<User> =
         apiDagDelo.getUserInfo()
+            .subscribeOn(io)
+
+    override fun editProfile(username: String): Completable =
+        apiDagDelo.editProfile(username)
             .subscribeOn(io)
 }

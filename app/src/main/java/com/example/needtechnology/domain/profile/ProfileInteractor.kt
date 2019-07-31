@@ -5,6 +5,7 @@ import com.example.needtechnology.data.profile.ProfileRepositoryImpl
 import com.example.needtechnology.domain.global.common.ui
 import com.example.needtechnology.domain.global.models.User
 import com.example.needtechnology.domain.global.models.UserInfo
+import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -17,17 +18,9 @@ class ProfileInteractor @Inject constructor(
         profileRepositoryImpl.getUserInfo()
             .observeOn(ui)
 
-//    fun getUserInfo() = UserInfo(
-//        prefs.username,
-//        prefs.maskedPhone,
-//        prefs.email
-////        prefs.birth,
-////        prefs.gender
-//    )
-
-    fun saveUserInfo(username: String) {
-        prefs.username = username
-    }
+    fun editProfile(username: String): Completable =
+        profileRepositoryImpl.editProfile(username)
+            .observeOn(ui)
 
     fun clearUserData() {
         prefs.username = ""

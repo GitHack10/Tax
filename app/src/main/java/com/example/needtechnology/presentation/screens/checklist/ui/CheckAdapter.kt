@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.example.needtechnology.R
 import com.example.needtechnology.domain.global.models.CheckInfo
 import com.example.needtechnology.domain.global.models.CheckInfoEntity
+import com.example.needtechnology.presentation.global.utils.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_check.*
 
@@ -14,12 +15,8 @@ class CheckAdapter(
     private val checkList: List<CheckInfo>
 ): RecyclerView.Adapter<CheckAdapter.Holder>() {
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) = Holder(
-        containerView = LayoutInflater.from(viewGroup.context).inflate(
-            R.layout.item_check,
-            viewGroup,
-            false
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = Holder(
+        containerView = parent.inflate(R.layout.item_check)
     )
 
     override fun getItemCount() = checkList.size

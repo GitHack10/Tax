@@ -27,6 +27,7 @@ class ProfilePresenter @Inject constructor(
         subscription += interactor.getUserInfo()
             .subscribeBy(
                 onSuccess = {
+                    it.dateProcessing()
                     viewState.showUserInfo(it)
                     viewState.showLoadProgress(false)
                 },
@@ -45,8 +46,14 @@ class ProfilePresenter @Inject constructor(
     }
 
     fun onSaveChangesClicked(username: String) {
-//        viewState.showSaveProgress(true)
-        interactor.saveUserInfo(username)
-//        viewState.showSaveProgress(false)
+        viewState.showSaveProgress(true)
+        subscription += interactor.editProfile(username)
+            .subscribeBy(
+                onComplete = { viewState.showSaveProgress(false) },
+                onError = {
+                    viewState.showSaveError("Не удалось сохранить изменения")
+                    viewState.showSaveProgress(false)
+                }
+            )
     }
 }
