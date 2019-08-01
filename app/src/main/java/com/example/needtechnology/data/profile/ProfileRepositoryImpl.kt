@@ -2,6 +2,7 @@ package com.example.needtechnology.data.profile
 
 import com.example.needtechnology.data.global.netwotk.ApiDagDelo
 import com.example.needtechnology.domain.global.common.io
+import com.example.needtechnology.domain.global.models.EditProfile
 import com.example.needtechnology.domain.global.models.User
 import com.example.needtechnology.domain.global.repositories.ProfileRepository
 import io.reactivex.Completable
@@ -17,6 +18,6 @@ class ProfileRepositoryImpl @Inject constructor(
             .subscribeOn(io)
 
     override fun editProfile(username: String): Completable =
-        apiDagDelo.editProfile(username)
+        apiDagDelo.editProfile(EditProfile(username))
             .subscribeOn(io)
 }

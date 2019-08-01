@@ -28,7 +28,6 @@ interface ApiDagDelo {
     @GET("/api/v1/check/my-checks")
     fun getCheckList(): Single<List<CheckInfo>>
 
-    @Multipart
     @POST("/api/v1/profile/edit")
-    fun editProfile(@Part("full_name") name: String): Completable
+    fun editProfile(@Body editProfile: EditProfile): Completable
 }

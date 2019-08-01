@@ -12,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 /** Created by Kamil Abdulatipov on 22.06.2019. */
@@ -52,6 +53,7 @@ class NetworkModule {
     ): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL_DAG_DELO)
         .client(okHttpClient)
+        .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(rxJava2CallAdapterFactory)
         .build()
