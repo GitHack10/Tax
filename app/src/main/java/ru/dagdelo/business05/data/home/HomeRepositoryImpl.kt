@@ -17,7 +17,10 @@ class HomeRepositoryImpl @Inject constructor(
         apiDagDelo.prepareCheck(
             fn = check.fn,
             fd = check.fd,
-            fpd = check.fpd
+            fpd = check.fpd,
+            date = check.date,
+            type = check.type,
+            sum = check.sum
         ).subscribeOn(io)
 
     override fun insertCheck(check: CheckInfoEntity.Document.Receipt): Completable = Completable.fromAction {

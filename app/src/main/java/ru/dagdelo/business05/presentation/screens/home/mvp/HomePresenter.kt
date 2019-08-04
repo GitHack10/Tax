@@ -1,6 +1,5 @@
 package ru.dagdelo.business05.presentation.screens.home.mvp
 
-import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
@@ -13,8 +12,6 @@ import ru.dagdelo.business05.presentation.global.Screens
 import ru.dagdelo.business05.presentation.global.base.BasePresenter
 import ru.dagdelo.business05.presentation.global.utils.ErrorHandler
 import ru.terrakok.cicerone.Router
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 @InjectViewState
@@ -34,11 +31,12 @@ class HomePresenter @Inject constructor(
         appRouter.navigateTo(Screens.QrScreen())
     }
 
-    fun prepareCheck(fpd: String, fd: String, fn: String) {
+    fun prepareCheck(check: Check) {
         viewState.showProgress(true)
 
-        check = Check(fd, fpd, fn)
-        subscription += interactor.prepareCheck(check!!)
+//        check = Check(fd, fpd, fn, date, n, sum)
+        check.convertTimeSendFormat()
+        subscription += interactor.prepareCheck(check)
             .subscribeBy(
                 onComplete = {
                     viewState.showSuccess("Чек зарегистрирован!")
@@ -51,12 +49,15 @@ class HomePresenter @Inject constructor(
             )
     }
 
-    fun getScannedString(qrScannedString: String) {
-        var sum = ""
-        var fd = ""
-        var fn = ""
-        var fpd = ""
-        if (qrScannedString.contains("&") && qrScannedString.contains("fp=")) {
+    fun getScannedString() {
+        val qrScannedString = interactor.getQrString()
+        if (qrScannedString.isNotEmpty()) {
+            var sum = ""
+            var fd = ""
+            var fn = ""
+            var fpd = ""
+            var date = ""
+            var type = ""
             val data = qrScannedString.split("&")
             for (string in data) {
                 when ("${string[0]}${string[1]}") {
@@ -64,11 +65,15 @@ class HomePresenter @Inject constructor(
                     "fn" -> fn = string.removeRange(0, 3)
                     "i=" -> fd = string.removeRange(0, 2)
                     "fp" -> fpd = string.removeRange(0, 3)
+                    "t=" -> date = string.removeRange(0, 2)
+                    "n=" -> type = string.removeRange(0, 2)
                 }
             }
-            check = Check(fd, fpd, fn)
-            viewState.showScannedData(fd, fpd, fn)
-        } else viewState.showScanError("Не удалось просканировать, убедитесь что это QR-code чека!")
+            check = Check(fd, fpd, fn, date, type.toIntOrNull() ?: 1, sum)
+            check!!.convertTime()
+            interactor.clearQrString()
+            viewState.showScannedData(check)
+        }
     }
 
     private fun insertCheckInDb(check: CheckInfoEntity) {
@@ -82,11 +87,8 @@ class HomePresenter @Inject constructor(
             })
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private fun convertTime(date: String): String {
-        val calendar = Calendar.getInstance()
-        calendar.time = SimpleDateFormat("yyyyMMddTkkmmss").parse(date)
-
-        return SimpleDateFormat("dd.MM.yyyy' 'kk:mm").format(calendar.time)
+    override fun onDestroy() {
+        super.onDestroy()
+        interactor.clearQrString()
     }
 }

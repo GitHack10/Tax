@@ -172,7 +172,7 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
             RxTextView.textChanges(phoneEdit),
             RxTextView.textChanges(birthEdit)
         ) { username, email, password, phone, birth ->
-            username.isNotBlank() && email.isNotBlank() && password.isNotBlank() && password.length > 4
+            username.isNotBlank() && email.isNotBlank() && password.isNotBlank() && password.length > 3
                 && phone.isNotBlank() && birth.isNotBlank() && phoneEdit.rawText.length > 9
         }
             .subscribeBy { doneButton.accessible(it) }

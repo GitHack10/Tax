@@ -22,4 +22,8 @@ class HomeInteractor @Inject constructor(
 
     fun insertCheckInDB(checkInfo: CheckInfoEntity.Document.Receipt): Completable =
         homeRepositoryImpl.insertCheck(checkInfo)
+
+    fun clearQrString() { prefs.qrString = "" }
+
+    fun getQrString() = prefs.qrString
 }

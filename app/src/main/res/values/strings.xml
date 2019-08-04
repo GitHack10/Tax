@@ -82,6 +82,13 @@
         <item>Декабря</item>
     </string-array>
 
+    <string-array name="type_list">
+        <item>Приход</item>
+        <item>Возврат прихода</item>
+        <item>Расход</item>
+        <item>Возврат расхода</item>
+    </string-array>
+
     <string name="edit_profile">Редактировать профиль</string>
     <string name="incorrect_auth_data">Неверный E-mail или Пароль</string>
     <string name="sign_up_subtitle">Заполните поля\nдля регистрации аккаунта</string>

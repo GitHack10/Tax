@@ -96,6 +96,78 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputFP" />
 
+            <EditText
+                    android:id="@+id/inputDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="Дата и время на чеке"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:drawableEnd="@drawable/ic_show_datepicker"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/inputFN" />
+
+            <EditText
+                    android:id="@+id/inputSum"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:hint="Сумма чека"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/inputDate" />
+
+            <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:entries="@array/type_list"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/inputSum"/>
+
+            <!--<RadioGroup-->
+                    <!--android:id="@+id/typeRadioGroup"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="18dp"-->
+                    <!--android:layout_marginEnd="16dp"-->
+                    <!--android:gravity="start"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--app:layout_constraintStart_toStartOf="parent"-->
+                    <!--app:layout_constraintTop_toBottomOf="@id/inputDate">-->
+
+                <!--<RadioButton-->
+                        <!--android:id="@+id/prihodRadioButton"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:checked="true"-->
+                        <!--android:paddingStart="6dp"-->
+                        <!--android:paddingEnd="42dp"-->
+                        <!--android:text="Приход"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:theme="@style/CustomRadioButton" />-->
+
+                <!--<RadioButton-->
+                        <!--android:id="@+id/rashodRadioButton"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:paddingStart="6dp"-->
+                        <!--android:paddingEnd="42dp"-->
+                        <!--android:text="Возврат прихода"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:theme="@style/CustomRadioButton" />-->
+            <!--</RadioGroup>-->
+
             <FrameLayout
                 android:id="@+id/prepareCheckFrame"
                 android:layout_width="0dp"
@@ -105,7 +177,7 @@
                 android:layout_marginEnd="64dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inputFN">
+                app:layout_constraintTop_toBottomOf="@+id/spinner">
 
                 <Button
                     android:id="@+id/sendCheckButton"

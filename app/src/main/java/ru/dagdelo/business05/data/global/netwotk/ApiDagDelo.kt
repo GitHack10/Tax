@@ -18,8 +18,11 @@ interface ApiDagDelo {
     @GET("/api/v1/check/index")
     fun prepareCheck(
         @Query("fn") fn: String,
-        @Query("fd") fd: String,
-        @Query("fpd") fpd: String
+        @Query("i") fd: String,
+        @Query("fp") fpd: String,
+        @Query("t") date: String,
+        @Query("n") type: Int,
+        @Query("s") sum: String
     ): Completable
 
     @POST("/api/v1/profile/info")

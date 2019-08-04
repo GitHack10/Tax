@@ -19,6 +19,7 @@ interface PreferenceStorage {
     var isLogin: Boolean
     var deviceId: String
     var token: String
+    var qrString: String
 }
 
 class SharedPreferenceStorage @Inject constructor(context: Context) : PreferenceStorage {
@@ -44,6 +45,8 @@ class SharedPreferenceStorage @Inject constructor(context: Context) : Preference
 
     override var token by StringPreference(prefs, PREF_TOKEN, "")
 
+    override var qrString by StringPreference(prefs, PREF_QR_STRING, "")
+
     override var isLogin by BooleanPreference(prefs, PREF_IS_LOGIN, false)
 
     companion object {
@@ -57,6 +60,7 @@ class SharedPreferenceStorage @Inject constructor(context: Context) : Preference
         const val PREF_PROFILE = "PROFILE_STORE"
         const val PREF_DEVICE_ID = "PREF_DEVICE_ID"
         const val PREF_TOKEN = "PREF_TOKEN"
+        const val PREF_QR_STRING = "PREF_QR_STRING"
         const val PREF_IS_LOGIN = "PREF_IS_LOGIN"
     }
 }

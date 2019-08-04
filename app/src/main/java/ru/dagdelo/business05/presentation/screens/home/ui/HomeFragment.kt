@@ -1,6 +1,9 @@
 package ru.dagdelo.business05.presentation.screens.home.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -20,11 +23,14 @@ import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_home.*
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.data.global.local.SharedPreferenceStorage
+import ru.dagdelo.business05.domain.global.models.Check
 import ru.dagdelo.business05.presentation.global.base.BaseFragment
 import ru.dagdelo.business05.presentation.global.dialogscreens.TwoActionAlertDialog
 import ru.dagdelo.business05.presentation.global.utils.accessible
 import ru.dagdelo.business05.presentation.screens.home.mvp.HomePresenter
 import ru.dagdelo.business05.presentation.screens.home.mvp.HomeView
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.OnClickListener {
@@ -42,7 +48,11 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
     @ProvidePresenter
     fun providePresenter() = presenter
 
-    private lateinit var prefs: SharedPreferences
+    @SuppressLint("SimpleDateFormat")
+    private val dateFormat = SimpleDateFormat("dd.MM.yyyy' 'HH:mm")
+
+    private var dateSend = ""
+    private var date = ""
 
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
@@ -51,12 +61,7 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        prefs = context!!.getSharedPreferences(
-            SharedPreferenceStorage.PREF_PROFILE,
-            Context.MODE_PRIVATE
-        )
-        val qrScannedString = prefs.getString("QR_STRING", "") ?: ""
-        if (qrScannedString.isNotEmpty()) presenter.getScannedString(qrScannedString)
+        presenter.getScannedString()
         init()
     }
 
@@ -71,10 +76,16 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
                         onError = { }
                     )
             }
+            R.id.inputDate -> showDatePicker()
             R.id.sendCheckButton -> presenter.prepareCheck(
-                fpd = inputFP.text.toString(),
-                fd = inputFD.text.toString(),
-                fn = inputFN.text.toString()
+                Check(
+                    fpd = inputFP.text.toString(),
+                    fd = inputFD.text.toString(),
+                    fn = inputFN.text.toString(),
+                    date = inputDate.text.toString(),
+                    type = spinner.selectedItemPosition + 1,
+                    sum = inputSum.text.toString()
+                )
             )
         }
     }
@@ -94,9 +105,14 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
             textLeftButton = "Отменить",
             buttonRightDialogClickListener = {
                 presenter.prepareCheck(
-                    fpd = inputFP.text.toString(),
-                    fd = inputFD.text.toString(),
-                    fn = inputFN.text.toString()
+                    Check(
+                        fpd = inputFP.text.toString(),
+                        fd = inputFD.text.toString(),
+                        fn = inputFN.text.toString(),
+                        date = inputDate.text.toString(),
+                        type = spinner.selectedItemPosition + 1,
+                        sum = inputSum.text.toString()
+                    )
                 )
             }
         ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
@@ -111,42 +127,93 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
         inputFP.text.clear()
         inputFD.text.clear()
         inputFN.text.clear()
-
-        prefs.edit().putString("QR_STRING", "").apply()
+        inputDate.text.clear()
+        spinner.isSelected = false
     }
 
-    override fun showScannedData(
-        fd: String,
-        fpd: String,
-        fn: String
-    ) {
-        inputFP.setText(fpd)
-        inputFD.setText(fd)
-        inputFN.setText(fn)
+    override fun showScannedData(check: Check?) {
+        inputFP.setText(check?.fpd)
+        inputFD.setText(check?.fd)
+        inputFN.setText(check?.fn)
+        inputDate.setText(check?.date)
+        inputSum.setText(check?.sum)
+        spinner.setSelection((check?.type ?: 1) - 1)
     }
 
     private fun init() {
         setupToolbar(getString(R.string.menu_home))
 
         qrScannerTextView.setOnClickListener(this)
+        inputDate.setOnClickListener(this)
         sendCheckButton.setOnClickListener(this)
 
         subscriptions += Observables.combineLatest(
             RxTextView.textChanges(inputFP),
             RxTextView.textChanges(inputFD),
-            RxTextView.textChanges(inputFN)
-        ) { fd, fp, fn ->
-            fd.isNotBlank() && fp.isNotBlank() && fn.isNotBlank()
+            RxTextView.textChanges(inputFN),
+            RxTextView.textChanges(inputDate),
+            RxTextView.textChanges(inputSum)
+        ) { fd, fp, fn, date, sum ->
+            fd.isNotBlank() && fp.isNotBlank() && fn.isNotBlank() && date.isNotBlank() && sum.isNotBlank()
         }
             .subscribeBy { sendCheckButton.accessible(it) }
     }
 
-    override fun onBackPressed() {
-        presenter.onBackPressed()
+    private fun showDatePicker() {
+        val calendar = Calendar.getInstance()
+        val day: Int?
+        val month: Int?
+        val year: Int?
+        var time = ""
+
+        if (inputDate.text.isEmpty()) {
+            day = calendar.get(Calendar.DAY_OF_MONTH)
+            month = calendar.get(Calendar.MONTH)
+            year = calendar.get(Calendar.YEAR)
+        } else {
+            val userDate = inputDate.text.toString().split(".")
+            day = userDate[0].toInt()
+            month = userDate[1].toInt() - 1
+            year = userDate[2].split(" ")[0].toInt()
+            time = userDate[2].split(" ")[1]
+        }
+        val datePickerDialog = DatePickerDialog(
+            context!!,
+            R.style.CustomDatePickerDialog,
+            DatePickerDialog.OnDateSetListener { _, yearUser, monthOfYear, dayOfMonth ->
+                calendar.set(yearUser, monthOfYear, dayOfMonth)
+                showTimePicker(yearUser, monthOfYear, dayOfMonth, time)
+            }, year, month, day
+        )
+
+        datePickerDialog.show()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        prefs.edit().putString("QR_STRING", "").apply()
+    private fun showTimePicker(yearUser: Int, monthOfYear: Int, dayOfMonth: Int, time: String) {
+        val calendar = Calendar.getInstance()
+        val hour: Int?
+        val minute: Int?
+
+        if (time.isEmpty()) {
+            hour = calendar.get(Calendar.DAY_OF_MONTH)
+            minute = calendar.get(Calendar.MONTH)
+        } else {
+            val userTime = time.split(":")
+            hour = userTime[0].toInt()
+            minute = userTime[1].toInt()
+        }
+        val timePickerDialog = TimePickerDialog(
+            context!!,
+            R.style.CustomDatePickerDialog,
+            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minutes ->
+                calendar.set(yearUser, monthOfYear, dayOfMonth, hourOfDay, minutes)
+                date = dateFormat.format(calendar.timeInMillis)
+                inputDate.setText(date)
+            }, hour, minute, true
+        )
+
+        timePickerDialog.show()
     }
+
+    override fun onBackPressed() = presenter.onBackPressed()
 }

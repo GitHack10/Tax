@@ -32,9 +32,6 @@ class SimpleScannerFragment : Fragment(), ZXingScannerView.ResultHandler {
     }
 
     override fun handleResult(rawResult: Result) {
-        Toast.makeText(
-            context, "Успешно!", Toast.LENGTH_SHORT
-        ).show()
         // Note:
         // * Wait 2 seconds to resume the preview.
         // * On older devices continuously stopping and resuming camera preview can result in freezing the app.
@@ -44,9 +41,14 @@ class SimpleScannerFragment : Fragment(), ZXingScannerView.ResultHandler {
             { mScannerView.resumeCameraPreview(this@SimpleScannerFragment) },
             2000
         )
-        val prefs: SharedPreferences =
-            context!!.getSharedPreferences(SharedPreferenceStorage.PREF_PROFILE, Context.MODE_PRIVATE)
-        prefs.edit().putString("QR_STRING", rawResult.text).apply()
+        if (rawResult.text.contains("&") && rawResult.text.contains("fp=")
+            && rawResult.text.contains("fn=") && rawResult.text.contains("i=")) {
+            val prefs: SharedPreferences =
+                context!!.getSharedPreferences(SharedPreferenceStorage.PREF_PROFILE, Context.MODE_PRIVATE)
+            prefs.edit().putString("PREF_QR_STRING", rawResult.text).apply()
+        } else Toast.makeText(
+            context, "Не удалось просканировать, убедитесь что это QR-code чека!", Toast.LENGTH_SHORT
+        ).show()
         fragmentManager?.popBackStack()
     }
 
