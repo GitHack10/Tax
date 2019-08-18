@@ -21,7 +21,7 @@ import ru.dagdelo.business05.R
 import ru.dagdelo.business05.di.global.nameds.SIGN_UP_FLOW
 import ru.dagdelo.business05.domain.global.models.UserInfo
 import ru.dagdelo.business05.presentation.global.base.FlowFragment
-import ru.dagdelo.business05.presentation.global.dialogscreens.TwoActionAlertDialog
+import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
 import ru.dagdelo.business05.presentation.global.utils.accessible
 import ru.dagdelo.business05.presentation.global.utils.hideKeyboard
 import ru.dagdelo.business05.presentation.global.utils.setWhiteStyleWindow
@@ -86,7 +86,7 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
     }
 
     override fun showDataError(message: String) {
-        TwoActionAlertDialog(
+        TwoActionDialog(
             titleText = message,
             textRightButton = "Повторить попытку",
             textLeftButton = "Отменить",
@@ -98,7 +98,7 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
     }
 
     override fun showError(message: String) {
-        TwoActionAlertDialog(
+        TwoActionDialog(
             titleText = message,
             textRightButton = "Повторить попытку",
             textLeftButton = "Отменить",

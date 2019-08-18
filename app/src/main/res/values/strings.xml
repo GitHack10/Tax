@@ -27,13 +27,16 @@
     <string name="home_number_fp">Номер ФП</string>
     <string name="home_number_fn">Номер ФД</string>
     <string name="home_send">Отправить</string>
-    <string name="password">3434</string>
+    <string name="home_success_alert_title">Поздравляем!</string>
+    <string name="home_success_alert_desc">Ваш чек зарегистрирован для участия в Акции “Требуй чек, выиграй приз!”, в котором именно, Вы,  можете стать обладателем призов!</string>
+    <string name="home_success_alert_button">Понятно</string>
 
     <string name="last_name">Фамилия</string>
     <string name="first_name">Имя</string>
     <string name="middle_name">Отчество</string>
     <string name="phone">Номер телефона</string>
     <string name="email">E-mail</string>
+    <string name="password">3434</string>
     <string name="sign_up_password">Пароль</string>
     <string name="birth_date">Дата рождения</string>
     <string name="gender">Пол</string>

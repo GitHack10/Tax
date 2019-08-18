@@ -1,4 +1,4 @@
-package ru.dagdelo.business05.presentation.global.dialogscreens
+package ru.dagdelo.business05.presentation.global.dialogs
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -17,7 +17,7 @@ import ru.dagdelo.business05.R
  * @param autoCloseLeftButton указывает на то будет ли диалоговое окно закрываться при нажатии на кнопку
  * */
 @SuppressLint("ValidFragment")
-class TwoActionAlertDialog(
+class TwoActionDialog(
     var titleText: String = "Title",
     var textLeftButton: String = "Action left",
     var textRightButton: String = "Action right",

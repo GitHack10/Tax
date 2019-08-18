@@ -3,11 +3,13 @@ package ru.dagdelo.business05.presentation.screens.home.mvp
 import com.arellomobile.mvp.InjectViewState
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
+import ru.dagdelo.business05.R
 import ru.dagdelo.business05.domain.global.common.io
 import ru.dagdelo.business05.domain.global.common.ui
 import ru.dagdelo.business05.domain.global.models.Check
 import ru.dagdelo.business05.domain.global.models.CheckInfoEntity
 import ru.dagdelo.business05.domain.home.HomeInteractor
+import ru.dagdelo.business05.presentation.global.AndroidResourceManager
 import ru.dagdelo.business05.presentation.global.Screens
 import ru.dagdelo.business05.presentation.global.base.BasePresenter
 import ru.dagdelo.business05.presentation.global.utils.ErrorHandler
@@ -18,14 +20,11 @@ import javax.inject.Inject
 class HomePresenter @Inject constructor(
     private val appRouter: Router,
     private val interactor: HomeInteractor,
+    private val resourceManager: AndroidResourceManager,
     private val errorHandler: ErrorHandler
 ) : BasePresenter<HomeView>(appRouter) {
 
     private var check: Check? = null
-
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
-    }
 
     fun onQrScannerClicked() {
         appRouter.navigateTo(Screens.QrScreen())
@@ -34,12 +33,15 @@ class HomePresenter @Inject constructor(
     fun prepareCheck(check: Check) {
         viewState.showProgress(true)
 
-//        check = Check(fd, fpd, fn, date, n, sum)
         check.convertTimeSendFormat()
         subscription += interactor.prepareCheck(check)
             .subscribeBy(
                 onComplete = {
-                    viewState.showSuccess("Чек зарегистрирован!")
+                    viewState.showSuccess(
+                        resourceManager.getString(R.string.home_success_alert_title),
+                        resourceManager.getString(R.string.home_success_alert_desc),
+                        resourceManager.getString(R.string.home_success_alert_button)
+                    )
                     viewState.showProgress(false)
                 },
                 onError = {
@@ -74,17 +76,6 @@ class HomePresenter @Inject constructor(
             interactor.clearQrString()
             viewState.showScannedData(check)
         }
-    }
-
-    private fun insertCheckInDb(check: CheckInfoEntity) {
-        subscription += interactor.insertCheckInDB(check.document.receipt)
-            .subscribeOn(io)
-            .observeOn(ui)
-            .subscribe({
-                viewState.showToast("Сохранено")
-            }, {
-                viewState.showError("Не удалось сохранить")
-            })
     }
 
     override fun onDestroy() {

@@ -10,7 +10,9 @@ import ru.dagdelo.business05.domain.global.models.Check
 interface HomeView : MvpView {
     fun showScannedData(check: Check?)
     fun showProgress(show: Boolean)
-    fun showSuccess(message: String)
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showSuccess(title: String, desc: String, positiveText: String)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showScanError(message: String)

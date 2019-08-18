@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_checklist.*
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.domain.global.models.CheckInfo
 import ru.dagdelo.business05.presentation.global.base.BaseFragment
-import ru.dagdelo.business05.presentation.global.dialogscreens.TwoActionAlertDialog
+import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
 import ru.dagdelo.business05.presentation.screens.checklist.mvp.ChecklistPresenter
 import ru.dagdelo.business05.presentation.screens.checklist.mvp.ChecklistView
 import javax.inject.Inject
@@ -51,7 +51,7 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
     }
 
     override fun showError(message: String) {
-        TwoActionAlertDialog(
+        TwoActionDialog(
             textLeftButton = getString(R.string.btn_cancel),
             textRightButton = getString(R.string.tryAgain),
             titleText = getString(R.string.isNoNetwork),

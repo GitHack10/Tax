@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
@@ -22,10 +21,10 @@ import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_home.*
 import ru.dagdelo.business05.R
-import ru.dagdelo.business05.data.global.local.SharedPreferenceStorage
 import ru.dagdelo.business05.domain.global.models.Check
 import ru.dagdelo.business05.presentation.global.base.BaseFragment
-import ru.dagdelo.business05.presentation.global.dialogscreens.TwoActionAlertDialog
+import ru.dagdelo.business05.presentation.global.dialogs.OneActionDialog
+import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
 import ru.dagdelo.business05.presentation.global.utils.accessible
 import ru.dagdelo.business05.presentation.screens.home.mvp.HomePresenter
 import ru.dagdelo.business05.presentation.screens.home.mvp.HomeView
@@ -99,7 +98,7 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
     }
 
     override fun showError(message: String) {
-        TwoActionAlertDialog(
+        TwoActionDialog(
             titleText = message,
             textRightButton = "Повторить попытку",
             textLeftButton = "Отменить",
@@ -122,12 +121,18 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun showSuccess(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    override fun showSuccess(title: String, desc: String, positiveText: String) {
+        OneActionDialog(
+            titleText = title,
+            descText = desc,
+            textButton = positiveText
+        ).show(fragmentManager, "OneActionDialog.javaClass.simpleName")
+
         inputFP.text.clear()
         inputFD.text.clear()
         inputFN.text.clear()
         inputDate.text.clear()
+        inputSum.text.clear()
         spinner.isSelected = false
     }
 

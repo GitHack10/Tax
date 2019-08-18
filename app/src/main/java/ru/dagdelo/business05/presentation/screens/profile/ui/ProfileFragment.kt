@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.domain.global.models.User
 import ru.dagdelo.business05.presentation.global.base.BaseFragment
-import ru.dagdelo.business05.presentation.global.dialogscreens.TwoActionAlertDialog
+import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
 import ru.dagdelo.business05.presentation.global.utils.accessible
 import ru.dagdelo.business05.presentation.screens.profile.mvp.ProfilePresenter
 import ru.dagdelo.business05.presentation.screens.profile.mvp.ProfileView
@@ -71,7 +71,7 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
     }
 
     override fun showError(message: String) {
-        TwoActionAlertDialog(
+        TwoActionDialog(
             textLeftButton = getString(R.string.btn_cancel),
             textRightButton = getString(R.string.tryAgain),
             titleText = message,
@@ -82,7 +82,7 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
     }
 
     override fun showSaveError(message: String) {
-        TwoActionAlertDialog(
+        TwoActionDialog(
             textLeftButton = getString(R.string.btn_cancel),
             textRightButton = getString(R.string.tryAgain),
             titleText = message,
@@ -139,7 +139,7 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
     }
 
     private fun showLogoutAlert() {
-        TwoActionAlertDialog(
+        TwoActionDialog(
             textLeftButton = getString(R.string.btn_cancel),
             textRightButton = getString(R.string.btn_yes),
             titleText = getString(R.string.exit_dialog_text),

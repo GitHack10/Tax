@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_sign_in.*
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.di.global.nameds.SIGN_IN_FLOW
 import ru.dagdelo.business05.presentation.global.base.FlowFragment
-import ru.dagdelo.business05.presentation.global.dialogscreens.TwoActionAlertDialog
+import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
 import ru.dagdelo.business05.presentation.global.utils.accessible
 import ru.dagdelo.business05.presentation.global.utils.setWhiteStyleWindow
 import ru.dagdelo.business05.presentation.screens.auth.signin.mvp.SignInPresenter
@@ -80,7 +80,7 @@ class SignInFragment : FlowFragment(),
     }
 
     override fun showError(message: String) {
-        TwoActionAlertDialog(
+        TwoActionDialog(
             titleText = message,
             textRightButton = "Повторить попытку",
             textLeftButton = "Отменить",
