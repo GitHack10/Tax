@@ -35,19 +35,4 @@ class ChecklistPresenter @Inject constructor(
                 }
             )
     }
-
-//    private fun getCheckList() {
-//        viewState.showProgress(true)
-//        subscription += interactor.getAllChecks()
-//            .subscribeBy(
-//                onNext = { checkList ->
-//                    viewState.showCheckList(checkList)
-//                    viewState.showProgress(false)
-//                },
-//                onError = {
-//                    viewState.showEmptyList("Список пуст")
-//                    viewState.showProgress(false)
-//                }
-//            )
-//    }
 }

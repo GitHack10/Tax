@@ -8,9 +8,8 @@ class AppInteractor @Inject constructor(
     private val prefs: PreferenceStorage
 ) {
 
-    fun getPhone() = prefs.phone
-
     fun isLogin() = prefs.isLogin
+
     fun saveDeviceId(deviceId: String) {
         prefs.deviceId = deviceId
     }

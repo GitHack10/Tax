@@ -15,6 +15,20 @@ interface ApiDagDelo {
         @Header("Authorization") authData: String
     ): Single<AuthResponse>
 
+    @FormUrlEncoded
+    @POST("/api/v2/main/sendsms")
+    fun getSmsCode(@Field("phone") phone: String): Completable
+
+//    @FormUrlEncoded
+//    @POST("/api/v2/main/checkcode")
+//    fun auth(
+//        @Field("phone") phone: String,
+//        @Field("code") smsCode: String
+//    ): Single<AuthResponse>
+
+    @POST("/api/v2/main/checkcode")
+    fun auth(@Header("Authorization") basicAuthHeader: String): Single<AuthResponse>
+
     @GET("/api/v1/check/index")
     fun prepareCheck(
         @Query("fn") fn: String,

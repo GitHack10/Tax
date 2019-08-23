@@ -39,20 +39,18 @@ class ProfilePresenter @Inject constructor(
     }
 
     fun onLogoutClicked() {
-        interactor.clearUserData()
-        interactor.setIsLogin(false)
-        interactor.cleanToken()
+        interactor.setIsLogin(isLogin = false)
         appRouter.newRootScreen(Screens.SignIn())
     }
 
     fun onSaveChangesClicked(username: String) {
-        viewState.showSaveProgress(true)
         subscription += interactor.editProfile(username)
+            .doOnSubscribe { viewState.showSaveProgress(true) }
+            .doAfterTerminate { viewState.showSaveProgress(false) }
             .subscribeBy(
-                onComplete = { viewState.showSaveProgress(false) },
+                onComplete = {  },
                 onError = {
                     viewState.showSaveError("Не удалось сохранить изменения")
-                    viewState.showSaveProgress(false)
                 }
             )
     }

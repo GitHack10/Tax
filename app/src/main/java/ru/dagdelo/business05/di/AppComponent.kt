@@ -3,10 +3,14 @@ package ru.dagdelo.business05.di
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
+import ru.dagdelo.business05.App
 import ru.dagdelo.business05.di.global.modules.*
 import javax.inject.Singleton
 
-/** Created by Kamil Abdulatipov on 22.06.2019. */
+/**
+ * Created by Kamil Abdulatipov on 22.06.2019.
+ * telegram: @mr_geeek
+ * */
 
 @Singleton
 @Component(
@@ -22,7 +26,7 @@ import javax.inject.Singleton
         PrefsModule::class
     ]
 )
-interface AppComponent : AndroidInjector<ru.dagdelo.business05.App> {
+interface AppComponent : AndroidInjector<App> {
     @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<ru.dagdelo.business05.App>()
+    abstract class Builder : AndroidInjector.Builder<App>()
 }

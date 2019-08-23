@@ -23,7 +23,7 @@ class MainFlowPresenter @Inject constructor(
     fun homeTabClicked(selectedScreen: Int) {
         if (selectedScreen != 1) {
             viewState.highlightTab(HOME_TAB_POSITION)
-            flowRouter.replaceScreen(Screens.Home())
+            flowRouter.replaceScreen(Screens.Home)
             this.selectedScreen = selectedScreen
         }
     }

@@ -1,5 +1,6 @@
 package ru.dagdelo.business05.data.auth
 
+import io.reactivex.Completable
 import io.reactivex.Single
 import ru.dagdelo.business05.data.global.netwotk.ApiDagDelo
 import ru.dagdelo.business05.data.global.netwotk.utils.createBasicAuthHeader
@@ -14,10 +15,18 @@ class AuthRepositoryImpl @Inject constructor(
     private val apiDagDelo: ApiDagDelo
 ) : AuthRepository {
 
-    override fun signInRequest(email: String, password: String): Single<AuthResponse> =
-        apiDagDelo.signInUser(createBasicAuthHeader(email, password))
-            .subscribeOn(io)
-
     override fun registerUser(userReg: UserReg): Single<UserRegResponse> =
         apiDagDelo.signUpUser(userReg).subscribeOn(io)
+
+    override fun getSmsCode(phone: String): Completable =
+        apiDagDelo.getSmsCode(phone)
+            .subscribeOn(io)
+
+//    override fun auth(phone: String, smsCode: String): Single<AuthResponse> =
+//        apiDagDelo.auth(phone, smsCode)
+//            .subscribeOn(io)
+
+    override fun auth(phone: String, smsCode: String): Single<AuthResponse> =
+        apiDagDelo.auth(createBasicAuthHeader(phone, smsCode))
+            .subscribeOn(io)
 }

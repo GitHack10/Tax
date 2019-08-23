@@ -5,7 +5,7 @@
     android:id="@+id/auth_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screens.auth.signin.entercode.ui.EnterCodeFragment">
+    tools:context=".presentation.screens.auth.enterphone.entercode.ui.EnterCodeFragment">
 
     <include
         android:id="@+id/signInToolbar"

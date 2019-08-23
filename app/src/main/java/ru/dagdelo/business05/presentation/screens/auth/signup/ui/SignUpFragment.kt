@@ -22,10 +22,7 @@ import ru.dagdelo.business05.di.global.nameds.SIGN_UP_FLOW
 import ru.dagdelo.business05.domain.global.models.UserInfo
 import ru.dagdelo.business05.presentation.global.base.FlowFragment
 import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
-import ru.dagdelo.business05.presentation.global.utils.accessible
-import ru.dagdelo.business05.presentation.global.utils.hideKeyboard
-import ru.dagdelo.business05.presentation.global.utils.setWhiteStyleWindow
-import ru.dagdelo.business05.presentation.global.utils.showKeyboard
+import ru.dagdelo.business05.presentation.global.utils.*
 import ru.dagdelo.business05.presentation.screens.auth.signup.mvp.SignUpPresenter
 import ru.dagdelo.business05.presentation.screens.auth.signup.mvp.SignUpView
 import ru.terrakok.cicerone.NavigatorHolder
@@ -60,6 +57,7 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
     private val dateSendFormat = SimpleDateFormat("yyyy-MM-dd")
     @SuppressLint("SimpleDateFormat")
     private val dateFormat = SimpleDateFormat("dd MMMM yyyy")
+    private var maskedPhone = ""
     private var birth = ""
 
     override fun onAttach(context: Context?) {
@@ -71,6 +69,9 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setWhiteStyleWindow(view, activity!!)
+        arguments?.run {
+            maskedPhone = getString(MASKED_PHONE, "")
+        }
         init()
     }
 
@@ -111,8 +112,7 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
     private fun collectUserData() = UserInfo(
         name = usernameEdit.text.toString(),
         email = emailEdit.text.toString(),
-        phone = "7${phoneEdit.rawText}",
-        password = passwordEdit.text.toString(),
+        phone = maskedPhone.regexPhone(),
         birth = birth,
         gender = if (maleRadioButton.isChecked) 1 else 0
     )
@@ -154,26 +154,17 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
 
     private fun init() {
         setupToolbar(getString(R.string.menu_sign_up), true)
+        enterPhoneEdit.setText(maskedPhone)
 
         doneButton.setOnClickListener(this)
         birthEdit.setOnClickListener(this)
 
-        phoneEdit.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard()
-            }
-            false
-        }
-
         subscriptions += Observables.combineLatest(
             RxTextView.textChanges(usernameEdit),
             RxTextView.textChanges(emailEdit),
-            RxTextView.textChanges(passwordEdit),
-            RxTextView.textChanges(phoneEdit),
             RxTextView.textChanges(birthEdit)
-        ) { username, email, password, phone, birth ->
-            username.isNotBlank() && email.isNotBlank() && password.isNotBlank() && password.length > 3
-                && phone.isNotBlank() && birth.isNotBlank() && phoneEdit.rawText.length > 9
+        ) { username, email, birth ->
+            username.isNotBlank() && email.isNotBlank() && birth.isNotBlank()
         }
             .subscribeBy { doneButton.accessible(it) }
     }
@@ -181,4 +172,12 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
     override fun supportFragmentInjector() = fragmentInjector
 
     override fun onBackPressed() = presenter.onBackPressed()
+
+    companion object {
+        fun newInstance(maskedPhone: String) = SignUpFragment().withArgs {
+            putString(MASKED_PHONE, maskedPhone)
+        }
+
+        private const val MASKED_PHONE = "masked_phone"
+    }
 }

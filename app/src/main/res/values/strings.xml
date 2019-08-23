@@ -6,15 +6,18 @@
     <string name="menu_checklist">История покупок</string>
     <string name="menu_news">Новости</string>
     <string name="menu_profile">Личный кабинет</string>
-    <string name="menu_sign_in">Авторизация</string>
+    <string name="menu_enter_phone">Вход</string>
+    <string name="menu_enter_code">Подтверждение номера</string>
     <string name="menu_sign_up">Регистрация</string>
+    <string name="menu_sign_in">Вход</string>
 
-    <string name="sign_in">Войти</string>
+    <string name="sign_in">Далее</string>
     <string name="sign_up">Регистрация</string>
     <string name="sign_in_subtitle">Войдите или зарегистрируйтесь по e-mail и номеру телефона</string>
     <string name="email_title">E-mail:</string>
     <string name="email_hint">magomedov_m@gmail.com</string>
     <string name="phone_hint">9001234567</string>
+    <string name="masked_phone_hint">+7 (900)123–45–67</string>
     <string name="password_title">Пароль:</string>
     <string name="password_hint">123456</string>
     <string name="restore_password">Восстановить пароль?</string>
@@ -101,5 +104,10 @@
     <string name="error_network">Ошибка сети</string>
     <string name="error_network_get_response">Не удалось получить ответ ошибки</string>
     <string name="error_network_convert_response">Не удалось сконвертировать ответ ошибки</string>
+    <string name="enter_phone_title">Войдите или зарегистрируйтесь\nпо номеру телефона</string>
+    <string name="enter_phone_next">Далее</string>
+    <string name="enter_code_send_again">Запросить код повторно</string>
+    <string name="enter_code_title">Введите код из SMS сообщения</string>
+    <string name="enter_code_wrong_phone">Неверный номер?</string>
 
 </resources>

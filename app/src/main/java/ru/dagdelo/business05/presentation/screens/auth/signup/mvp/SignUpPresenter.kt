@@ -26,35 +26,28 @@ class SignUpPresenter @Inject constructor(
 
     fun onDoneClicked(userInfo: UserInfo) {
 
-        viewState.showProgress(true)
         val userReg = UserReg(
             email = userInfo.email ?: "",
             name = userInfo.name ?: "",
             phone = userInfo.phone ?: "",
-            password = userInfo.password ?: "",
             birth = userInfo.birth ?: "",
             gender = userInfo.gender ?: 1
         )
         subscription += interactor.registerUser(userReg)
+            .doOnSubscribe { viewState.showProgress(true) }
+            .doAfterTerminate { viewState.showProgress(false) }
             .subscribeBy(
                 onSuccess = {
-                    if (it.status) {
-                        interactor.setIsLogin(true)
-                        interactor.saveToken(it.token)
-                        flowRouter.newRootFlow(Screens.MainFlow())
+                    if (it.success) {
+                        interactor.setIsLogin(isLogin = true, token = it.token)
+                        flowRouter.newRootFlow(Screens.MainFlow)
                     } else {
                         viewState.showDataError(
                             "Пользователь с таким E-mail или Номером телефона уже существует"
                         )
                     }
-                    viewState.showProgress(false)
                 },
-                onError = {
-                    errorHandler.proceed(it) {
-                            msg -> viewState.showError(msg)
-                    }
-                    viewState.showProgress(false)
-                }
+                onError = { errorHandler.proceed(it) { msg -> viewState.showError(msg) } }
             )
     }
 

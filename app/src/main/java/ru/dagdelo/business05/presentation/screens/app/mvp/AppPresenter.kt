@@ -21,11 +21,12 @@ class AppPresenter @Inject constructor(
 
     private fun login() {
         if (interactor.isLogin()) {
-            appRouter.replaceScreen(Screens.MainFlow())
-        } else appRouter.replaceScreen(Screens.SignIn())
+            appRouter.replaceScreen(Screens.MainFlow)
+        } else appRouter.replaceScreen(Screens.EnterPhone)
     }
 
     override fun onBackPressed() = appRouter.exit()
+
     fun saveDeviceId(deviceId: String) {
         interactor.saveDeviceId(deviceId)
         Log.d("DEVICE-ID: ", deviceId)

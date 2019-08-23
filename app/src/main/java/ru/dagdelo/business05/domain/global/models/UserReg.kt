@@ -7,6 +7,5 @@ data class UserReg(
     @SerializedName("email") val email: String,
     @SerializedName("phone") val phone: String,
     @SerializedName("gender") val gender: Int,
-    @SerializedName("birthday") val birth: String,
-    @SerializedName("password") val password: String
+    @SerializedName("birthday") val birth: String
 )

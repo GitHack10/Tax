@@ -122,7 +122,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/dividerEmail" />
 
             <br.com.sapereaude.maskedEditText.MaskedEditText
-                android:id="@+id/phoneEdit"
+                android:id="@+id/enterPhoneMaskedEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -149,7 +149,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/divider_item"
-                app:layout_constraintTop_toBottomOf="@+id/phoneEdit" />
+                app:layout_constraintTop_toBottomOf="@+id/enterPhoneMaskedEdit" />
 
             <TextView
                 android:id="@+id/birthTextView"

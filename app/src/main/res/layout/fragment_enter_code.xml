@@ -2,10 +2,10 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/password_input_container"
+    android:id="@+id/enter_code_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screens.auth.signin.entercode.ui.EnterCodeFragment">
+    tools:context=".presentation.screens.auth.entercode.ui.EnterCodeFragment">
 
     <include
         android:id="@+id/enterCodeToolbar"
@@ -25,46 +25,74 @@
         app:layout_constraintTop_toBottomOf="@+id/enterCodeToolbar" />
 
     <TextView
-        android:id="@+id/enterCodeSubtitle"
+        android:id="@+id/enterCodeSubtitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="14dp"
         android:textSize="14sp"
-        android:text="Введите смс-код из сообщения"
+        android:text="@string/enter_code_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneTextView" />
 
-    <com.chaos.view.PinView
-        android:id="@+id/codePinView"
-        style="@style/PinWidget.PinView"
+    <TextView
+        android:id="@+id/enterCodeCounterText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
-        android:cursorVisible="false"
-        android:inputType="number"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        app:hideLineWhenFilled="true"
-        app:itemCount="6"
-        app:itemSpacing="16dp"
-        app:itemWidth="16dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@color/textDescription"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterCodeSubtitle"
-        app:viewType="line"
-        tools:text="123456" />
+        app:layout_constraintTop_toTopOf="@id/enterCodeSubtitleText" />
+
+    <TextView
+        android:id="@+id/sendSmsAgainText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:drawableEnd="@drawable/ic_send_again"
+        android:drawablePadding="8dp"
+        android:text="@string/enter_code_send_again"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phoneTextView" />
+
+    <br.com.sapereaude.maskedEditText.MaskedEditText
+        android:id="@+id/enterCodeMaskedEdit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginEnd="89dp"
+        android:hint="@string/password_hint"
+        android:inputType="number"
+        android:paddingBottom="18dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/hintTitle"
+        android:textSize="24sp"
+        android:typeface="monospace"
+        app:allowed_chars="0123456789"
+        app:keep_hint="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterCodeSubtitleText"
+        app:mask="##-##-##" />
 
     <FrameLayout
         android:id="@+id/sendSmsFrame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="98dp"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="98dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codePinView">
+        app:layout_constraintTop_toBottomOf="@+id/enterCodeMaskedEdit">
 
         <Button
             android:id="@+id/sendSmsButton"
@@ -72,7 +100,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_disabled"
-            android:enabled="true"
             android:focusable="true"
             android:text="Далее"
             android:textAllCaps="false"
@@ -91,4 +118,17 @@
         app:layout_constraintEnd_toEndOf="@id/sendSmsFrame"
         app:layout_constraintTop_toTopOf="@id/sendSmsFrame"
         tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/wrongPhoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/enter_code_wrong_phone"
+        android:textColor="@color/textDescription"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendSmsFrame" />
+
 </android.support.constraint.ConstraintLayout>

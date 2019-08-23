@@ -96,7 +96,7 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
         this.userInfo = userInfo.copy()
         usernameEdit.setText(userInfo.fullName)
         emailEdit.setText(userInfo.email)
-        phoneEdit.setText(userInfo.phone.removeRange(0, 1))
+        enterPhoneMaskedEdit.setText(userInfo.phone.removeRange(0, 1))
         birthEdit.setText(userInfo.birth)
         genderEdit.setText(userInfo.gender)
     }

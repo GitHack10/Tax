@@ -7,7 +7,7 @@
 
     <dimen name="button_horizontal_margin">89dp</dimen>
     <dimen name="progressbar_padding_end">20dp</dimen>
-    <dimen name="edittext_horizontal_margin">12dp</dimen>
+    <dimen name="edittext_horizontal_margin">16dp</dimen>
 
     <!-- Font size -->
     <dimen name="text_min">12sp</dimen>

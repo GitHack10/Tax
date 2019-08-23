@@ -1,4 +1,4 @@
-package ru.dagdelo.business05.presentation.screens.auth.signin.mvp
+package ru.dagdelo.business05.presentation.screens.auth.enterphone.mvp
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface SignInView : MvpView {
+interface EnterPhoneView : MvpView {
 
     fun showProgress(show: Boolean)
 

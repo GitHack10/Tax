@@ -21,22 +21,8 @@ class ProfileInteractor @Inject constructor(
         profileRepositoryImpl.editProfile(username)
             .observeOn(ui)
 
-    fun clearUserData() {
-        prefs.username = ""
-        prefs.phone = ""
-        prefs.email = ""
-        prefs.password = ""
-        prefs.maskedPhone = ""
-        prefs.deviceId = ""
-        prefs.birth = ""
-        prefs.gender = ""
-    }
-
-    fun setIsLogin(isLogout: Boolean) {
-        prefs.isLogin = isLogout
-    }
-
-    fun cleanToken() {
+    fun setIsLogin(isLogin: Boolean) {
+        prefs.isLogin = isLogin
         prefs.token = ""
     }
 }

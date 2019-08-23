@@ -16,13 +16,6 @@ class HomeInteractor @Inject constructor(
         homeRepositoryImpl.prepareCheck(check)
             .observeOn(ui)
 
-    fun getPhone() = prefs.phone
-
-    fun getPassword() = prefs.password
-
-    fun insertCheckInDB(checkInfo: CheckInfoEntity.Document.Receipt): Completable =
-        homeRepositoryImpl.insertCheck(checkInfo)
-
     fun clearQrString() { prefs.qrString = "" }
 
     fun getQrString() = prefs.qrString

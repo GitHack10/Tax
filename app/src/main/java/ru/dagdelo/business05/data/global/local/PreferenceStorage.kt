@@ -9,13 +9,6 @@ import kotlin.reflect.KProperty
 /** Created by Kamil Abdulatipov on 22.06.2019. */
 
 interface PreferenceStorage {
-    var username: String
-    var email: String
-    var phone: String
-    var password: String
-    var maskedPhone: String
-    var birth: String
-    var gender: String
     var isLogin: Boolean
     var deviceId: String
     var token: String
@@ -27,20 +20,6 @@ class SharedPreferenceStorage @Inject constructor(context: Context) : Preference
     private val prefs: SharedPreferences =
         context.getSharedPreferences(PREF_PROFILE, Context.MODE_PRIVATE)
 
-    override var username by StringPreference(prefs, PREF_USERNAME, "")
-
-    override var email by StringPreference(prefs, PREF_EMAIL, "")
-
-    override var phone by StringPreference(prefs, PREF_PHONE, "")
-
-    override var password by StringPreference(prefs, PREF_PASSWORD, "")
-
-    override var maskedPhone by StringPreference(prefs, PREF_MASKED_PHONE, "")
-
-    override var birth by StringPreference(prefs, PREF_BIRTH, "")
-
-    override var gender by StringPreference(prefs, PREF_GENDER, "")
-
     override var deviceId by StringPreference(prefs, PREF_DEVICE_ID, "")
 
     override var token by StringPreference(prefs, PREF_TOKEN, "")
@@ -50,13 +29,6 @@ class SharedPreferenceStorage @Inject constructor(context: Context) : Preference
     override var isLogin by BooleanPreference(prefs, PREF_IS_LOGIN, false)
 
     companion object {
-        const val PREF_USERNAME = "PREF_USERNAME"
-        const val PREF_EMAIL = "PREF_EMAIL"
-        const val PREF_PHONE = "PREF_PHONE"
-        const val PREF_PASSWORD = "PREF_PASSWORD"
-        const val PREF_MASKED_PHONE = "PREF_MASKED_PHONE"
-        const val PREF_BIRTH = "PREF_BIRTH"
-        const val PREF_GENDER = "PREF_GENDER"
         const val PREF_PROFILE = "PROFILE_STORE"
         const val PREF_DEVICE_ID = "PREF_DEVICE_ID"
         const val PREF_TOKEN = "PREF_TOKEN"

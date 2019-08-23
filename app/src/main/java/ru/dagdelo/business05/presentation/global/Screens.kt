@@ -1,6 +1,7 @@
 package ru.dagdelo.business05.presentation.global
 
-import ru.dagdelo.business05.presentation.screens.auth.signin.ui.SignInFragment
+import ru.dagdelo.business05.presentation.screens.auth.entercode.ui.EnterCodeFragment
+import ru.dagdelo.business05.presentation.screens.auth.enterphone.ui.EnterPhoneFragment
 import ru.dagdelo.business05.presentation.screens.auth.signup.ui.SignUpFragment
 import ru.dagdelo.business05.presentation.screens.checklist.ui.ChecklistFragment
 import ru.dagdelo.business05.presentation.screens.home.ui.HomeFragment
@@ -15,18 +16,29 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 object Screens {
 
     class SignIn : SupportAppScreen() {
-        override fun getFragment() = SignInFragment()
+        override fun getFragment() = EnterPhoneFragment()
     }
 
-    class SignUp : SupportAppScreen() {
-        override fun getFragment() = SignUpFragment()
+    data class SignUp(private val maskedPhone: String) : SupportAppScreen() {
+        override fun getFragment() = SignUpFragment.newInstance(maskedPhone)
     }
 
-    class MainFlow : SupportAppScreen() {
+    object EnterPhone : SupportAppScreen() {
+        override fun getFragment() = EnterPhoneFragment()
+    }
+
+    data class EnterCode(
+        val maskedPhone: String,
+        val phone: String
+    ) : SupportAppScreen() {
+        override fun getFragment() = EnterCodeFragment.newInstance(maskedPhone, phone)
+    }
+
+    object MainFlow : SupportAppScreen() {
         override fun getFragment() = MainFlowFragment()
     }
 
-    class Home : SupportAppScreen() {
+    object Home : SupportAppScreen() {
         override fun getFragment() = HomeFragment()
     }
 

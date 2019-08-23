@@ -2,7 +2,11 @@ package ru.dagdelo.business05.presentation.global.utils
 
 import android.app.Activity
 import android.os.Build
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import ru.dagdelo.business05.R
 
@@ -23,3 +27,22 @@ fun setGradientStyleWindow(activity: Activity) {
         window.setBackgroundDrawable(background)
     }
 }
+
+fun ViewGroup.inflate(layoutId: Int) = LayoutInflater.from(context).inflate(
+    layoutId,
+    this,
+    false
+)!!
+
+inline fun <T : Fragment> T.withArgs(
+    argsBuilder: Bundle.() -> Unit
+): T =
+    this.apply {
+        arguments = Bundle().apply(argsBuilder)
+    }
+
+fun String.regexPhone() = replace("+", "")
+    .replace("(", "")
+    .replace(")", "")
+    .replace("-", "")
+    .replace(" ", "")

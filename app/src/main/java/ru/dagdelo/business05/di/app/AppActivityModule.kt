@@ -4,7 +4,8 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import ru.dagdelo.business05.di.global.scopes.FlowFragmentScope
 import ru.dagdelo.business05.di.global.scopes.FragmentScope
-import ru.dagdelo.business05.di.screens.auth.signin.SignInNavigationModule
+import ru.dagdelo.business05.di.screens.auth.entercode.EnterCodeNavigationModule
+import ru.dagdelo.business05.di.screens.auth.enterphone.EnterPhoneNavigationModule
 import ru.dagdelo.business05.di.screens.auth.signup.SignUpNavigationModule
 import ru.dagdelo.business05.di.screens.checklist.ChecklistModule
 import ru.dagdelo.business05.di.screens.home.HomeModule
@@ -12,7 +13,8 @@ import ru.dagdelo.business05.di.screens.mainflow.MainFlowModule
 import ru.dagdelo.business05.di.screens.mainflow.MainFlowNavigationModule
 import ru.dagdelo.business05.di.screens.news.NewsModule
 import ru.dagdelo.business05.di.screens.profile.ProfileModule
-import ru.dagdelo.business05.presentation.screens.auth.signin.ui.SignInFragment
+import ru.dagdelo.business05.presentation.screens.auth.entercode.ui.EnterCodeFragment
+import ru.dagdelo.business05.presentation.screens.auth.enterphone.ui.EnterPhoneFragment
 import ru.dagdelo.business05.presentation.screens.auth.signup.ui.SignUpFragment
 import ru.dagdelo.business05.presentation.screens.checklist.ui.ChecklistFragment
 import ru.dagdelo.business05.presentation.screens.home.ui.HomeFragment
@@ -26,8 +28,12 @@ import ru.dagdelo.business05.presentation.screens.profile.ui.ProfileFragment
 interface AppActivityModule {
 
     @FlowFragmentScope
-    @ContributesAndroidInjector(modules = [SignInNavigationModule::class])
-    fun contributeSignInFragment(): SignInFragment
+    @ContributesAndroidInjector(modules = [EnterPhoneNavigationModule::class])
+    fun contributeEnterPhoneFragment(): EnterPhoneFragment
+
+    @FlowFragmentScope
+    @ContributesAndroidInjector(modules = [EnterCodeNavigationModule::class])
+    fun contributeEnterCodeFragment(): EnterCodeFragment
 
     @FlowFragmentScope
     @ContributesAndroidInjector(modules = [SignUpNavigationModule::class])

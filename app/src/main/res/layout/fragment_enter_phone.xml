@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/phone_input_container"
+    android:id="@+id/enter_phone_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -18,14 +18,14 @@
         android:layout_marginStart="54dp"
         android:layout_marginEnd="54dp"
         android:gravity="center"
-        android:text="Введите номер телефона. Вам придет смс-код с подтверждением"
+        android:text="@string/enter_phone_title"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/enterPhoneToolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <br.com.sapereaude.maskedEditText.MaskedEditText
-        android:id="@+id/phoneEdit"
+        android:id="@+id/enterPhoneMaskedEdit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -46,11 +46,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="98dp"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="98dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneEdit">
+        app:layout_constraintTop_toBottomOf="@+id/enterPhoneMaskedEdit">
 
         <Button
             android:id="@+id/sendPhoneButton"
@@ -58,9 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_disabled"
-            android:enabled="true"
             android:focusable="true"
-            android:text="Далее"
+            android:text="@string/enter_phone_next"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
