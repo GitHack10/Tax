@@ -13,6 +13,7 @@ import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.fragment_news.*
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.presentation.global.base.BaseFragment
+import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
 import ru.dagdelo.business05.presentation.screens.news.mvp.NewsPresenter
 import ru.dagdelo.business05.presentation.screens.news.mvp.NewsView
 import javax.inject.Inject
@@ -42,11 +43,39 @@ class NewsFragment : BaseFragment(), NewsView, HasSupportFragmentInjector {
         init()
     }
 
+    override fun onResume() {
+        super.onResume()
+        newsWebView.onResume()
+    }
+
+    override fun showError(message: String) {
+        TwoActionDialog(
+            titleText = message,
+            textRightButton = getString(R.string.try_again),
+            textLeftButton = getString(R.string.cancel),
+            buttonRightDialogClickListener = { presenter.retryLoad() }
+        ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
+    }
+
+    override fun showNews() {
+        newsWebView.webViewClient = NewsWebViewClient(NEWS_URL) { show ->
+            newsProgress.let { it.visibility = if (show) View.VISIBLE else View.INVISIBLE }
+        }
+        newsWebView.loadUrl(NEWS_URL)
+    }
+
+    override fun onPause() {
+        newsWebView.onPause()
+        super.onPause()
+    }
+
+    override fun onDestroyView() {
+        newsWebView.destroy()
+        super.onDestroyView()
+    }
+
     private fun init() {
         setupToolbar(getString(R.string.menu_news))
-
-        newsWebView.webViewClient = WebViewClient()
-        newsWebView.loadUrl(NEWS_URL)
     }
 
     override fun onBackPressed() {
