@@ -5,7 +5,6 @@ import ru.dagdelo.business05.data.global.local.PreferenceStorage
 import ru.dagdelo.business05.data.home.HomeRepositoryImpl
 import ru.dagdelo.business05.domain.global.common.ui
 import ru.dagdelo.business05.domain.global.models.Check
-import ru.dagdelo.business05.domain.global.models.CheckInfoEntity
 import javax.inject.Inject
 
 class HomeInteractor @Inject constructor(

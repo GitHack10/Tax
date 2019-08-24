@@ -4,10 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import ru.dagdelo.business05.R
-import ru.dagdelo.business05.domain.global.common.io
-import ru.dagdelo.business05.domain.global.common.ui
 import ru.dagdelo.business05.domain.global.models.Check
-import ru.dagdelo.business05.domain.global.models.CheckInfoEntity
 import ru.dagdelo.business05.domain.home.HomeInteractor
 import ru.dagdelo.business05.presentation.global.AndroidResourceManager
 import ru.dagdelo.business05.presentation.global.Screens
@@ -45,7 +42,12 @@ class HomePresenter @Inject constructor(
                     viewState.showProgress(false)
                 },
                 onError = {
-                    errorHandler.proceed(it) { msg -> viewState.showError(msg) }
+                    errorHandler.proceed(it) { error ->
+                        viewState.showError(
+                            if (!error.errors.isNullOrEmpty()) error.errors.first().message
+                            else error.message
+                        )
+                    }
                     viewState.showProgress(false)
                 }
             )
