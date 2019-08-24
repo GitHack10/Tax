@@ -40,7 +40,7 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
     @ProvidePresenter
     fun providePresenter() = presenter
 
-    private var userInfo: User? = null
+    private var user: User? = null
 
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
@@ -53,27 +53,22 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
     }
 
     override fun showLoadProgress(show: Boolean) {
-        if (show) {
-            profileScrollView.visibility = View.INVISIBLE
-            loadProgress.visibility = View.VISIBLE
-        } else {
-            profileScrollView.visibility = View.VISIBLE
-            loadProgress.visibility = View.INVISIBLE
-        }
+        loadProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
 
     override fun showSaveProgress(show: Boolean) {
-        if (show) saveChangesProgress.visibility = View.VISIBLE
-        else {
-            saveChangesProgress.visibility = View.INVISIBLE
-            saveChangesButton.accessible(show)
-        }
+        saveChangesProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
+        saveChangesButton.accessible(show)
+    }
+
+    override fun showContentLayout(show: Boolean) {
+        profileScrollView.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
 
     override fun showError(message: String) {
         TwoActionDialog(
             textLeftButton = getString(R.string.btn_cancel),
-            textRightButton = getString(R.string.tryAgain),
+            textRightButton = getString(R.string.try_again),
             titleText = message,
             buttonRightDialogClickListener = {
                 presenter.getUserInfo()
@@ -84,36 +79,45 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
     override fun showSaveError(message: String) {
         TwoActionDialog(
             textLeftButton = getString(R.string.btn_cancel),
-            textRightButton = getString(R.string.tryAgain),
+            textRightButton = getString(R.string.try_again),
             titleText = message,
             buttonRightDialogClickListener = {
-                presenter.onSaveChangesClicked(usernameEdit.text.toString())
+                presenter.onSaveChangesClicked(
+                    username = usernameEdit.text.toString(),
+                    email = emailEdit.text.toString()
+                )
             }
         ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }
 
     override fun showUserInfo(userInfo: User) {
-        this.userInfo = userInfo.copy()
-        usernameEdit.setText(userInfo.fullName)
-        emailEdit.setText(userInfo.email)
-        enterPhoneMaskedEdit.setText(userInfo.phone.removeRange(0, 1))
-        birthEdit.setText(userInfo.birth)
-        genderEdit.setText(userInfo.gender)
+        user = userInfo
+        user?.let {
+            usernameEdit.setText(user?.fullName)
+            emailEdit.setText(user?.email)
+            enterPhoneMaskedEdit.setText(user?.phone?.removeRange(0, 1))
+            birthEdit.setText(user?.birth)
+            genderEdit.setText(user?.gender)
+        } ?: showError(resources.getString(R.string.error_load_data))
     }
 
     private fun init() {
         setupToolbar(getString(R.string.menu_profile))
         setupToolbarMenu()
 
-        saveChangesButton.setOnClickListener{
-            presenter.onSaveChangesClicked(usernameEdit.text.toString())
+        saveChangesButton.setOnClickListener {
+            presenter.onSaveChangesClicked(
+                username = usernameEdit.text.toString(),
+                email = emailEdit.text.toString()
+            )
         }
 
         subscriptions += Observables.combineLatest(
             RxTextView.textChanges(usernameEdit),
             RxTextView.textChanges(emailEdit)
         ) { username, email ->
-            username.isNotBlank() && username.toString() != userInfo?.fullName
+            username.isNotBlank() && username.toString() != user?.fullName
+                || email.toString() != user?.email
         }
             .subscribeBy { saveChangesButton.accessible(it) }
     }

@@ -17,8 +17,8 @@ class ProfileInteractor @Inject constructor(
         profileRepositoryImpl.getUserInfo()
             .observeOn(ui)
 
-    fun editProfile(username: String): Completable =
-        profileRepositoryImpl.editProfile(username)
+    fun editProfile(username: String, email: String): Completable =
+        profileRepositoryImpl.editProfile(username, email)
             .observeOn(ui)
 
     fun setIsLogin(isLogin: Boolean) {

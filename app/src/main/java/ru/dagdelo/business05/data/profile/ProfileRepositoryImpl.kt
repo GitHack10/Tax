@@ -17,7 +17,7 @@ class ProfileRepositoryImpl @Inject constructor(
         apiDagDelo.getUserInfo()
             .subscribeOn(io)
 
-    override fun editProfile(username: String): Completable =
+    override fun editProfile(username: String, email: String): Completable =
         apiDagDelo.editProfile(EditProfile(username))
             .subscribeOn(io)
 }
