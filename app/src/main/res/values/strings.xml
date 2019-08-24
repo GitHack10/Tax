@@ -58,8 +58,8 @@
 
     <string name="isNoNetwork">Вы не подключены к интернету</string>
     <string name="checkYourInternetConnection">Проверьте ваше соединение с интернетом</string>
-    <string name="tryAgain">Повторить попытку</string>
     <string name="errorLoadingData">Ошибка соедения с сервером</string>
+    <string name="try_again">Повторить попытку</string>
     <string name="cancel">Отмена</string>
 
     <string name="history_transactions">История покупок</string>
@@ -98,16 +98,33 @@
     <string name="edit_profile">Редактировать профиль</string>
     <string name="incorrect_auth_data">Неверный E-mail или Пароль</string>
     <string name="sign_up_subtitle">Заполните поля\nдля регистрации аккаунта</string>
+    <string name="sign_up_email_hint">Email (не обязательно)</string>
     <string name="profile_logout">Выход</string>
 
     <string name="error_unknown">Неизвестная ошибка</string>
     <string name="error_network">Ошибка сети</string>
     <string name="error_network_get_response">Не удалось получить ответ ошибки</string>
     <string name="error_network_convert_response">Не удалось сконвертировать ответ ошибки</string>
+    <string name="error_load_data">Не удалось загрузить данные</string>
+
+    <!-- Enter Phone -->
     <string name="enter_phone_title">Войдите или зарегистрируйтесь\nпо номеру телефона</string>
     <string name="enter_phone_next">Далее</string>
+
+    <!-- Enter Code -->
+    <string name="enter_code_timer">Запросить SMS-код повторно\nможно через %1$s</string>
     <string name="enter_code_send_again">Запросить код повторно</string>
-    <string name="enter_code_title">Введите код из SMS сообщения</string>
     <string name="enter_code_wrong_phone">Неверный номер?</string>
+    <string name="enter_code_send_code">Отправить код</string>
+    <string name="enter_phone_sms_error">Sms-код уже отправлен. Им можно воспользоваться в течение 120 секунд</string>
+
+    <!-- Checklist -->
+    <string name="checklist_empty_title">У вас пока нет истории покупок</string>
+    <string name="checklist_empty_description">Сканируйте чеки после покупок и\nрегистрируйтесь в акции!</string>
+    <string name="checklist_check_status_hint">Статус чека:</string>
+    <string name="checklist_check_status_illegal">Нелегален</string>
+    <string name="checklist_check_status_registered">Зарегистрирован</string>
+    <string name="checklist_check_status_legal">Легален</string>
+    <string name="checklist_check_status_in_the_treatment">В обработке</string>
 
 </resources>
