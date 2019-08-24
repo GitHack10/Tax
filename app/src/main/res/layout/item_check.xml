@@ -29,13 +29,38 @@
         tools:text="Чек на 300"/>
 
     <TextView
+        android:id="@+id/checkStatusHintText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textSize="@dimen/text_min"
+        android:textColor="@color/textDescription"
+        android:text="@string/checklist_check_status_hint"
+        app:layout_constraintStart_toStartOf="@+id/checkTitleText"
+        app:layout_constraintTop_toBottomOf="@+id/checkTitleText"/>
+
+    <TextView
+        android:id="@+id/checkStatusDescText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:fontFamily="@font/sf_pro_display_medium"
+        android:textSize="@dimen/text_min"
+        app:layout_constraintStart_toEndOf="@id/checkStatusHintText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/checkStatusHintText"
+        tools:text="Зарегистрирован"
+        tools:textColor="@color/green"/>
+
+    <TextView
         android:id="@+id/checkDateText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:textSize="12sp"
         android:textColor="@color/textDescription"
-        app:layout_constraintTop_toBottomOf="@+id/checkTitleText"
-        app:layout_constraintStart_toStartOf="@+id/checkTitleText"
+        app:layout_constraintTop_toBottomOf="@+id/checkStatusHintText"
+        app:layout_constraintStart_toStartOf="@+id/checkStatusHintText"
         tools:text="4 июня"/>
 </android.support.constraint.ConstraintLayout>

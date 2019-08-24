@@ -9,9 +9,11 @@ import ru.dagdelo.business05.domain.global.models.CheckInfo
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface ChecklistView : MvpView {
     fun showCheckList(checkList: List<CheckInfo>)
-    fun showEmptyList(message: String)
+    fun showEmptyList(show: Boolean)
+    fun showContentLayout(show: Boolean)
     fun showProgress(show: Boolean)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showError(message: String)
+
 }

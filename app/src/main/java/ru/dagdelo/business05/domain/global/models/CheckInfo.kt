@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class CheckInfo(
     @SerializedName("totalSum") val totalSum: String,
+    @SerializedName("status") val status: Int,
     @SerializedName("date_scan") val date: String
 ): Parcelable

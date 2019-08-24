@@ -28,6 +28,25 @@ class CheckAdapter(
         fun setData(check: CheckInfo) {
             checkTitleText.text = "${check.totalSum} \u20BD"
             checkDateText.text = check.date
+
+            when (check.status) {
+                0 -> {
+                    checkStatusDescText.text = containerView.resources.getString(R.string.checklist_check_status_illegal)
+                    checkStatusDescText.setTextColor(containerView.resources.getColor(R.color.error))
+                }
+                1 -> {
+                    checkStatusDescText.text = containerView.resources.getString(R.string.checklist_check_status_registered)
+                    checkStatusDescText.setTextColor(containerView.resources.getColor(R.color.green))
+                }
+                2 -> {
+                    checkStatusDescText.text = containerView.resources.getString(R.string.checklist_check_status_legal)
+                    checkStatusDescText.setTextColor(containerView.resources.getColor(R.color.colorAccent))
+                }
+                3 -> {
+                    checkStatusDescText.text = containerView.resources.getString(R.string.checklist_check_status_in_the_treatment)
+                    checkStatusDescText.setTextColor(containerView.resources.getColor(R.color.hintTitle))
+                }
+            }
         }
     }
 }

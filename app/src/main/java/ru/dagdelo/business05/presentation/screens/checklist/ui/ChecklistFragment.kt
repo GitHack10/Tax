@@ -12,6 +12,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
+import kotlinx.android.synthetic.main.empty_checklist.*
 import kotlinx.android.synthetic.main.fragment_checklist.*
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.domain.global.models.CheckInfo
@@ -52,25 +53,25 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
 
     override fun showError(message: String) {
         TwoActionDialog(
+            titleText = message,
             textLeftButton = getString(R.string.btn_cancel),
-            textRightButton = getString(R.string.tryAgain),
-            titleText = getString(R.string.isNoNetwork),
+            textRightButton = getString(R.string.try_again),
             buttonRightDialogClickListener = {
                 presenter.getCheckList()
             }
         ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }
 
-    override fun showEmptyList(message: String) {
-        listEmptyText.text = message
-        listEmptyText.visibility = View.VISIBLE
-        checklistRecycler.visibility = View.GONE
+    override fun showEmptyList(show: Boolean) {
+        checklistEmptyLayout.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    override fun showContentLayout(show: Boolean) {
+        checklistRecycler.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
 
     override fun showCheckList(checkList: List<CheckInfo>) {
-        listEmptyText.visibility = View.INVISIBLE
         checklistRecycler.apply {
-            visibility = View.VISIBLE
             layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.VERTICAL,
