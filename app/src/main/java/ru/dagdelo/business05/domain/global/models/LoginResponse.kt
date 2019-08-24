@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class LoginResponse(
     @SerializedName("email") val email: String,
-    @SerializedName("name") val name: String,
+    @SerializedName("fullName") val name: String,
     @SerializedName("phone") val phone: String
 ): Parcelable

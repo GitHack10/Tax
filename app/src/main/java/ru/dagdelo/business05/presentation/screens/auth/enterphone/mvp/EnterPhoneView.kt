@@ -14,5 +14,5 @@ interface EnterPhoneView : MvpView {
     fun showError(message: String)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
-    fun showAuthError(message: String)
+    fun showTimeOutError(message: String)
 }

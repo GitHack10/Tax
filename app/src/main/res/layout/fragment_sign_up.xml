@@ -73,7 +73,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="18dp"
-                android:hint="@string/email"
+                android:hint="@string/sign_up_email_hint"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textColor="@android:color/black"

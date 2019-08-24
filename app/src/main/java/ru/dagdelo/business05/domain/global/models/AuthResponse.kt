@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class AuthResponse(
-    @SerializedName("id") val id: Long,
-    @SerializedName("token") val token: String,
+//    @SerializedName("id") val id: Long,
+    @SerializedName("auth_key") val token: String,
     @SerializedName("success") val success: Boolean
 ): Parcelable

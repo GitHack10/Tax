@@ -3,6 +3,7 @@ package ru.dagdelo.business05.presentation.screens.auth.signup.mvp
 import com.arellomobile.mvp.InjectViewState
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
+import ru.dagdelo.business05.R
 import ru.dagdelo.business05.di.global.nameds.SIGN_UP_FLOW
 import ru.dagdelo.business05.domain.auth.AuthInteractor
 import ru.dagdelo.business05.domain.global.models.UserInfo
@@ -19,20 +20,12 @@ import javax.inject.Named
 class SignUpPresenter @Inject constructor(
     @Named(SIGN_UP_FLOW) private val flowRouter: FlowRouter,
     private val interactor: AuthInteractor,
-    private var userInfo: UserInfo,
     private val resourceManager: AndroidResourceManager,
     private val errorHandler: ErrorHandler
 ) : BasePresenter<SignUpView>(flowRouter) {
 
-    fun onDoneClicked(userInfo: UserInfo) {
+    fun onDoneClicked(userReg: UserReg) {
 
-        val userReg = UserReg(
-            email = userInfo.email ?: "",
-            name = userInfo.name ?: "",
-            phone = userInfo.phone ?: "",
-            birth = userInfo.birth ?: "",
-            gender = userInfo.gender ?: 1
-        )
         subscription += interactor.registerUser(userReg)
             .doOnSubscribe { viewState.showProgress(true) }
             .doAfterTerminate { viewState.showProgress(false) }
@@ -42,12 +35,17 @@ class SignUpPresenter @Inject constructor(
                         interactor.setIsLogin(isLogin = true, token = it.token)
                         flowRouter.newRootFlow(Screens.MainFlow)
                     } else {
-                        viewState.showDataError(
-                            "Пользователь с таким E-mail или Номером телефона уже существует"
-                        )
+                        viewState.showDataError(resourceManager.getString(R.string.error_unknown))
                     }
                 },
-                onError = { errorHandler.proceed(it) { msg -> viewState.showError(msg) } }
+                onError = {
+                    errorHandler.proceed(it) { error ->
+                        viewState.showError(
+                            if (!error.errors.isNullOrEmpty()) error.errors.first().message
+                            else error.message
+                        )
+                    }
+                }
             )
     }
 

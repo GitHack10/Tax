@@ -6,7 +6,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -19,7 +18,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.di.global.nameds.SIGN_UP_FLOW
-import ru.dagdelo.business05.domain.global.models.UserInfo
+import ru.dagdelo.business05.domain.global.models.UserReg
 import ru.dagdelo.business05.presentation.global.base.FlowFragment
 import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
 import ru.dagdelo.business05.presentation.global.utils.*
@@ -89,8 +88,8 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
     override fun showDataError(message: String) {
         TwoActionDialog(
             titleText = message,
-            textRightButton = "Повторить попытку",
-            textLeftButton = "Отменить",
+            textRightButton = getString(R.string.try_again),
+            textLeftButton = getString(R.string.cancel),
             buttonRightDialogClickListener = {
                 emailEdit.requestFocus()
                 showKeyboard()
@@ -101,16 +100,16 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
     override fun showError(message: String) {
         TwoActionDialog(
             titleText = message,
-            textRightButton = "Повторить попытку",
-            textLeftButton = "Отменить",
+            textRightButton = getString(R.string.try_again),
+            textLeftButton = getString(R.string.cancel),
             buttonRightDialogClickListener = {
                 presenter.onDoneClicked(collectUserData())
             }
         ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }
 
-    private fun collectUserData() = UserInfo(
-        name = usernameEdit.text.toString(),
+    private fun collectUserData() = UserReg(
+        fullName = usernameEdit.text.toString(),
         email = emailEdit.text.toString(),
         phone = maskedPhone.regexPhone(),
         birth = birth,
@@ -161,10 +160,9 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
 
         subscriptions += Observables.combineLatest(
             RxTextView.textChanges(usernameEdit),
-            RxTextView.textChanges(emailEdit),
             RxTextView.textChanges(birthEdit)
-        ) { username, email, birth ->
-            username.isNotBlank() && email.isNotBlank() && birth.isNotBlank()
+        ) { username, birth ->
+            username.isNotBlank() && birth.isNotBlank()
         }
             .subscribeBy { doneButton.accessible(it) }
     }

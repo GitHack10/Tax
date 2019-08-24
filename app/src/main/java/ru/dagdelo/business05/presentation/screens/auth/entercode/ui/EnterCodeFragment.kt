@@ -2,6 +2,7 @@ package ru.dagdelo.business05.presentation.screens.auth.entercode.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.support.v4.app.Fragment
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -19,10 +20,7 @@ import ru.dagdelo.business05.R
 import ru.dagdelo.business05.di.global.nameds.ENTER_CODE_FLOW
 import ru.dagdelo.business05.presentation.global.base.FlowFragment
 import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
-import ru.dagdelo.business05.presentation.global.utils.accessible
-import ru.dagdelo.business05.presentation.global.utils.hideKeyboard
-import ru.dagdelo.business05.presentation.global.utils.setWhiteStyleWindow
-import ru.dagdelo.business05.presentation.global.utils.withArgs
+import ru.dagdelo.business05.presentation.global.utils.*
 import ru.dagdelo.business05.presentation.screens.auth.entercode.mvp.EnterCodePresenter
 import ru.dagdelo.business05.presentation.screens.auth.entercode.mvp.EnterCodeView
 import ru.terrakok.cicerone.NavigatorHolder
@@ -54,6 +52,27 @@ class EnterCodeFragment : FlowFragment(),
     private var maskedPhone = ""
     private var phone = ""
 
+    private val timer = object : CountDownTimer(SMS_TIMER, TIMER_INTERVAL) {
+
+        override fun onTick(millisUntilFinished: Long) {
+            val progressSeconds = resources.getQuantityString(
+                R.plurals.number_of_seconds,
+                millisUntilFinished.toInt() / 1000,
+                millisUntilFinished / 1000
+            )
+            val progressText = getString(R.string.enter_code_timer, progressSeconds)
+            enterCodeCounterText.text = progressText
+        }
+
+        override fun onFinish() {
+            sendSmsAgainText.run {
+                enterCodeCounterText.visibility = View.INVISIBLE
+                visibility = View.VISIBLE
+                setOnClickListener(this@EnterCodeFragment)
+            }
+        }
+    }
+
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -81,6 +100,10 @@ class EnterCodeFragment : FlowFragment(),
                 )
             }
             wrongPhoneText.id -> presenter.wrongPhoneClicked()
+            sendSmsAgainText.id -> {
+                sendSmsAgainText.visibility = View.GONE
+                presenter.retrySmsRequest(phone)
+            }
         }
     }
 
@@ -88,12 +111,30 @@ class EnterCodeFragment : FlowFragment(),
         sendSmsProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
 
+    override fun showRetrySmsProgress(show: Boolean) {
+        retrySmsProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
+    }
+
     override fun showError(message: String) {
         TwoActionDialog(
             titleText = message,
-            textRightButton = "Повторить попытку",
-            textLeftButton = "Отменить",
+            textRightButton = getString(R.string.try_again),
+            textLeftButton = getString(R.string.cancel),
             buttonRightDialogClickListener = { sendSmsButton.performClick() }
+        ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
+    }
+
+    override fun showAuthError(message: String) {
+        TwoActionDialog(
+            titleText = message,
+            textRightButton = getString(R.string.try_again),
+            textLeftButton = getString(R.string.cancel),
+            buttonRightDialogClickListener = {
+                enterCodeMaskedEdit.run {
+                    text?.clear()
+                    showKeyboard()
+                }
+            }
         ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }
 
@@ -124,6 +165,17 @@ class EnterCodeFragment : FlowFragment(),
             }
     }
 
+    override fun startTimer() {
+        sendSmsAgainText.visibility = View.GONE
+        enterCodeCounterText.visibility = View.VISIBLE
+        timer.start()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        timer.cancel()
+    }
+
     override fun supportFragmentInjector() = fragmentInjector
 
     override fun onBackPressed() = presenter.onBackPressed()
@@ -137,5 +189,8 @@ class EnterCodeFragment : FlowFragment(),
 
         private const val MASKED_PHONE = "masked_phone"
         private const val PHONE = "phone"
+
+        private const val SMS_TIMER = 120000L
+        private const val TIMER_INTERVAL = 1000L
     }
 }

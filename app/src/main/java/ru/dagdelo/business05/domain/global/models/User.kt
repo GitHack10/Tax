@@ -9,8 +9,8 @@ import java.util.*
 
 @Parcelize
 data class User(
-    @SerializedName("full_name") val fullName: String,
-    @SerializedName("email") val email: String,
+    @SerializedName("full_name") var fullName: String,
+    @SerializedName("email") var email: String,
     @SerializedName("phone") val phone: String,
     @SerializedName("date") var birth: String,
     @SerializedName("gender") val gender: String

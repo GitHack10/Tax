@@ -9,7 +9,13 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 interface EnterCodeView : MvpView {
 
     fun showProgress(show: Boolean)
+    fun showRetrySmsProgress(show: Boolean)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showError(message: String)
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showAuthError(message: String)
+
+    fun startTimer()
 }

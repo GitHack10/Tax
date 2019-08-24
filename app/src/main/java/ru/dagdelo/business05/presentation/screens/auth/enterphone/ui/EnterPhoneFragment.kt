@@ -79,15 +79,25 @@ class EnterPhoneFragment : FlowFragment(),
         sendPhoneProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
 
-    override fun showAuthError(message: String) {
-
+    override fun showTimeOutError(message: String) {
+        TwoActionDialog(
+            titleText = message,
+            textRightButton = getString(R.string.enter_phone_next),
+            textLeftButton = getString(R.string.cancel),
+            buttonRightDialogClickListener = {
+                presenter.onErrorNextClicked(
+                    maskedPhone = enterPhoneMaskedEdit.text.toString(),
+                    phone = enterPhoneMaskedEdit.rawText
+                )
+            }
+        ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }
 
     override fun showError(message: String) {
         TwoActionDialog(
             titleText = message,
-            textRightButton = "Повторить попытку",
-            textLeftButton = "Отменить",
+            textRightButton = getString(R.string.try_again),
+            textLeftButton = getString(R.string.cancel),
             buttonRightDialogClickListener = { sendPhoneButton.performClick() }
         ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }

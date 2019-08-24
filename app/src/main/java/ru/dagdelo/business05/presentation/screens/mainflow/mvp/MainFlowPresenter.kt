@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import ru.dagdelo.business05.di.global.nameds.MAIN_FLOW
 import ru.dagdelo.business05.presentation.global.Screens
 import ru.dagdelo.business05.presentation.global.base.BasePresenter
+import ru.dagdelo.business05.presentation.global.base.FlowPresenter
 import ru.dagdelo.business05.presentation.global.navigation.FlowRouter
 import javax.inject.Inject
 import javax.inject.Named
@@ -11,7 +12,7 @@ import javax.inject.Named
 @InjectViewState
 class MainFlowPresenter @Inject constructor(
     @Named(MAIN_FLOW) private val flowRouter: FlowRouter
-) : BasePresenter<MainFlowView>(flowRouter) {
+) : FlowPresenter<MainFlowView>(flowRouter) {
 
     private var selectedScreen = 0
 
