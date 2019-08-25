@@ -11,7 +11,7 @@ class CheckListRepositoryImpl @Inject constructor(
     private val apiDagDelo: ApiDagDelo
 ) : CheckListRepository {
 
-    override fun getCheckList(): Single<List<CheckInfo>> =
-        apiDagDelo.getCheckList()
+    override fun getCheckList(page: Int): Single<List<CheckInfo>> =
+        apiDagDelo.getCheckList(page)
             .subscribeOn(io)
 }
