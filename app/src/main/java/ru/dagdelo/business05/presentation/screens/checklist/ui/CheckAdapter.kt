@@ -12,7 +12,8 @@ import ru.dagdelo.business05.domain.global.models.CheckInfo
 import ru.dagdelo.business05.presentation.global.utils.inflate
 
 class CheckAdapter(
-    private val checkList: List<CheckInfo>
+    private val checkList: List<CheckInfo>,
+    private val onDetailClickListener: (CheckInfo) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     private var isLoading = false
@@ -56,9 +57,9 @@ class CheckAdapter(
 
         fun setData(check: CheckInfo) {
             checkTitleText.text = check.totalSum
-            checkDateText.text = check.date
+            checkDateText.text = check.dateScan
 
-            when (check.status) {
+            when (check.status.type) {
                 0 -> {
                     checkStatusDescText.text =
                         containerView.resources.getString(R.string.checklist_check_status_illegal)
@@ -80,6 +81,8 @@ class CheckAdapter(
                     checkStatusDescText.setTextColor(containerView.resources.getColor(R.color.hintTitle))
                 }
             }
+
+            detailImageView.setOnClickListener { onDetailClickListener(check) }
         }
     }
 

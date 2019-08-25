@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_checklist.*
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.domain.global.models.CheckInfo
 import ru.dagdelo.business05.presentation.global.base.BaseFragment
+import ru.dagdelo.business05.presentation.global.dialogs.CheckDetailDialog
 import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
 import ru.dagdelo.business05.presentation.screens.checklist.mvp.ChecklistPresenter
 import ru.dagdelo.business05.presentation.screens.checklist.mvp.ChecklistView
@@ -98,7 +99,7 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
                 )
                 dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_item))
                 addItemDecoration(dividerItemDecoration)
-                adapter = CheckAdapter(checkList)
+                adapter = CheckAdapter(checkList) { check -> onDetailClicked(check) }
             }
         }
     }
@@ -125,6 +126,11 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
                 }
             }
         })
+    }
+
+    private fun onDetailClicked(check: CheckInfo) {
+        CheckDetailDialog.newInstance(check)
+            .show(fragmentManager, "CheckDetailDialog.javaClass.simpleName")
     }
 
     override fun onBackPressed() {

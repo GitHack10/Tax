@@ -60,6 +60,7 @@ class ChecklistPresenter @Inject constructor(
                         }
                         else -> {
                             if (it.size < PAGINATION_COUNT) paginationEnd = true
+                            it.forEach { check -> check.convertTime() }
                             viewState.showEmptyList(false)
                             viewState.showContentLayout(true)
                             viewState.showCheckList(it)

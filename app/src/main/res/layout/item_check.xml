@@ -22,10 +22,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
+        android:layout_marginEnd="8dp"
         android:textSize="16sp"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/checkImage"
+        app:layout_constraintEnd_toStartOf="@+id/detailImageView"
         tools:text="Чек на 300"/>
 
     <TextView
@@ -48,7 +50,7 @@
         android:fontFamily="@font/sf_pro_display_medium"
         android:textSize="@dimen/text_min"
         app:layout_constraintStart_toEndOf="@id/checkStatusHintText"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/checkTitleText"
         app:layout_constraintBaseline_toBaselineOf="@+id/checkStatusHintText"
         tools:text="Зарегистрирован"
         tools:textColor="@color/green"/>
@@ -63,4 +65,13 @@
         app:layout_constraintTop_toBottomOf="@+id/checkStatusHintText"
         app:layout_constraintStart_toStartOf="@+id/checkStatusHintText"
         tools:text="4 июня"/>
+
+    <ImageView
+        android:id="@+id/detailImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:src="@drawable/ic_check_info"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </android.support.constraint.ConstraintLayout>

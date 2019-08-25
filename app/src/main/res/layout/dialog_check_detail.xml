@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/closeImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/actionBarItemBackground"
+        android:focusable="true"
+        android:src="@drawable/ic_close"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/titleCheckDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:fontFamily="@font/sf_pro_display_bold"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_premid"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/closeImageView"
+        tools:text="Чек на сумму 13000 ₽" />
+
+    <TextView
+        android:id="@+id/dateCheckHintText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@color/textDescription"
+        android:textSize="@dimen/text_normal"
+        android:text="Дата чека:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleCheckDetail" />
+
+    <TextView
+        android:id="@+id/dateCheckDescText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="end"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_normal"
+        app:layout_constraintStart_toEndOf="@+id/dateCheckHintText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleCheckDetail"
+        tools:text="14.07.2019" />
+
+    <TextView
+        android:id="@+id/addressCheckHintText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@color/textDescription"
+        android:textSize="@dimen/text_normal"
+        android:text="Адрес:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateCheckHintText" />
+
+    <TextView
+        android:id="@+id/addressCheckDescText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="end"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_normal"
+        app:layout_constraintStart_toEndOf="@+id/addressCheckHintText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateCheckHintText"
+        tools:text="г. Махачкала, ул. Яракского 112" />
+
+    <TextView
+        android:id="@+id/innCheckHintText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@color/textDescription"
+        android:textSize="@dimen/text_normal"
+        android:text="ИНН:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addressCheckHintText" />
+
+    <TextView
+        android:id="@+id/innCheckDescText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="end"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_normal"
+        app:layout_constraintStart_toEndOf="@+id/innCheckHintText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addressCheckHintText"
+        tools:text="056208971967" />
+
+    <TextView
+        android:id="@+id/statusCheckHintText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@color/textDescription"
+        android:textSize="@dimen/text_normal"
+        android:text="Статус:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/innCheckHintText" />
+
+    <TextView
+        android:id="@+id/statusCheckDescText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="end"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_normal"
+        app:layout_constraintStart_toEndOf="@+id/statusCheckHintText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/innCheckHintText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Участвует в акции"
+        tools:textColor="@color/green"/>
+
+</android.support.constraint.ConstraintLayout>
