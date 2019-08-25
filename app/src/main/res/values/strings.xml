@@ -10,6 +10,7 @@
     <string name="menu_enter_code">Подтверждение номера</string>
     <string name="menu_sign_up">Регистрация</string>
     <string name="menu_sign_in">Вход</string>
+    <string name="menu_send_complaint">Отправить жалобу</string>
 
     <string name="sign_in">Далее</string>
     <string name="sign_up">Регистрация</string>
@@ -127,4 +128,19 @@
     <string name="checklist_check_status_legal">Легален</string>
     <string name="checklist_check_status_in_the_treatment">В обработке</string>
 
+    <!-- Send complaint -->
+    <string name="send_complaint_text">Отправить жалобу</string>
+    <string name="send_complaint_description">Заполните поля с информацией об инциденте, чтобы мы предприняли меры</string>
+    <!-- Hints start -->
+    <string name="send_complaint_problem_description_hint">Описание проблемы</string>
+    <string name="send_complaint_billing_address_hint">Адрес места рассчета</string>
+    <string name="send_complaint_type_violation_hint">Вид нарушения</string>
+    <string name="send_complaint_subject_calculation_hint">Предмет расчета</string>
+    <string name="send_complaint_product_service_description_hint">Описание товара/услуги</string>
+    <string name="send_complaint_inn_hint">ИНН</string>
+    <string name="send_complaint_date_and_time_hint">Дата и время рассчета</string>
+    <string name="send_complaint_type_of_cash_receipt">Вид кассового чека</string>
+    <string name="send_complaint_payment_type">Способ оплаты</string>
+    <string name="send_complaint_check_amount">Сумма чека</string>
+    <!-- Hints end -->
 </resources>

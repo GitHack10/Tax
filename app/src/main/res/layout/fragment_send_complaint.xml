@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.screens.home.ui.HomeFragment">
+
+    <ScrollView
+        android:id="@+id/sendComplaintScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendComplaintToolbar">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <EditText
+                android:id="@+id/inputFD"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:drawableEnd="@drawable/ic_show_datepicker"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="@string/send_complaint_type_violation_hint"
+                android:inputType="number"
+                android:paddingStart="6dp"
+                android:paddingEnd="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descTextView" />
+
+            <EditText
+                android:id="@+id/inputFP"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:drawableEnd="@drawable/ic_show_datepicker"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="@string/send_complaint_subject_calculation_hint"
+                android:inputType="number"
+                android:paddingStart="6dp"
+                android:paddingEnd="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputFD" />
+
+            <EditText
+                android:id="@+id/inputFN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:hint="@string/send_complaint_product_service_description_hint"
+                android:inputType="number"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputFP" />
+
+            <EditText
+                android:id="@+id/inputInnEdit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:hint="@string/send_complaint_inn_hint"
+                android:paddingStart="6dp"
+                android:paddingEnd="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputFN" />
+
+            <EditText
+                android:id="@+id/inputDateEdit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:drawableEnd="@drawable/ic_show_datepicker"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="@string/send_complaint_date_and_time_hint"
+                android:paddingStart="6dp"
+                android:paddingEnd="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputInnEdit" />
+
+            <EditText
+                android:id="@+id/inputSum3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:drawableEnd="@drawable/ic_show_datepicker"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="@string/send_complaint_type_of_cash_receipt"
+                android:inputType="numberDecimal"
+                android:paddingStart="6dp"
+                android:paddingEnd="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputDateEdit" />
+
+            <EditText
+                android:id="@+id/inputSum4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:drawableEnd="@drawable/ic_show_datepicker"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="@string/send_complaint_payment_type"
+                android:inputType="numberDecimal"
+                android:paddingStart="6dp"
+                android:paddingEnd="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputSum3" />
+
+            <Spinner
+                android:id="@+id/sendComplaintSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/type_list"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/inputSum5"
+                app:layout_constraintBottom_toBottomOf="@id/inputSum5"/>
+
+            <EditText
+                android:id="@+id/inputSum5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:hint="@string/send_complaint_check_amount"
+                android:inputType="numberDecimal"
+                android:paddingStart="6dp"
+                android:paddingEnd="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputSum4" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:entries="@array/type_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputSum5" />
+
+            <FrameLayout
+                android:id="@+id/prepareCheckFrame"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginEnd="64dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner">
+
+                <Button
+                    android:id="@+id/sendCheckButton"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_disabled"
+                    android:text="@string/home_send"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_normal" />
+
+            </FrameLayout>
+
+            <ProgressBar
+                android:id="@+id/prepareCheckProgress"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="20dp"
+                android:theme="@style/WhiteProgressBar"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/prepareCheckFrame"
+                app:layout_constraintEnd_toEndOf="@id/prepareCheckFrame"
+                app:layout_constraintTop_toTopOf="@id/prepareCheckFrame"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/descTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:gravity="center"
+                android:text="@string/send_complaint_description"
+                android:textColor="@color/textDescription"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/sendComplaintToolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

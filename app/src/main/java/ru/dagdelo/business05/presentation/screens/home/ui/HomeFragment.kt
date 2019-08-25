@@ -20,6 +20,7 @@ import io.reactivex.rxkotlin.Observables
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.toolbar.*
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.domain.global.models.Check
 import ru.dagdelo.business05.presentation.global.base.BaseFragment
@@ -147,6 +148,7 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
 
     private fun init() {
         setupToolbar(getString(R.string.menu_home))
+        setupToolbarMenu()
 
         qrScannerTextView.setOnClickListener(this)
         inputDate.setOnClickListener(this)
@@ -218,6 +220,26 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
         )
 
         timePickerDialog.show()
+    }
+
+    private fun setupToolbarMenu() {
+        menuIconPlaceholder.visibility = View.GONE
+        toolbar.run {
+            // Не добавляет меню, если уже имеется
+            if (menu.size() <= 0) {
+                inflateMenu(R.menu.send_complaint)
+                setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.menu_send_complaint -> {
+                            presenter.onSendComplaintClicked()
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
+            }
+        }
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

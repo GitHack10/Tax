@@ -4,6 +4,7 @@ import ru.dagdelo.business05.presentation.screens.auth.entercode.ui.EnterCodeFra
 import ru.dagdelo.business05.presentation.screens.auth.enterphone.ui.EnterPhoneFragment
 import ru.dagdelo.business05.presentation.screens.auth.signup.ui.SignUpFragment
 import ru.dagdelo.business05.presentation.screens.checklist.ui.ChecklistFragment
+import ru.dagdelo.business05.presentation.screens.sendcomplaint.ui.SendComplaintFragment
 import ru.dagdelo.business05.presentation.screens.home.ui.HomeFragment
 import ru.dagdelo.business05.presentation.screens.home.ui.SimpleScannerFragment
 import ru.dagdelo.business05.presentation.screens.mainflow.ui.MainFlowFragment
@@ -56,5 +57,9 @@ object Screens {
 
     class QrScreen : SupportAppScreen() {
         override fun getFragment() = SimpleScannerFragment()
+    }
+
+    object SendComplaintScreen : SupportAppScreen() {
+        override fun getFragment() = SendComplaintFragment()
     }
 }

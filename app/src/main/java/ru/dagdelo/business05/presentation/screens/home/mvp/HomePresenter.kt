@@ -84,4 +84,6 @@ class HomePresenter @Inject constructor(
         super.onDestroy()
         interactor.clearQrString()
     }
+
+    fun onSendComplaintClicked() = appRouter.navigateTo(Screens.SendComplaintScreen)
 }

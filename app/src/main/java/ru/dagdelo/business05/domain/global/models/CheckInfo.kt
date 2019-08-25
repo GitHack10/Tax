@@ -26,7 +26,7 @@ data class CheckInfo(
     @SuppressLint("SimpleDateFormat")
     fun convertTime() {
         val calendar = Calendar.getInstance()
-        calendar.time = SimpleDateFormat("yyyyMMdd'T'HHmmss").parse(dateCheck)
+        calendar.time = SimpleDateFormat("yyyyMMdd'T'HHmm").parse(dateCheck)
 
         dateCheck = SimpleDateFormat("dd.MM.yyyy' 'HH:mm").format(calendar.time)
     }

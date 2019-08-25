@@ -9,6 +9,7 @@ import ru.dagdelo.business05.di.screens.auth.enterphone.EnterPhoneNavigationModu
 import ru.dagdelo.business05.di.screens.auth.signup.SignUpNavigationModule
 import ru.dagdelo.business05.di.screens.checklist.ChecklistModule
 import ru.dagdelo.business05.di.screens.home.HomeModule
+import ru.dagdelo.business05.di.screens.home.sendcomplaint.SendComplaintNavigationModule
 import ru.dagdelo.business05.di.screens.mainflow.MainFlowModule
 import ru.dagdelo.business05.di.screens.mainflow.MainFlowNavigationModule
 import ru.dagdelo.business05.di.screens.news.NewsModule
@@ -17,6 +18,7 @@ import ru.dagdelo.business05.presentation.screens.auth.entercode.ui.EnterCodeFra
 import ru.dagdelo.business05.presentation.screens.auth.enterphone.ui.EnterPhoneFragment
 import ru.dagdelo.business05.presentation.screens.auth.signup.ui.SignUpFragment
 import ru.dagdelo.business05.presentation.screens.checklist.ui.ChecklistFragment
+import ru.dagdelo.business05.presentation.screens.sendcomplaint.ui.SendComplaintFragment
 import ru.dagdelo.business05.presentation.screens.home.ui.HomeFragment
 import ru.dagdelo.business05.presentation.screens.mainflow.ui.MainFlowFragment
 import ru.dagdelo.business05.presentation.screens.news.ui.NewsFragment
@@ -58,4 +60,8 @@ interface AppActivityModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = [ProfileModule::class, MainFlowNavigationModule::class])
     fun contributeProfileFragment(): ProfileFragment
+
+    @FlowFragmentScope
+    @ContributesAndroidInjector(modules = [SendComplaintNavigationModule::class])
+    fun contributeSendComplaintFragment(): SendComplaintFragment
 }
