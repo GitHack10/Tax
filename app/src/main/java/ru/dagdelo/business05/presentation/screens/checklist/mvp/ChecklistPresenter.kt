@@ -38,7 +38,7 @@ class ChecklistPresenter @Inject constructor(
     }
 
     fun getCheckList() {
-        subscription += interactor.getCheckList()
+        subscription += interactor.getCheckList(page)
             .doOnSubscribe {
                 isLoading = true
                 if (isFirstRequest) {
@@ -58,8 +58,8 @@ class ChecklistPresenter @Inject constructor(
                             viewState.showEmptyList(true)
                             paginationEnd = true
                         }
-                        it.size < PAGINATION_COUNT -> paginationEnd = true
                         else -> {
+                            if (it.size < PAGINATION_COUNT) paginationEnd = true
                             viewState.showEmptyList(false)
                             viewState.showContentLayout(true)
                             viewState.showCheckList(it)

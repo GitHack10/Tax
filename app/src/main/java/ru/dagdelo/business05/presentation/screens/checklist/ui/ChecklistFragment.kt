@@ -58,8 +58,8 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
     }
 
     override fun showPaginationProgress(show: Boolean) {
-        checklistRecycler?.let {
-            it.apply { (checklistRecycler.adapter as CheckAdapter).isLoading(show) }
+        checklistRecycler.adapter?.let {
+            (it as CheckAdapter).isLoading(show)
         }
     }
 
@@ -83,8 +83,8 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
     }
 
     override fun showCheckList(checkList: List<CheckInfo>) {
-        checklistRecycler?.let {
-            it.apply { (checklistRecycler.adapter as CheckAdapter).setCheckList(checkList) }
+        checklistRecycler.adapter?.let {
+            (it as CheckAdapter).setCheckList(checkList)
         } ?: run {
             checklistRecycler.apply {
                 layoutManager = LinearLayoutManager(
