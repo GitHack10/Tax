@@ -47,4 +47,7 @@ interface ApiDagDelo {
 
     @POST("/api/v1/profile/edit")
     fun editProfile(@Body editProfile: EditProfile): Completable
+
+    @POST("/api/v2/main/complaint")
+    fun sendComplaint(@Body complaint: Complaint): Completable
 }

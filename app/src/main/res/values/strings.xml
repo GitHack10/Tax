@@ -131,6 +131,9 @@
     <!-- Send complaint -->
     <string name="send_complaint_text">Отправить жалобу</string>
     <string name="send_complaint_description">Заполните поля с информацией об инциденте, чтобы мы предприняли меры</string>
+    <string name="send_complaint_title_complete">Ваша жалоба принята!</string>
+    <string name="send_complaint_msg_complete">Спасибо за обратную связь. Мы рассмотрим вашу заявку и примем необходимые меры!</string>
+    <string name="send_complaint_alert_button">Понятно</string>
     <!-- Hints start -->
     <string name="send_complaint_problem_description_hint">Описание проблемы</string>
     <string name="send_complaint_billing_address_hint">Адрес места рассчета</string>
