@@ -189,8 +189,5 @@ class EnterCodeFragment : FlowFragment(),
 
         private const val MASKED_PHONE = "masked_phone"
         private const val PHONE = "phone"
-
-        private const val SMS_TIMER = 120000L
-        private const val TIMER_INTERVAL = 1000L
     }
 }

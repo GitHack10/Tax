@@ -8,10 +8,10 @@ import ru.dagdelo.business05.di.global.nameds.ENTER_PHONE_FLOW
 import ru.dagdelo.business05.domain.auth.AuthInteractor
 import ru.dagdelo.business05.presentation.global.AndroidResourceManager
 import ru.dagdelo.business05.presentation.global.Screens
-import ru.dagdelo.business05.presentation.global.base.BasePresenter
 import ru.dagdelo.business05.presentation.global.base.FlowPresenter
 import ru.dagdelo.business05.presentation.global.navigation.FlowRouter
 import ru.dagdelo.business05.presentation.global.utils.ErrorHandler
+import ru.dagdelo.business05.presentation.global.utils.TIME_OUT
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -34,7 +34,7 @@ class EnterPhonePresenter @Inject constructor(
                 },
                 onError = {
                     errorHandler.proceed(it) { error ->
-                        if (error.message == "TIME_OUT") viewState.showTimeOutError(
+                        if (error.message == TIME_OUT) viewState.showTimeOutError(
                             resourceManager.getString(R.string.enter_phone_sms_error)
                         ) else viewState.showError(
                             if (!error.errors.isNullOrEmpty()) error.errors.first().message

@@ -11,6 +11,7 @@ import ru.dagdelo.business05.presentation.global.Screens
 import ru.dagdelo.business05.presentation.global.base.BasePresenter
 import ru.dagdelo.business05.presentation.global.base.FlowPresenter
 import ru.dagdelo.business05.presentation.global.navigation.FlowRouter
+import ru.dagdelo.business05.presentation.global.utils.AUTH_ERROR
 import ru.dagdelo.business05.presentation.global.utils.ErrorHandler
 import javax.inject.Inject
 import javax.inject.Named
@@ -41,7 +42,7 @@ class EnterCodePresenter @Inject constructor(
                 },
                 onError = {
                     errorHandler.proceed(it) { error ->
-                        if (error.message == "AUTH_ERROR") {
+                        if (error.message == AUTH_ERROR) {
                             viewState.showAuthError(
                                 if (!error.errors.isNullOrEmpty()) error.errors.first().message
                                 else error.message

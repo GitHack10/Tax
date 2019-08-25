@@ -1,6 +1,7 @@
 package ru.dagdelo.business05.presentation.global.utils
 
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
+import ru.dagdelo.business05.R
 import ru.dagdelo.business05.data.global.local.PreferenceStorage
 import ru.dagdelo.business05.domain.ResourceManager
 import ru.dagdelo.business05.domain.global.models.ApiError
@@ -18,11 +19,14 @@ class ErrorHandler(
         if (error is HttpException) {
             when (error.code()) {
                 401 -> signOut() // Токен истек или не существует
-                else -> messageListener(networkErrorParser.parseMessage(error))
+                else -> messageListener(
+                    networkErrorParser.parseMessage(error).let { apiError ->
+                        apiError.message?.let { apiError }
+                            ?: ApiError(resourceManager.getString(R.string.error_unknown))
+                    }
+                )
             }
-        } else {
-            messageListener(ApiError(error.userMessage(resourceManager)))
-        }
+        } else { messageListener(ApiError(error.userMessage(resourceManager))) }
     }
 
     private fun signOut() {

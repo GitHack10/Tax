@@ -22,7 +22,6 @@ import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
 import ru.dagdelo.business05.presentation.global.utils.accessible
 import ru.dagdelo.business05.presentation.global.utils.hideKeyboard
 import ru.dagdelo.business05.presentation.global.utils.setWhiteStyleWindow
-import ru.dagdelo.business05.presentation.global.utils.showKeyboard
 import ru.dagdelo.business05.presentation.screens.auth.enterphone.mvp.EnterPhonePresenter
 import ru.dagdelo.business05.presentation.screens.auth.enterphone.mvp.EnterPhoneView
 import ru.terrakok.cicerone.NavigatorHolder
@@ -107,6 +106,7 @@ class EnterPhoneFragment : FlowFragment(),
         sendPhoneButton.setOnClickListener(this)
 
         enterPhoneMaskedEdit.run {
+            requestFocus()
             setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     if (sendPhoneButton.isClickable) sendPhoneButton.performClick()
