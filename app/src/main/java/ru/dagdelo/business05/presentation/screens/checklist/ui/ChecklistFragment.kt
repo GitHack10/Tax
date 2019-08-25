@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -37,6 +38,11 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
     @ProvidePresenter
     fun providePresenter() = presenter
 
+    // отслеживание пагинации
+    private var mVisibleItemCount = 0
+    private var mTotalItemCount = 0
+    private var mFirstVisibleItem = 0
+
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -49,6 +55,12 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
 
     override fun showProgress(show: Boolean) {
         checkListProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
+    }
+
+    override fun showPaginationProgress(show: Boolean) {
+        checklistRecycler.adapter?.let {
+            (it as CheckAdapter).isLoading(show)
+        }
     }
 
     override fun showError(message: String) {
@@ -71,24 +83,48 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
     }
 
     override fun showCheckList(checkList: List<CheckInfo>) {
-        checklistRecycler.apply {
-            layoutManager = LinearLayoutManager(
-                context,
-                LinearLayoutManager.VERTICAL,
-                false
-            )
-            val dividerItemDecoration = DividerItemDecoration(
-                context,
-                (layoutManager as LinearLayoutManager).orientation
-            )
-            dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_item))
-            addItemDecoration(dividerItemDecoration)
-            adapter = CheckAdapter(checkList)
+        checklistRecycler.adapter?.let {
+            (it as CheckAdapter).setCheckList(checkList)
+        } ?: run {
+            checklistRecycler.apply {
+                layoutManager = LinearLayoutManager(
+                    context,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+                val dividerItemDecoration = DividerItemDecoration(
+                    context,
+                    (layoutManager as LinearLayoutManager).orientation
+                )
+                dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.divider_item))
+                addItemDecoration(dividerItemDecoration)
+                adapter = CheckAdapter(checkList)
+            }
         }
     }
 
     private fun init() {
         setupToolbar(getString(R.string.menu_checklist))
+        checklistRecycler.setHasFixedSize(true)
+
+        // отслеживание скрола
+        checklistRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    mVisibleItemCount = recyclerView.childCount
+                    mTotalItemCount = recyclerView.layoutManager?.itemCount!!
+                    mFirstVisibleItem =
+                        (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                    if (!presenter.isLoading
+                        && !presenter.paginationEnd
+                        && mVisibleItemCount + mFirstVisibleItem >= mTotalItemCount
+                    ) {
+                        presenter.getCheckList()
+                    }
+                }
+            }
+        })
     }
 
     override fun onBackPressed() {

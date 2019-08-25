@@ -9,6 +9,7 @@ import ru.dagdelo.business05.domain.checklist.CheckListInteractor
 import ru.dagdelo.business05.presentation.global.AndroidResourceManager
 import ru.dagdelo.business05.presentation.global.base.BasePresenter
 import ru.dagdelo.business05.presentation.global.utils.ErrorHandler
+import ru.dagdelo.business05.presentation.global.utils.PAGINATION_COUNT
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -21,25 +22,53 @@ class ChecklistPresenter @Inject constructor(
     private val networkChecking: NetworkChecking
 ): BasePresenter<ChecklistView>(appRouter) {
 
+    // индекс загружаемых данных
+    private var page = 1
+
+    // флаг для определения - все ли элементы списка загружены
+    var paginationEnd = false
+    var isLoading = false
+
+    // флаг для определения первой загрузки
+    var isFirstRequest = true
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         getCheckList()
     }
 
     fun getCheckList() {
-        subscription += interactor.getCheckList()
+        subscription += interactor.getCheckList(page)
             .doOnSubscribe {
-                viewState.showProgress(true)
-                viewState.showContentLayout(false)
+                isLoading = true
+                if (isFirstRequest) {
+                    viewState.showProgress(true)
+                    viewState.showContentLayout(false)
+                } else if (!paginationEnd) viewState.showPaginationProgress(true)
             }
-            .doAfterTerminate { viewState.showProgress(false) }
+            .doAfterTerminate {
+                isLoading = false
+                viewState.showProgress(false)
+                viewState.showPaginationProgress(false)
+            }
             .subscribeBy(
                 onSuccess = {
-                    if (it.isNullOrEmpty()) viewState.showEmptyList(true)
-                    else {
-                        viewState.showEmptyList(false)
-                        viewState.showContentLayout(true)
-                        viewState.showCheckList(it)
+                    when {
+                        page == 1 && it.isNullOrEmpty() -> {
+                            viewState.showEmptyList(true)
+                            paginationEnd = true
+                        }
+                        else -> {
+                            if (it.size < PAGINATION_COUNT) paginationEnd = true
+                            viewState.showEmptyList(false)
+                            viewState.showContentLayout(true)
+                            viewState.showCheckList(it)
+
+                            page += 1
+
+                            // задаем флаг при первой загрузке списка чеков
+                            isFirstRequest = false
+                        }
                     }
                 },
                 onError = {
