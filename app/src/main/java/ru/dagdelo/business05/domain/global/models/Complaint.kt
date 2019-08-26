@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Complaint(
+class Complaint(
     @SerializedName("complaint_description") val problemDesc: String,
     @SerializedName("place_address") val address: String,
     @SerializedName("date") val date: String

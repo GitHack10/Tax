@@ -12,6 +12,10 @@ class SendComplaintRepositoryImpl @Inject constructor(
 ) : SendComplaintRepository {
 
     override fun sendComplaint(complaint: Complaint): Completable =
-        apiDagDelo.sendComplaint(complaint)
+        apiDagDelo.sendComplaint(
+            problemDesc = complaint.problemDesc,
+            address = complaint.address,
+            date = complaint.date
+        )
             .subscribeOn(io)
 }

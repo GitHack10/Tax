@@ -48,6 +48,11 @@ interface ApiDagDelo {
     @POST("/api/v1/profile/edit")
     fun editProfile(@Body editProfile: EditProfile): Completable
 
+    @FormUrlEncoded
     @POST("/api/v2/main/complaint")
-    fun sendComplaint(@Body complaint: Complaint): Completable
+    fun sendComplaint(
+        @Field("complaint_description") problemDesc: String,
+        @Field("place_address") address: String,
+        @Field("date") date: String
+    ): Completable
 }

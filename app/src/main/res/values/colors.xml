@@ -8,8 +8,8 @@
     <color name="blueGradientLight">#3381F5</color>
     <color name="blueGradientDark">#0D5BCF</color>
 
-    <color name="grayGradientLight">#F4F4F4</color>
-    <color name="grayGradientDark">#F0F0F0</color>
+    <color name="grayGradientLight">#FEFEFE</color>
+    <color name="grayGradientDark">#FAFAFA</color>
     
     <color name="hintTitle">#ADB8CC</color>
     <color name="textDescription">#58606F</color>
