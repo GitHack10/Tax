@@ -13,7 +13,7 @@ data class CheckInfo(
     @SerializedName("status") val status: Status,
     @SerializedName("inn") val inn: String,
     @SerializedName("date_scan") val dateScan: String,
-    @SerializedName("date_check") var dateCheck: String,
+    @SerializedName("date_check") var dateCheck: String?,
     @SerializedName("address") val address: String
 ) : Parcelable {
 
@@ -26,8 +26,9 @@ data class CheckInfo(
     @SuppressLint("SimpleDateFormat")
     fun convertTime() {
         val calendar = Calendar.getInstance()
-        calendar.time = SimpleDateFormat("yyyyMMdd'T'HHmm").parse(dateCheck)
-
-        dateCheck = SimpleDateFormat("dd.MM.yyyy' 'HH:mm").format(calendar.time)
+        try {
+            calendar.time = SimpleDateFormat("yyyyMMdd'T'HHmm").parse(dateCheck)
+            dateCheck = SimpleDateFormat("dd.MM.yyyy' 'HH:mm").format(calendar.time)
+        } catch (e: Exception) { dateCheck = "" }
     }
 }

@@ -16,9 +16,10 @@ class Check(
     @SuppressLint("SimpleDateFormat")
     fun convertTime() {
         val calendar = Calendar.getInstance()
-        calendar.time = SimpleDateFormat("yyyyMMdd'T'HHmm").parse(date)
-
-        date = SimpleDateFormat("dd.MM.yyyy' 'HH:mm").format(calendar.time)
+        try {
+            calendar.time = SimpleDateFormat("yyyyMMdd'T'HHmm").parse(date)
+            date = SimpleDateFormat("dd.MM.yyyy' 'HH:mm").format(calendar.time)
+        } catch (e: Exception) { date = "" }
     }
 
     @SuppressLint("SimpleDateFormat")

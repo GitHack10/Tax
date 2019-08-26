@@ -3,6 +3,7 @@ package ru.dagdelo.business05.presentation.screens.checklist.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.empty_checklist.*
 import kotlinx.android.synthetic.main.fragment_checklist.*
+import org.jetbrains.anko.support.v4.dip
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.domain.global.models.CheckInfo
 import ru.dagdelo.business05.presentation.global.base.BaseFragment
@@ -59,8 +61,13 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
     }
 
     override fun showPaginationProgress(show: Boolean) {
-        checklistRecycler.adapter?.let {
-            (it as CheckAdapter).isLoading(show)
+        if (show) {
+            checklistRecycler.setPadding(0, 0, 0, dip(77))
+            checkListPaginationProgress.visibility = View.VISIBLE
+
+        } else {
+            checkListPaginationProgress.visibility = View.INVISIBLE
+            checklistRecycler.setPadding(0, 0, 0, 0)
         }
     }
 

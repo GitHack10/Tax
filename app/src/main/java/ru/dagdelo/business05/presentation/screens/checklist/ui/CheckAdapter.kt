@@ -14,42 +14,21 @@ import ru.dagdelo.business05.presentation.global.utils.inflate
 class CheckAdapter(
     private val checkList: List<CheckInfo>,
     private val onDetailClickListener: (CheckInfo) -> Unit
-) : RecyclerView.Adapter<ViewHolder>() {
+) : RecyclerView.Adapter<CheckAdapter.CheckHolder>() {
 
-    private var isLoading = false
-
-    override fun getItemViewType(position: Int): Int {
-        return when {
-            isLoading -> LOADING_VIEW_TYPE
-            else -> DEFAULT_VIEW_TYPE
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        when (viewType) {
-            LOADING_VIEW_TYPE -> LoadHolder(containerView = parent.inflate(R.layout.item_loading))
-            else -> CheckHolder(containerView = parent.inflate(R.layout.item_check))
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CheckHolder =
+        CheckHolder(containerView = parent.inflate(R.layout.item_check))
 
     override fun getItemCount() = checkList.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        when (holder) {
-            is CheckHolder -> holder.setData(checkList[position])
-            is LoadHolder -> holder.bind()
-        }
+    override fun onBindViewHolder(holder: CheckHolder, position: Int) {
+        holder.setData(checkList[position])
     }
 
     fun setCheckList(newList: List<CheckInfo>) {
-        val positionStart = this.checkList.size + 1
-        (this.checkList as ArrayList).addAll(newList)
+        val positionStart = checkList.size + 1
+        (checkList as ArrayList).addAll(newList)
         notifyItemRangeInserted(positionStart, newList.size)
-    }
-
-    fun isLoading(load: Boolean) {
-        this.isLoading = load
-        if (load) notifyItemInserted(checkList.size + 1)
-        else notifyItemRemoved(checkList.size + 1)
     }
 
     inner class CheckHolder(override val containerView: View) : ViewHolder(containerView),
@@ -84,18 +63,5 @@ class CheckAdapter(
 
             detailImageView.setOnClickListener { onDetailClickListener(check) }
         }
-    }
-
-    inner class LoadHolder(override val containerView: View) : ViewHolder(containerView),
-        LayoutContainer {
-
-        fun bind() {
-            checkPaginationProgress.visibility = if (isLoading) View.VISIBLE else View.GONE
-        }
-    }
-
-    companion object {
-        const val DEFAULT_VIEW_TYPE = 0
-        const val LOADING_VIEW_TYPE = 1
     }
 }
