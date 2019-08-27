@@ -7,10 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".presentation.screens.checklist.ui.ChecklistFragment">
 
-    <include
-        android:id="@+id/checklistToolbar"
-        layout="@layout/toolbar"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/checklistRecycler"
         android:layout_width="0dp"
@@ -49,7 +45,21 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checklistToolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <include
+        layout="@layout/no_network"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible"/>
+
+    <include
+        android:id="@+id/checklistToolbar"
+        layout="@layout/toolbar"/>
 </android.support.constraint.ConstraintLayout>

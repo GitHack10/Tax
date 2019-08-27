@@ -38,50 +38,58 @@ class ChecklistPresenter @Inject constructor(
     }
 
     fun getCheckList() {
-        subscription += interactor.getCheckList(page)
-            .doOnSubscribe {
-                isLoading = true
-                if (isFirstRequest) {
-                    viewState.showProgress(true)
-                    viewState.showContentLayout(false)
-                } else if (!paginationEnd) viewState.showPaginationProgress(true)
-            }
-            .doAfterTerminate {
-                isLoading = false
-                viewState.showProgress(false)
-                viewState.showPaginationProgress(false)
-            }
-            .subscribeBy(
-                onSuccess = {
-                    when {
-                        page == 1 && it.isNullOrEmpty() -> {
-                            viewState.showEmptyList(true)
-                            paginationEnd = true
-                        }
-                        else -> {
-                            if (it.size < PAGINATION_COUNT) paginationEnd = true
-                            it.forEach { check -> check.convertTime() }
-                            viewState.showEmptyList(false)
-                            viewState.showContentLayout(true)
-                            viewState.showCheckList(it)
-
-                            page += 1
-
-                            // задаем флаг при первой загрузке списка чеков
-                            isFirstRequest = false
-                        }
-                    }
-                },
-                onError = {
-                    if (networkChecking.hasConnection()) {
-                        errorHandler.proceed(it) { error ->
-                            viewState.showError(
-                                if (!error.errors.isNullOrEmpty()) error.errors.first().message
-                                else error.message
-                            )
-                        }
-                    } else viewState.showError(resourceManager.getString(R.string.checkYourInternetConnection))
+        if (networkChecking.hasConnection()) {
+            viewState.showNoNetworkLayout(false)
+            subscription += interactor.getCheckList(page)
+                .doOnSubscribe {
+                    isLoading = true
+                    if (isFirstRequest) {
+                        viewState.showProgress(true)
+                        viewState.showContentLayout(false)
+                    } else if (!paginationEnd) viewState.showPaginationProgress(true)
                 }
-            )
+                .doAfterTerminate {
+                    isLoading = false
+                    viewState.showProgress(false)
+                    viewState.showPaginationProgress(false)
+                }
+                .subscribeBy(
+                    onSuccess = {
+                        when {
+                            page == 1 && it.isNullOrEmpty() -> {
+                                viewState.showEmptyList(true)
+                                paginationEnd = true
+                            }
+                            else -> {
+                                if (it.size < PAGINATION_COUNT) paginationEnd = true
+                                it.forEach { check -> check.convertTime() }
+                                viewState.showEmptyList(false)
+                                viewState.showContentLayout(true)
+                                viewState.showCheckList(it)
+
+                                page += 1
+
+                                // задаем флаг при первой загрузке списка чеков
+                                isFirstRequest = false
+                            }
+                        }
+                    },
+                    onError = {
+                        if (networkChecking.hasConnection()) {
+                            errorHandler.proceed(it) { error ->
+                                viewState.showError(
+                                    if (!error.errors.isNullOrEmpty()) error.errors.first().message
+                                    else error.message
+                                )
+                            }
+                        } else viewState.showError(resourceManager.getString(R.string.checkYourInternetConnection))
+                    }
+                )
+        } else {
+            viewState.showProgress(false)
+            viewState.showNoNetworkLayout(true)
+        }
     }
+
+    fun onTryAgainClicked() = getCheckList()
 }

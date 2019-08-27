@@ -11,12 +11,14 @@ interface ChecklistView : MvpView {
     fun showCheckList(checkList: List<CheckInfo>)
     fun showEmptyList(show: Boolean)
     fun showContentLayout(show: Boolean)
+    fun showNoNetworkLayout(show: Boolean)
 
     fun showProgress(show: Boolean)
     fun showPaginationProgress(show: Boolean)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showError(message: String)
+
 
 
 }

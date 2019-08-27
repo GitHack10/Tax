@@ -11,6 +11,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.fragment_news.*
+import kotlinx.android.synthetic.main.no_network.*
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.presentation.global.base.BaseFragment
 import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
@@ -57,9 +58,20 @@ class NewsFragment : BaseFragment(), NewsView, HasSupportFragmentInjector {
         ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }
 
+    override fun showNoNetworkLayout(show: Boolean) {
+        if (show) {
+            noNetworkLayout.visibility = View.VISIBLE
+            newsProgress.visibility = View.INVISIBLE
+            newsWebView.visibility = View.GONE
+        } else {
+            noNetworkLayout.visibility = View.GONE
+            newsWebView.visibility = View.VISIBLE
+        }
+    }
+
     override fun showNews() {
         newsWebView.webViewClient = NewsWebViewClient(NEWS_URL) { show ->
-            newsProgress.let { it.visibility = if (show) View.VISIBLE else View.INVISIBLE }
+            newsProgress?.let { it.visibility = if (show) View.VISIBLE else View.INVISIBLE }
         }
         newsWebView.loadUrl(NEWS_URL)
     }
@@ -76,6 +88,10 @@ class NewsFragment : BaseFragment(), NewsView, HasSupportFragmentInjector {
 
     private fun init() {
         setupToolbar(getString(R.string.menu_news))
+        networkCheckButton.setOnClickListener {
+            newsProgress.visibility = View.VISIBLE
+            presenter.retryLoad()
+        }
     }
 
     override fun onBackPressed() {

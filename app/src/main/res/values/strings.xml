@@ -108,6 +108,10 @@
     <string name="error_network_convert_response">Не удалось сконвертировать ответ ошибки</string>
     <string name="error_load_data">Не удалось загрузить данные</string>
 
+    <!-- No Network -->
+    <string name="no_network_title">Вы не подключены к интернету</string>
+    <string name="no_network_subtitle">Проверьте ваше соединение\nс интернетом и повторите попытку</string>
+
     <!-- Enter Phone -->
     <string name="enter_phone_title">Войдите или зарегистрируйтесь\nпо номеру телефона</string>
     <string name="enter_phone_next">Далее</string>

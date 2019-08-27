@@ -12,11 +12,13 @@ interface ProfileView : MvpView {
     fun showSaveProgress(show: Boolean)
     fun showLoadProgress(show: Boolean)
     fun showContentLayout(show: Boolean)
+    fun showNoNetworkLayout(show: Boolean)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showError(message: String)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showSaveError(message: String)
+
 
 }

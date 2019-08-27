@@ -27,18 +27,26 @@ class ProfilePresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        getUserInfoWithChecking()
+    }
+
+    private fun getUserInfoWithChecking() {
         userInfo.user?.let {
             viewState.showUserInfo(userInfo.user!!)
             viewState.showLoadProgress(false)
             viewState.showContentLayout(true)
+            viewState.showNoNetworkLayout(false)
         } ?: run {
             if (networkChecking.hasConnection()) getUserInfo()
-            else viewState.showError(resourceManager.getString(R.string.checkYourInternetConnection))
+            else {
+                viewState.showLoadProgress(false)
+                viewState.showNoNetworkLayout(true)
+            }
         }
     }
 
-    fun getUserInfo() {
-        viewState.showLoadProgress(true)
+    private fun getUserInfo() {
+        viewState.showNoNetworkLayout(false)
         subscription += interactor.getUserInfo()
             .doOnSubscribe { viewState.showLoadProgress(true) }
             .doAfterTerminate { viewState.showLoadProgress(false) }
@@ -67,12 +75,6 @@ class ProfilePresenter @Inject constructor(
             )
     }
 
-    fun onLogoutClicked() {
-        interactor.setIsLogin(isLogin = false)
-        userInfo.user = null
-        appRouter.newRootScreen(Screens.SignIn())
-    }
-
     fun onSaveChangesClicked(username: String, email: String) {
         subscription += interactor.editProfile(username, email)
             .doOnSubscribe { viewState.showSaveProgress(true) }
@@ -96,4 +98,12 @@ class ProfilePresenter @Inject constructor(
                 }
             )
     }
+
+    fun onLogoutClicked() {
+        interactor.setIsLogin(isLogin = false)
+        userInfo.user = null
+        appRouter.newRootScreen(Screens.SignIn())
+    }
+
+    fun onTryAgainClicked() = getUserInfoWithChecking()
 }

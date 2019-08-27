@@ -15,6 +15,7 @@ import io.reactivex.rxkotlin.Observables
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.no_network.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.domain.global.models.User
@@ -25,7 +26,7 @@ import ru.dagdelo.business05.presentation.screens.profile.mvp.ProfilePresenter
 import ru.dagdelo.business05.presentation.screens.profile.mvp.ProfileView
 import javax.inject.Inject
 
-class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector {
+class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector, View.OnClickListener {
     override val layoutRes = R.layout.fragment_profile
 
     override fun supportFragmentInjector() = fragmentInjector
@@ -52,6 +53,18 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
         init()
     }
 
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.saveChangesButton -> {
+                presenter.onSaveChangesClicked(
+                    username = usernameEdit.text.toString(),
+                    email = emailEdit.text.toString()
+                )
+            }
+            R.id.networkCheckButton -> presenter.onTryAgainClicked()
+        }
+    }
+
     override fun showLoadProgress(show: Boolean) {
         loadProgress.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
@@ -71,9 +84,13 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
             textRightButton = getString(R.string.try_again),
             titleText = message,
             buttonRightDialogClickListener = {
-                presenter.getUserInfo()
+                presenter.onTryAgainClicked()
             }
         ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
+    }
+
+    override fun showNoNetworkLayout(show: Boolean) {
+        noNetworkLayout.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun showSaveError(message: String) {
@@ -105,12 +122,8 @@ class ProfileFragment : BaseFragment(), ProfileView, HasSupportFragmentInjector 
         setupToolbar(getString(R.string.menu_profile))
         setupToolbarMenu()
 
-        saveChangesButton.setOnClickListener {
-            presenter.onSaveChangesClicked(
-                username = usernameEdit.text.toString(),
-                email = emailEdit.text.toString()
-            )
-        }
+        saveChangesButton.setOnClickListener(this)
+        networkCheckButton.setOnClickListener(this)
 
         subscriptions += Observables.combineLatest(
             RxTextView.textChanges(usernameEdit),

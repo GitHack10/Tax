@@ -17,12 +17,16 @@ class NewsPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        if (networkChecking.hasConnection()) viewState.showNews()
-        else viewState.showError(resourceManager.getString(R.string.checkYourInternetConnection))
+        getNews()
     }
 
-    fun retryLoad() {
-        if (networkChecking.hasConnection()) viewState.showNews()
-        else viewState.showError(resourceManager.getString(R.string.checkYourInternetConnection))
+    private fun getNews() {
+        if (networkChecking.hasConnection()) {
+            viewState.showNoNetworkLayout(false)
+            viewState.showNews()
+        }
+        else viewState.showNoNetworkLayout(true)
     }
+
+    fun retryLoad() = getNews()
 }

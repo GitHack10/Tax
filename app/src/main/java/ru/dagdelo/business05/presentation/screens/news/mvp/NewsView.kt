@@ -11,4 +11,6 @@ interface NewsView : MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showError(message: String)
+
+    fun showNoNetworkLayout(show: Boolean)
 }
