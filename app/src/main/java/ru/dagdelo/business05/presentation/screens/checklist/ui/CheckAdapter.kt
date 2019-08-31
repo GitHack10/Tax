@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_check.*
-import kotlinx.android.synthetic.main.item_loading.*
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.domain.global.models.CheckInfo
 import ru.dagdelo.business05.presentation.global.utils.inflate
@@ -36,6 +35,11 @@ class CheckAdapter(
         notifyDataSetChanged()
     }
 
+    fun setFilteredList(filteredList: List<CheckInfo>) {
+        checkList = filteredList
+        notifyDataSetChanged()
+    }
+
     inner class CheckHolder(override val containerView: View) : ViewHolder(containerView),
         LayoutContainer {
 
@@ -47,7 +51,7 @@ class CheckAdapter(
                 0 -> {
                     checkStatusDescText.text =
                         containerView.resources.getString(R.string.checklist_check_status_illegal)
-                    checkStatusDescText.setTextColor(containerView.resources.getColor(R.color.error))
+                    checkStatusDescText.setTextColor(containerView.resources.getColor(R.color.colorRed))
                 }
                 1 -> {
                     checkStatusDescText.text =

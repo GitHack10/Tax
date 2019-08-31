@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import ru.dagdelo.business05.R
@@ -49,7 +48,7 @@ class CheckDetailDialog : DialogFragment() {
             0 -> {
                 statusTextView.text = checkInfo?.status?.message
                     ?: resources.getString(R.string.checklist_check_status_illegal)
-                statusTextView.setTextColor(view.resources.getColor(R.color.error))
+                statusTextView.setTextColor(view.resources.getColor(R.color.colorRed))
             }
             1 -> {
                 statusTextView.text = checkInfo?.status?.message
@@ -67,6 +66,9 @@ class CheckDetailDialog : DialogFragment() {
                 statusTextView.setTextColor(view.resources.getColor(R.color.hintTitle))
             }
         }
+
+        val idTextView: TextView = view.findViewById(R.id.idCheckDescText)
+        idTextView.text = "${checkInfo?.id}" ?: ""
     }
 
     companion object {

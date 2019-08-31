@@ -17,11 +17,13 @@ import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.empty_checklist.*
 import kotlinx.android.synthetic.main.fragment_checklist.*
 import kotlinx.android.synthetic.main.no_network.*
+import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.support.v4.dip
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.domain.global.models.CheckInfo
 import ru.dagdelo.business05.presentation.global.base.BaseFragment
 import ru.dagdelo.business05.presentation.global.dialogs.CheckDetailDialog
+import ru.dagdelo.business05.presentation.global.dialogs.CheckFilterDialog
 import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
 import ru.dagdelo.business05.presentation.screens.checklist.mvp.ChecklistPresenter
 import ru.dagdelo.business05.presentation.screens.checklist.mvp.ChecklistView
@@ -126,6 +128,12 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
         }
     }
 
+    override fun showFilteredList(filteredList: List<CheckInfo>) {
+        checklistRecycler.adapter?.let {
+            (it as CheckAdapter).setFilteredList(filteredList)
+        }
+    }
+
     override fun onRefresh() {
         // Fetching data from server
         presenter.onRefreshCheckList()
@@ -133,6 +141,7 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
 
     private fun init() {
         setupToolbar(getString(R.string.menu_checklist))
+        setupToolbarMenu()
         checklistRecycler.setHasFixedSize(true)
         checklistSwipeRefreshLayout.setOnRefreshListener(this)
         checklistSwipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.colorAccent))
@@ -161,6 +170,31 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
     private fun onDetailClicked(check: CheckInfo) {
         CheckDetailDialog.newInstance(check)
             .show(fragmentManager, "CheckDetailDialog.javaClass.simpleName")
+    }
+
+    private fun onFilterIconClicked() {
+        CheckFilterDialog { presenter.onFilterSelected(it) }
+            .show(fragmentManager, "CheckFilterDialog.javaClass.simpleName")
+    }
+
+    private fun setupToolbarMenu() {
+        menuIconPlaceholder.visibility = View.GONE
+        toolbar.run {
+            // Не добавляет меню, если уже имеется
+            if (menu.size() <= 0) {
+                inflateMenu(R.menu.filtered)
+                setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.menu_filter -> {
+                            onFilterIconClicked()
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
+            }
+        }
     }
 
     override fun onBackPressed() {

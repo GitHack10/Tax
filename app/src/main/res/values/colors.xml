@@ -18,5 +18,5 @@
 
     <color name="divider_item">#C2C2C2</color>
     <color name="buttonEnabledPressed">#255FB7</color>
-    <color name="error">#F21616</color>
+    <color name="colorRed">#F21616</color>
 </resources>

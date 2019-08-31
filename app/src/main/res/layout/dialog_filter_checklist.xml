@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_close_filter"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:fontFamily="@font/sf_pro_display_medium"
+        android:textSize="@dimen/text_premid"
+        android:textColor="@android:color/black"
+        android:text="@string/checklist_check_dialog_status_title"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/divider_item"/>
+
+    <TextView
+        android:id="@+id/dialogAllChecksText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/actionBarItemBackground"
+        android:focusable="true"
+        android:gravity="center"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_normal"
+        android:text="@string/checklist_check_dialog_status_all"
+        android:padding="12dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_item"/>
+
+    <TextView
+        android:id="@+id/dialogRegisteredChecksText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/actionBarItemBackground"
+        android:focusable="true"
+        android:gravity="center"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@color/green"
+        android:textSize="@dimen/text_normal"
+        android:text="@string/checklist_check_dialog_status_registered"
+        android:padding="12dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_item"/>
+
+    <TextView
+        android:id="@+id/dialogLegalChecksText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/actionBarItemBackground"
+        android:focusable="true"
+        android:gravity="center"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_normal"
+        android:text="@string/checklist_check_dialog_status_legal"
+        android:padding="12dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_item"/>
+
+    <TextView
+        android:id="@+id/dialogIllegalChecksText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/actionBarItemBackground"
+        android:focusable="true"
+        android:gravity="center"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@color/colorRed"
+        android:textSize="@dimen/text_normal"
+        android:text="@string/checklist_check_dialog_status_illegal"
+        android:padding="12dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_item"/>
+
+    <TextView
+        android:id="@+id/dialogTreatmentChecksText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/actionBarItemBackground"
+        android:focusable="true"
+        android:gravity="center"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@color/hintTitle"
+        android:textSize="@dimen/text_normal"
+        android:text="@string/checklist_check_dialog_status_in_the_treatment"
+        android:padding="12dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_item"/>
+
+</LinearLayout>

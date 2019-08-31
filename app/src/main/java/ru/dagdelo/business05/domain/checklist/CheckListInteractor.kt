@@ -11,7 +11,7 @@ class CheckListInteractor @Inject constructor(
     private val prefs: PreferenceStorage
 ) {
 
-    fun getCheckList(page: Int): Single<List<CheckInfo>> =
-        checkListRepositoryImpl.getCheckList(page)
+    fun getCheckList(page: Int, selectedFilter: Int?): Single<List<CheckInfo>> =
+        checkListRepositoryImpl.getCheckList(page, selectedFilter)
             .observeOn(ui)
 }

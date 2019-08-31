@@ -91,7 +91,7 @@
         android:layout_marginTop="24dp"
         android:drawableStart="@drawable/ic_info"
         android:drawablePadding="8dp"
-        android:textColor="@color/error"
+        android:textColor="@color/colorRed"
         android:textSize="@dimen/text_min"
         android:text="@string/incorrect_auth_data"
         android:visibility="invisible"

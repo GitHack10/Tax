@@ -43,7 +43,10 @@ interface ApiDagDelo {
     fun getUserInfo(): Single<User>
 
     @GET("/api/v1/check/mychecks")
-    fun getCheckList(@Query("page") page: Int): Single<List<CheckInfo>>
+    fun getCheckList(
+        @Query("page") page: Int,
+        @Query("filter") selectedFilter: Int?
+    ): Single<List<CheckInfo>>
 
     @POST("/api/v1/profile/edit")
     fun editProfile(@Body editProfile: EditProfile): Completable

@@ -127,10 +127,18 @@
     <string name="checklist_empty_title">У вас пока нет истории покупок</string>
     <string name="checklist_empty_description">Сканируйте чеки после покупок и\nрегистрируйтесь в акции!</string>
     <string name="checklist_check_status_hint">Статус чека:</string>
-    <string name="checklist_check_status_illegal">Нелегален</string>
+    <string name="checklist_check_status_illegal">Не легален</string>
     <string name="checklist_check_status_registered">Зарегистрирован</string>
     <string name="checklist_check_status_legal">Легален</string>
     <string name="checklist_check_status_in_the_treatment">В обработке</string>
+    <!-- dialog start -->
+    <string name="checklist_check_dialog_status_title">Выберите тип чека</string>
+    <string name="checklist_check_dialog_status_all">Все чеки</string>
+    <string name="checklist_check_dialog_status_illegal">Не легальные</string>
+    <string name="checklist_check_dialog_status_registered">Зарегистрированные</string>
+    <string name="checklist_check_dialog_status_legal">Легальные</string>
+    <string name="checklist_check_dialog_status_in_the_treatment">В обработке</string>
+    <!-- dialog end -->
 
     <!-- Send complaint -->
     <string name="send_complaint_text">Отправить жалобу</string>
@@ -149,5 +157,6 @@
     <string name="send_complaint_type_of_cash_receipt">Вид кассового чека</string>
     <string name="send_complaint_payment_type">Способ оплаты</string>
     <string name="send_complaint_check_amount">Сумма чека</string>
+    <string name="checklist_toolbar_menu_filter">Фильтр</string>
     <!-- Hints end -->
 </resources>

@@ -13,12 +13,16 @@ fun toUserRegDate(date: String): String {
 }
 
 fun toHumanDate(date: String): String {
-    val accessor = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss").parse(date)
-    return DateTimeFormatter.ofPattern("dd.MM.yyyy' 'HH:mm").format(accessor)
+    val accessor = if (date.length > 13) {
+        DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss").parse(date)
+    } else {
+        DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm").parse(date)
+    }
+    return DateTimeFormatter.ofPattern("dd.MM.yyyy' 'HH:mm:ss").format(accessor)
 }
 
 fun toSendFormatCheckDate(date: String): String {
-    val accessor = DateTimeFormatter.ofPattern("dd.MM.yyyy' 'HH:mm").parse(date)
+    val accessor = DateTimeFormatter.ofPattern("dd.MM.yyyy' 'HH:mm:ss").parse(date)
     return DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss").format(accessor)
 }
 
@@ -37,5 +41,5 @@ fun fromCalendarToUserRegSendDate(dayOfMonth: Int, month: Int, year: Int): Strin
 fun fromCalendarDate(dayOfMonth: Int, month: Int, year: Int, hours: Int, minutes: Int): String {
     val date = "$dayOfMonth.$month.$year $hours:$minutes"
     val accessor = DateTimeFormatter.ofPattern("d.M.yyyy' 'H:m").parse(date)
-    return DateTimeFormatter.ofPattern("dd.MM.yyyy' 'HH:mm").format(accessor)
+    return DateTimeFormatter.ofPattern("dd.MM.yyyy' 'HH:mm:ss").format(accessor)
 }

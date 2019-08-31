@@ -195,8 +195,8 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
         val minute: Int?
 
         if (time.isEmpty()) {
-            hour = calendar.get(Calendar.DAY_OF_MONTH)
-            minute = calendar.get(Calendar.MONTH)
+            hour = calendar.get(Calendar.HOUR_OF_DAY)
+            minute = calendar.get(Calendar.MINUTE)
         } else {
             val userTime = time.split(":")
             hour = userTime[0].toInt()

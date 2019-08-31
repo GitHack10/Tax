@@ -34,18 +34,23 @@ class ChecklistPresenter @Inject constructor(
     // флаг для определения первой загрузки
     private var isFirstRequest = true
 
+    private var filterId: Int? = null
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         getCheckList()
     }
 
-    fun getCheckList(refreshing: Boolean = false) {
+    fun getCheckList(refreshing: Boolean = false, selectedFilter: Boolean = false) {
         if (networkChecking.hasConnection()) {
             viewState.showNoNetworkLayout(false)
-            subscription += interactor.getCheckList(if (refreshing) 1 else page)
+            subscription += interactor.getCheckList(
+                page = if (refreshing || selectedFilter) 1 else page,
+                selectedFilter = filterId
+            )
                 .doOnSubscribe {
                     isLoading = true
-                    if (isFirstRequest) {
+                    if (isFirstRequest || selectedFilter) {
                         viewState.showProgress(true)
                         viewState.showContentLayout(false)
                     } else if (!paginationEnd && !refreshing) {
@@ -72,14 +77,20 @@ class ChecklistPresenter @Inject constructor(
                             else -> {
                                 if (it.size < PAGINATION_COUNT) paginationEnd = true
                                 it.forEach { check ->
-                                    if (!check.dateCheck.isNullOrEmpty()) {
-                                        check.dateCheck = toHumanDate(check.dateCheck!!)
+                                    check.dateCheck.apply {
+                                        if (!isNullOrEmpty()) {
+                                            check.dateCheck = toHumanDate(this)
+                                        }
                                     }
                                 }
                                 if (refreshing) {
                                     viewState.showRefreshedList(it)
                                 } else {
-                                    viewState.showCheckList(it)
+                                    if (selectedFilter) {
+                                        viewState.showFilteredList(it)
+                                    } else {
+                                        viewState.showCheckList(it)
+                                    }
                                 }
                                 viewState.showEmptyList(false)
                                 viewState.showContentLayout(true)
@@ -110,4 +121,9 @@ class ChecklistPresenter @Inject constructor(
     fun onRefreshCheckList() = getCheckList(true)
 
     fun onTryAgainClicked() = getCheckList()
+
+    fun onFilterSelected(selectedFilter: Int?) {
+        filterId = selectedFilter
+        getCheckList(selectedFilter = true)
+    }
 }

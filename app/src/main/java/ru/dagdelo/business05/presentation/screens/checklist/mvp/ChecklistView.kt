@@ -22,4 +22,5 @@ interface ChecklistView : MvpView {
 
     fun hideRefreshingProgress()
     fun showRefreshedList(newList: List<CheckInfo>)
+    fun showFilteredList(filteredList: List<CheckInfo>)
 }

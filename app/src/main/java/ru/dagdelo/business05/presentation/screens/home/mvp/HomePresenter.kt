@@ -76,7 +76,7 @@ class HomePresenter @Inject constructor(
                 }
             }
             check = Check(fd, fpd, fn, date, type.toIntOrNull() ?: 1, sum)
-            check?.let { it.date = toHumanDate(check!!.date) }
+            check?.let { it.date = toHumanDate(date) }
             interactor.clearQrString()
             viewState.showScannedData(check)
         }
