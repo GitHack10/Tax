@@ -12,7 +12,7 @@ import ru.dagdelo.business05.domain.global.models.CheckInfo
 import ru.dagdelo.business05.presentation.global.utils.inflate
 
 class CheckAdapter(
-    private val checkList: List<CheckInfo>,
+    private var checkList: List<CheckInfo>,
     private val onDetailClickListener: (CheckInfo) -> Unit
 ) : RecyclerView.Adapter<CheckAdapter.CheckHolder>() {
 
@@ -29,6 +29,11 @@ class CheckAdapter(
         val positionStart = checkList.size + 1
         (checkList as ArrayList).addAll(newList)
         notifyItemRangeInserted(positionStart, newList.size)
+    }
+
+    fun setRefreshedList(newList: List<CheckInfo>) {
+        checkList = newList
+        notifyDataSetChanged()
     }
 
     inner class CheckHolder(override val containerView: View) : ViewHolder(containerView),

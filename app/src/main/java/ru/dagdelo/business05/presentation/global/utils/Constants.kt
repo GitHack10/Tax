@@ -6,7 +6,7 @@ const val SMS_TIMER = 120000L
 const val TIMER_INTERVAL = 1000L
 
 // Pagination
-const val PAGINATION_COUNT = 15
+const val PAGINATION_COUNT = 25
 
 // Errors
 const val AUTH_ERROR = "AUTH_ERROR"

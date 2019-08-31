@@ -4,6 +4,7 @@ package ru.dagdelo.business05.presentation.screens.checklist.ui
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -26,7 +27,7 @@ import ru.dagdelo.business05.presentation.screens.checklist.mvp.ChecklistPresent
 import ru.dagdelo.business05.presentation.screens.checklist.mvp.ChecklistView
 import javax.inject.Inject
 
-class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjector {
+class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjector, SwipeRefreshLayout.OnRefreshListener {
     override val layoutRes = R.layout.fragment_checklist
 
     override fun supportFragmentInjector() = fragmentInjector
@@ -82,6 +83,10 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
         ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }
 
+    override fun hideRefreshingProgress() {
+        checklistSwipeRefreshLayout.isRefreshing = false
+    }
+
     override fun showNoNetworkLayout(show: Boolean) {
         noNetworkLayout.visibility = if (show) View.VISIBLE else View.GONE
     }
@@ -115,9 +120,22 @@ class ChecklistFragment : BaseFragment(), ChecklistView, HasSupportFragmentInjec
         }
     }
 
+    override fun showRefreshedList(newList: List<CheckInfo>) {
+        checklistRecycler.adapter?.let {
+            (it as CheckAdapter).setRefreshedList(newList)
+        }
+    }
+
+    override fun onRefresh() {
+        // Fetching data from server
+        presenter.onRefreshCheckList()
+    }
+
     private fun init() {
         setupToolbar(getString(R.string.menu_checklist))
         checklistRecycler.setHasFixedSize(true)
+        checklistSwipeRefreshLayout.setOnRefreshListener(this)
+        checklistSwipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.colorAccent))
         networkCheckButton.setOnClickListener { presenter.onTryAgainClicked() }
 
         // отслеживание скрола

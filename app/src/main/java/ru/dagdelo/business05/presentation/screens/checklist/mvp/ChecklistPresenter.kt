@@ -6,6 +6,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import ru.dagdelo.business05.R
 import ru.dagdelo.business05.data.global.netwotk.utils.NetworkChecking
 import ru.dagdelo.business05.domain.checklist.CheckListInteractor
+import ru.dagdelo.business05.domain.global.models.CheckInfo
 import ru.dagdelo.business05.presentation.global.AndroidResourceManager
 import ru.dagdelo.business05.presentation.global.base.BasePresenter
 import ru.dagdelo.business05.presentation.global.utils.ErrorHandler
@@ -24,35 +25,42 @@ class ChecklistPresenter @Inject constructor(
 ): BasePresenter<ChecklistView>(appRouter) {
 
     // индекс загружаемых данных
-    private var page = 1
+    var page = 1
 
     // флаг для определения - все ли элементы списка загружены
     var paginationEnd = false
     var isLoading = false
 
     // флаг для определения первой загрузки
-    var isFirstRequest = true
+    private var isFirstRequest = true
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         getCheckList()
     }
 
-    fun getCheckList() {
+    fun getCheckList(refreshing: Boolean = false) {
         if (networkChecking.hasConnection()) {
             viewState.showNoNetworkLayout(false)
-            subscription += interactor.getCheckList(page)
+            subscription += interactor.getCheckList(if (refreshing) 1 else page)
                 .doOnSubscribe {
                     isLoading = true
                     if (isFirstRequest) {
                         viewState.showProgress(true)
                         viewState.showContentLayout(false)
-                    } else if (!paginationEnd) viewState.showPaginationProgress(true)
+                    } else if (!paginationEnd && !refreshing) {
+                        viewState.showPaginationProgress(true)
+                    } else if (refreshing) {
+                        viewState.showContentLayout(false)
+                    }
                 }
                 .doAfterTerminate {
                     isLoading = false
                     viewState.showProgress(false)
                     viewState.showPaginationProgress(false)
+                    if (refreshing) {
+                        viewState.hideRefreshingProgress()
+                    }
                 }
                 .subscribeBy(
                     onSuccess = {
@@ -64,12 +72,17 @@ class ChecklistPresenter @Inject constructor(
                             else -> {
                                 if (it.size < PAGINATION_COUNT) paginationEnd = true
                                 it.forEach { check ->
-                                    check.dateCheck?.let { check.dateCheck = toHumanDate(it) }
+                                    if (!check.dateCheck.isNullOrEmpty()) {
+                                        check.dateCheck = toHumanDate(check.dateCheck!!)
+                                    }
+                                }
+                                if (refreshing) {
+                                    viewState.showRefreshedList(it)
+                                } else {
+                                    viewState.showCheckList(it)
                                 }
                                 viewState.showEmptyList(false)
                                 viewState.showContentLayout(true)
-                                viewState.showCheckList(it)
-
                                 page += 1
 
                                 // задаем флаг при первой загрузке списка чеков
@@ -93,6 +106,8 @@ class ChecklistPresenter @Inject constructor(
             viewState.showNoNetworkLayout(true)
         }
     }
+
+    fun onRefreshCheckList() = getCheckList(true)
 
     fun onTryAgainClicked() = getCheckList()
 }

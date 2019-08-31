@@ -5,6 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import ru.dagdelo.business05.domain.global.models.CheckInfo
+import java.util.ArrayList
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface ChecklistView : MvpView {
@@ -19,6 +20,6 @@ interface ChecklistView : MvpView {
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showError(message: String)
 
-
-
+    fun hideRefreshingProgress()
+    fun showRefreshedList(newList: List<CheckInfo>)
 }
