@@ -14,6 +14,7 @@ android {
         targetSdkVersion 28
         versionCode 3
         versionName "2.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -110,6 +111,9 @@ dependencies {
 
     // util - timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // util - ThreeTenABP
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
 
     // permissions - RxPermissions
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
