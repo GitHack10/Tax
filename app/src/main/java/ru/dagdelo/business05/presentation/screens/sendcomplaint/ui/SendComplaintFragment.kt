@@ -24,12 +24,12 @@ import ru.dagdelo.business05.presentation.global.base.FlowFragment
 import ru.dagdelo.business05.presentation.global.dialogs.OneActionDialog
 import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
 import ru.dagdelo.business05.presentation.global.utils.accessible
+import ru.dagdelo.business05.presentation.global.utils.fromCalendarDate
 import ru.dagdelo.business05.presentation.global.utils.setWhiteStyleWindow
 import ru.dagdelo.business05.presentation.screens.sendcomplaint.mvp.SendComplaintPresenter
 import ru.dagdelo.business05.presentation.screens.sendcomplaint.mvp.SendComplaintView
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -56,8 +56,6 @@ class SendComplaintFragment : FlowFragment(), SendComplaintView, HasSupportFragm
     @ProvidePresenter
     fun providePresenter() = presenter
 
-    @SuppressLint("SimpleDateFormat")
-    private val dateFormat = SimpleDateFormat("dd.MM.yyyy' 'HH:mm")
     private var date = ""
 
     override fun onAttach(context: Context?) {
@@ -153,7 +151,6 @@ class SendComplaintFragment : FlowFragment(), SendComplaintView, HasSupportFragm
             context!!,
             R.style.CustomDatePickerDialog,
             DatePickerDialog.OnDateSetListener { _, yearUser, monthOfYear, dayOfMonth ->
-                calendar.set(yearUser, monthOfYear, dayOfMonth)
                 showTimePicker(yearUser, monthOfYear, dayOfMonth, time)
             }, year, month, day
         )
@@ -178,8 +175,7 @@ class SendComplaintFragment : FlowFragment(), SendComplaintView, HasSupportFragm
             context!!,
             R.style.CustomDatePickerDialog,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minutes ->
-                calendar.set(yearUser, monthOfYear, dayOfMonth, hourOfDay, minutes)
-                date = dateFormat.format(calendar.timeInMillis)
+                date = fromCalendarDate(dayOfMonth, monthOfYear + 1, yearUser, hourOfDay, minutes)
                 inputDateEdit.setText(date)
             }, hour, minute, true
         )

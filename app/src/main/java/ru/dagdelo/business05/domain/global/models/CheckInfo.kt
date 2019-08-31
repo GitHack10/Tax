@@ -1,11 +1,9 @@
 package ru.dagdelo.business05.domain.global.models
 
-import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import java.text.SimpleDateFormat
-import java.util.*
+import org.threeten.bp.format.DateTimeFormatter
 
 @Parcelize
 data class CheckInfo(
@@ -23,12 +21,8 @@ data class CheckInfo(
         @SerializedName("message") val message: String
     ) : Parcelable
 
-    @SuppressLint("SimpleDateFormat")
-    fun convertTime() {
-        val calendar = Calendar.getInstance()
-        try {
-            calendar.time = SimpleDateFormat("yyyyMMdd'T'HHmm").parse(dateCheck)
-            dateCheck = SimpleDateFormat("dd.MM.yyyy' 'HH:mm").format(calendar.time)
-        } catch (e: Exception) { dateCheck = "" }
+    fun toHumanDate() {
+        val accessor = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss").parse(dateCheck)
+        dateCheck = DateTimeFormatter.ofPattern("dd.MM.yyyy' 'HH:mm").format(accessor)
     }
 }

@@ -1,6 +1,5 @@
 package ru.dagdelo.business05.presentation.screens.auth.signup.ui
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
@@ -26,7 +25,6 @@ import ru.dagdelo.business05.presentation.screens.auth.signup.mvp.SignUpPresente
 import ru.dagdelo.business05.presentation.screens.auth.signup.mvp.SignUpView
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -52,10 +50,6 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
     @ProvidePresenter
     fun providePresenter() = presenter
 
-    @SuppressLint("SimpleDateFormat")
-    private val dateSendFormat = SimpleDateFormat("yyyy-MM-dd")
-    @SuppressLint("SimpleDateFormat")
-    private val dateFormat = SimpleDateFormat("dd MMMM yyyy")
     private var maskedPhone = ""
     private var birth = ""
 
@@ -116,9 +110,7 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
         gender = if (maleRadioButton.isChecked) 1 else 0
     )
 
-    @SuppressLint("SimpleDateFormat")
     private fun showDatePicker() {
-        val editDateFormat = SimpleDateFormat("dd MM yyyy")
         val calendar = Calendar.getInstance()
         val day: Int?
         val month: Int?
@@ -129,8 +121,8 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
             month = calendar.get(Calendar.MONTH)
             year = calendar.get(Calendar.YEAR)
         } else {
-            val date = dateFormat.parse(birthEdit.text.toString())
-            val userBirth = editDateFormat.format(date).split(" ")
+            val date = toUserRegDate(birthEdit.text.toString())
+            val userBirth = date.split(" ")
             day = userBirth[0].toInt()
             month = userBirth[1].toInt() - 1
             year = userBirth[2].toInt()
@@ -139,14 +131,14 @@ class SignUpFragment : FlowFragment(), SignUpView, HasSupportFragmentInjector,
             context!!,
             R.style.CustomDatePickerDialog,
             DatePickerDialog.OnDateSetListener { _, yearUser, monthOfYear, dayOfMonth ->
-                calendar.set(yearUser, monthOfYear, dayOfMonth)
-                birthEdit.setText(dateFormat.format(calendar.timeInMillis))
-                birth = dateSendFormat.format(calendar.timeInMillis)
+                val date = fromCalendarToUserRegDate(dayOfMonth, monthOfYear + 1, yearUser)
+                birthEdit.setText(date)
+                birth = fromCalendarToUserRegSendDate(dayOfMonth, monthOfYear + 1, yearUser)
             }, year, month, day
         )
 
         val minDate = Calendar.getInstance()
-        minDate.add(Calendar.YEAR, -10)
+        minDate.add(Calendar.YEAR, -14)
         datePickerDialog.datePicker.maxDate = minDate.timeInMillis
         datePickerDialog.show()
     }

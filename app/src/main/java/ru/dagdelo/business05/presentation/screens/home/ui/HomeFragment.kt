@@ -1,7 +1,6 @@
 package ru.dagdelo.business05.presentation.screens.home.ui
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
@@ -27,9 +26,9 @@ import ru.dagdelo.business05.presentation.global.base.BaseFragment
 import ru.dagdelo.business05.presentation.global.dialogs.OneActionDialog
 import ru.dagdelo.business05.presentation.global.dialogs.TwoActionDialog
 import ru.dagdelo.business05.presentation.global.utils.accessible
+import ru.dagdelo.business05.presentation.global.utils.fromCalendarDate
 import ru.dagdelo.business05.presentation.screens.home.mvp.HomePresenter
 import ru.dagdelo.business05.presentation.screens.home.mvp.HomeView
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -47,12 +46,6 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
 
     @ProvidePresenter
     fun providePresenter() = presenter
-
-    @SuppressLint("SimpleDateFormat")
-    private val dateFormat = SimpleDateFormat("dd.MM.yyyy' 'HH:mm")
-
-    private var dateSend = ""
-    private var date = ""
 
     override fun onAttach(context: Context?) {
         AndroidSupportInjection.inject(this)
@@ -214,7 +207,9 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
             R.style.CustomDatePickerDialog,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minutes ->
                 calendar.set(yearUser, monthOfYear, dayOfMonth, hourOfDay, minutes)
-                date = dateFormat.format(calendar.timeInMillis)
+                // +1 для номера месяца, т.к. по умолчанию возвращает номер начиная с 0.
+                // Например, 0 - январь, 1 - февраль и т.д.
+                val date = fromCalendarDate(dayOfMonth, monthOfYear + 1, yearUser, hourOfDay, minutes)
                 inputDate.setText(date)
             }, hour, minute, true
         )

@@ -10,6 +10,8 @@ import ru.dagdelo.business05.presentation.global.AndroidResourceManager
 import ru.dagdelo.business05.presentation.global.Screens
 import ru.dagdelo.business05.presentation.global.base.BasePresenter
 import ru.dagdelo.business05.presentation.global.utils.ErrorHandler
+import ru.dagdelo.business05.presentation.global.utils.toHumanDate
+import ru.dagdelo.business05.presentation.global.utils.toSendFormatCheckDate
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -30,7 +32,7 @@ class HomePresenter @Inject constructor(
     fun prepareCheck(check: Check) {
         viewState.showProgress(true)
 
-        check.convertTimeSendFormat()
+        check.date = toSendFormatCheckDate(check.date)
         subscription += interactor.prepareCheck(check)
             .subscribeBy(
                 onComplete = {
@@ -74,7 +76,7 @@ class HomePresenter @Inject constructor(
                 }
             }
             check = Check(fd, fpd, fn, date, type.toIntOrNull() ?: 1, sum)
-            check!!.convertTime()
+            check?.let { it.date = toHumanDate(check!!.date) }
             interactor.clearQrString()
             viewState.showScannedData(check)
         }

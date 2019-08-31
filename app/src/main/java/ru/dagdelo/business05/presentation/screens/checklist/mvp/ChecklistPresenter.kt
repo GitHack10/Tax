@@ -10,6 +10,7 @@ import ru.dagdelo.business05.presentation.global.AndroidResourceManager
 import ru.dagdelo.business05.presentation.global.base.BasePresenter
 import ru.dagdelo.business05.presentation.global.utils.ErrorHandler
 import ru.dagdelo.business05.presentation.global.utils.PAGINATION_COUNT
+import ru.dagdelo.business05.presentation.global.utils.toHumanDate
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -62,7 +63,9 @@ class ChecklistPresenter @Inject constructor(
                             }
                             else -> {
                                 if (it.size < PAGINATION_COUNT) paginationEnd = true
-                                it.forEach { check -> check.convertTime() }
+                                it.forEach { check ->
+                                    check.dateCheck?.let { check.dateCheck = toHumanDate(it) }
+                                }
                                 viewState.showEmptyList(false)
                                 viewState.showContentLayout(true)
                                 viewState.showCheckList(it)

@@ -11,6 +11,7 @@ import ru.dagdelo.business05.presentation.global.AndroidResourceManager
 import ru.dagdelo.business05.presentation.global.Screens
 import ru.dagdelo.business05.presentation.global.base.BasePresenter
 import ru.dagdelo.business05.presentation.global.utils.ErrorHandler
+import ru.dagdelo.business05.presentation.global.utils.toUserDate
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
@@ -52,7 +53,7 @@ class ProfilePresenter @Inject constructor(
             .doAfterTerminate { viewState.showLoadProgress(false) }
             .subscribeBy(
                 onSuccess = {
-                    it.dateProcessing()
+                    it.birth?.let { birth -> it.birth = toUserDate(birth) }
                     userInfo.user = it
                     Timber.d("UserInfo: ${userInfo.user?.phone}")
                     viewState.showUserInfo(it)
