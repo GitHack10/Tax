@@ -35,7 +35,7 @@ fun fromCalendarToUserRegDate(dayOfMonth: Int, month: Int, year: Int): String {
 fun fromCalendarToUserRegSendDate(dayOfMonth: Int, month: Int, year: Int): String {
     val date = "$dayOfMonth.$month.$year"
     val accessor = DateTimeFormatter.ofPattern("d.M.yyyy").parse(date)
-    return DateTimeFormatter.ofPattern("dd-MMMM-yyyy").format(accessor)
+    return DateTimeFormatter.ofPattern("dd-MM-yyyy").format(accessor)
 }
 
 fun fromCalendarDate(dayOfMonth: Int, month: Int, year: Int, hours: Int, minutes: Int): String {
