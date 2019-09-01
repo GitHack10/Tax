@@ -34,6 +34,12 @@ class ChecklistPresenter @Inject constructor(
     // флаг для определения первой загрузки
     private var isFirstRequest = true
 
+    /** id-фильтра, для запроса на получение отфильтрованных данных:
+        0 - не легальные;
+        1 - зарегистрированные;
+        2 - легальные, но не прошедшие условия акции;
+        3 - в обработке;
+        null - по-умолчанию грузятся все чеки. */
     private var filterId: Int? = null
 
     override fun onFirstViewAttach() {
@@ -45,37 +51,42 @@ class ChecklistPresenter @Inject constructor(
         if (networkChecking.hasConnection()) {
             viewState.showNoNetworkLayout(false)
             subscription += interactor.getCheckList(
+                // Если обновляем свайпом или выбираем фильтр, по-умолчанию грузим 1-ую страницу
                 page = if (refreshing || selectedFilter) 1 else page,
                 selectedFilter = filterId
             )
                 .doOnSubscribe {
+                    // задаем флаг загрузки
                     isLoading = true
-                    if (isFirstRequest || selectedFilter) {
-                        viewState.showProgress(true)
+                    // Если это первая загрузка или выбран фильтр,
+                    // отображаем основной прогресс на пустом экране
+                    if (isFirstRequest || selectedFilter || refreshing) {
+                        viewState.showProgress(!refreshing)
                         viewState.showContentLayout(false)
                         viewState.showEmptyList(false)
+                    // Если при скролле пагинация не завершилась, отображаем прогресс пагинации
                     } else if (!paginationEnd && !refreshing) {
                         viewState.showPaginationProgress(true)
-                    } else if (refreshing) {
-                        viewState.showContentLayout(false)
                     }
                 }
                 .doAfterTerminate {
+                    // При завершении запроса скрываем прогрессы
                     isLoading = false
                     viewState.showProgress(false)
                     viewState.showPaginationProgress(false)
-                    if (refreshing) {
-                        viewState.hideRefreshingProgress()
-                    }
+                    if (refreshing) viewState.hideRefreshingProgress()
                 }
                 .subscribeBy(
                     onSuccess = {
                         when {
+                            // Если данные на 1-ой странице не пришли, отображаем экран "Список пуст"
                             (page == 1 || refreshing || selectedFilter) && it.isNullOrEmpty() -> {
                                 viewState.showEmptyList(true)
                                 paginationEnd = true
                             }
                             else -> {
+                                // Завершаем пагинацию, если кол-во полученных с сервера данных меньше,
+                                // чем кол-во установленной пагинации
                                 if (it.size < PAGINATION_COUNT) paginationEnd = true
                                 it.forEach { check ->
                                     check.dateCheck.apply {
@@ -95,7 +106,9 @@ class ChecklistPresenter @Inject constructor(
                                 }
                                 viewState.showEmptyList(false)
                                 viewState.showContentLayout(true)
-                                page += 1
+                                // если это обновление свайпом или выбран фильтр,
+                                // обнуляем счетчик страниц пагинации
+                                if (refreshing || selectedFilter) page = 1 else page += 1
 
                                 // задаем флаг при первой загрузке списка чеков
                                 isFirstRequest = false
