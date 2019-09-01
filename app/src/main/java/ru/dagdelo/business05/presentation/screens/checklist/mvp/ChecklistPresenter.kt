@@ -53,6 +53,7 @@ class ChecklistPresenter @Inject constructor(
                     if (isFirstRequest || selectedFilter) {
                         viewState.showProgress(true)
                         viewState.showContentLayout(false)
+                        viewState.showEmptyList(false)
                     } else if (!paginationEnd && !refreshing) {
                         viewState.showPaginationProgress(true)
                     } else if (refreshing) {
@@ -70,7 +71,7 @@ class ChecklistPresenter @Inject constructor(
                 .subscribeBy(
                     onSuccess = {
                         when {
-                            page == 1 && it.isNullOrEmpty() -> {
+                            (page == 1 || refreshing || selectedFilter) && it.isNullOrEmpty() -> {
                                 viewState.showEmptyList(true)
                                 paginationEnd = true
                             }
