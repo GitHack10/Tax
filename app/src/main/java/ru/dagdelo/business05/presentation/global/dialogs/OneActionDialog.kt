@@ -27,7 +27,7 @@ class OneActionDialog(
 ) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity!!, R.style.CustomAlertDialog)
+        val builder = AlertDialog.Builder(context!!, R.style.CustomAlertDialog)
         val inflater = activity!!.layoutInflater
         val view = inflater.inflate(R.layout.dialog_one_action, null)
         builder.setView(view)
@@ -36,6 +36,7 @@ class OneActionDialog(
     }
 
     private fun init(view: View) {
+        isCancelable = autoClose
 
         val actionButton = view.findViewById<Button>(R.id.buttonOneAction)
         actionButton.text = textButton

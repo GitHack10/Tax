@@ -23,8 +23,7 @@ class TwoActionDialog(
     var textRightButton: String = "Action right",
     var buttonLeftDialogClickListener: (() -> Unit)? = null,
     var buttonRightDialogClickListener: (() -> Unit)? = null,
-    var autoCloseLeftButton: Boolean = true,
-    var autoCloseRightButton: Boolean = true
+    var autoClose: Boolean = true
 ) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -37,18 +36,20 @@ class TwoActionDialog(
     }
 
     private fun init(view: View) {
+        isCancelable = autoClose
+
         val actionLeftButton: Button = view.findViewById(R.id.Button_TwoActionAlertDialog_actionLeft)
         actionLeftButton.text = textLeftButton
         actionLeftButton.setOnClickListener {
             buttonLeftDialogClickListener?.invoke()
-            if (autoCloseLeftButton) dialog.cancel()
+            dialog.cancel()
         }
 
         val actionRightButton = view.findViewById<Button>(R.id.Button_TwoActionAlertDialog_actionRight)
         actionRightButton.text = textRightButton
         actionRightButton.setOnClickListener {
             buttonRightDialogClickListener?.invoke()
-            if (autoCloseRightButton) dialog.cancel()
+            dialog.cancel()
         }
 
         val errorTextView: TextView = view.findViewById(R.id.TextView_twoAction_error)

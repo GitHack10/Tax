@@ -96,6 +96,7 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
             titleText = message,
             textRightButton = "Повторить попытку",
             textLeftButton = "Отменить",
+            buttonLeftDialogClickListener = { clearData() },
             buttonRightDialogClickListener = {
                 presenter.prepareCheck(
                     Check(
@@ -107,7 +108,8 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
                         sum = inputSum.text.toString()
                     )
                 )
-            }
+            },
+            autoClose = false
         ).show(fragmentManager, "TwoActionDialog.javaClass.simpleName")
     }
 
@@ -119,15 +121,10 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
         OneActionDialog(
             titleText = title,
             descText = desc,
-            textButton = positiveText
+            textButton = positiveText,
+            autoClose = false
         ).show(fragmentManager, "OneActionDialog.javaClass.simpleName")
-
-        inputFP.text.clear()
-        inputFD.text.clear()
-        inputFN.text.clear()
-        inputDate.text.clear()
-        inputSum.text.clear()
-        spinner.isSelected = false
+        clearData()
     }
 
     override fun showScannedData(check: Check?) {
@@ -235,6 +232,20 @@ class HomeFragment : BaseFragment(), HomeView, HasSupportFragmentInjector, View.
                 }
             }
         }
+    }
+
+    private fun clearData() {
+        inputFP.text.clear()
+        inputFD.text.clear()
+        inputFN.text.clear()
+        inputDate.text.clear()
+        inputSum.text.clear()
+        spinner.isSelected = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
     }
 
     override fun onBackPressed() = presenter.onBackPressed()
