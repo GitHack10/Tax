@@ -42,7 +42,7 @@ class OneActionDialog(
         actionButton.text = textButton
         actionButton.setOnClickListener {
             buttonClickListener?.invoke()
-            if (autoClose) dialog.cancel()
+            dialog.cancel()
         }
 
         val titleTextView: TextView = view.findViewById(R.id.titleOneAction)
